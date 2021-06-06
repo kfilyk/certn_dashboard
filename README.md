@@ -25,6 +25,23 @@ For example:
 npx husky add .husky/pre-commit "npm run test"
 ```
 
+### ESLint and Prettier
+
+-   ESLint and Prettier are tools for maintaining code standards throughout this project.
+-   It is HIGHLY recommended to integrate prettier with your code editor of choice so that it formats on save. More information can be found here https://prettier.io/docs/en/editors.html
+-   There are a few scripts set up to run ESLint and Prettier manually
+-   If you are having any issues with ESLint or Prettier, reach out to @rmcilwain6 (Reed)
+
+```
+npm run lint            # runs the linter in the src/ directory looking for issues
+
+npm run lint:fix        # runs the linter in the src/ directory and fixes any issues it can
+
+npm run prettier:check  # runs prettier in the entire repo checking that all files meet formatting standards
+
+npm run prettier:fix    # runs prettier in the entire repo and fixes any formatting issues
+```
+
 ## Branch standards
 
 -   Keep each branch limited to solve single ticket, or add single feature.
