@@ -29,11 +29,11 @@ module.exports = {
             'warn'
         ],
         'linebreak-style': [
-            'error',
+            'warn',
             'unix'
         ],
         'quotes': [
-            'error',
+            'warn',
             'single'
         ],
         'semi': [
