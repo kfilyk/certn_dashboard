@@ -5,7 +5,4 @@ import { App } from './App';
 
 // This file is typically left alone except for project wide imports
 
-ReactDOM.render(
-    <App />,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));
