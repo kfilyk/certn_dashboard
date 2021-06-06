@@ -4,6 +4,7 @@
         // "prettier",
         // "prettier/react",
         "plugin:jsx-a11y/recommended",
+        "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react-hooks/recommended",
@@ -98,7 +99,7 @@
         "react/jsx-filename-extension": [
             1,
             {
-                "extensions": [".js", ".jsx"]
+                "extensions": [".js", ".jsx", ".tsx"]
             }
         ],
         "radix": 0,
@@ -117,16 +118,16 @@
                 "allowTemplateLiterals": true
             }
         ],
-        "prettier/prettier": [
-            "error",
-            {
-                "trailingComma": "es5",
-                "singleQuote": true,
-                "printWidth": 120,
-                "tabWidth": 4,
-                "endOfLine": "auto"
-            }
-        ],
+        // "prettier/prettier": [
+        //     "error",
+        //     {
+        //         "trailingComma": "es5",
+        //         "singleQuote": true,
+        //         "printWidth": 120,
+        //         "tabWidth": 4,
+        //         "endOfLine": "auto"
+        //     }
+        // ],
         "jsx-a11y/href-no-hash": "off",
         "jsx-a11y/anchor-is-valid": [
             "warn",
@@ -135,5 +136,10 @@
             }
         ]
     },
-    "plugins": ["prettier", "testing-library", "jest-dom", "jsx-a11y", "@typescript-eslint", "react", "react-hooks"]
+    "plugins": [/*"prettier",*/ "testing-library", "jest-dom", "jsx-a11y", "@typescript-eslint", "react", "react-hooks"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
 }
