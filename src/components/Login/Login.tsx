@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 // import { setConstantValue } from 'typescript';
 import { Login } from '../../api/Certn-Api/index';
@@ -40,3 +41,10 @@ const LoginForm = () => {
 }
 
 export default LoginForm;
+=======
+
+export function Login(): JSX.Element {
+  return <div>Login</div>;
+}
+
+>>>>>>> linting fixes needed
