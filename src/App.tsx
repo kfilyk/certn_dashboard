@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Login from './components/Login/Login';
 import SoftCheck from './components/SearchApp/Softcheck';
+import CreditReport from './components/SearchApp/Creditreport';
 
 // Browser routing typically happens in this file.
 
@@ -17,6 +18,7 @@ export function App() {
         </p>
         <Login />
         <SoftCheck />
+        <CreditReport />
       </header>
     </div>
   );

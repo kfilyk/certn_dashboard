@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 // import { setConstantValue } from 'typescript';
-import { Softcheck } from '../../api/Certn-Api-Mock/index';
+import { Creditreport } from '../../api/Certn-Api-Mock/index';
 
-const SoftCheck = () => {
+const CreditReport = () => {
     const submit = (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        const result = Softcheck('Bearer 47914591cbc760b9897070f8221af66176296352');
+        const result = Creditreport('Bearer 47914591cbc760b9897070f8221af66176296352');
         console.log(result);
     }
 
@@ -13,10 +13,10 @@ const SoftCheck = () => {
 
         <div>
             <form>
-                <button type="submit" onClick={submit}>Generate SoftCheck</button>
+                <button type="submit" onClick={submit}>Generate Credit Report</button>
             </form>
         </div>
     );
 }
 
-export default SoftCheck;
+export default CreditReport;
