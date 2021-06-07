@@ -8,7 +8,6 @@ Support Tool built for Certn by UVic Seng 499 students.
     1. `npm install` - Installs all necessary dependencies
     2. `npm start` - Starts the app on port 3000
 
-
 ### Husky Precommit Hooks
 
 - Husky is a package we have installed which can trigger commands/scripts to be run after a developer sends a commit message off. If that command suceeds then the commit goes through, but if the command fails then so too does the commit. 
@@ -21,3 +20,14 @@ For example:
 ```
 npx husky add .husky/pre-commit "npm run test"
 ```
+
+## Branch standards
+
+- Keep each branch limited to solve single ticket, or add single feature.
+- Name branch as `{ticket ID}-{short description}`
+    - e.g. `26-pr-template`
+
+## Git commit standards
+
+- Keep messages short (under 50 chars) but descriptive.  
+- Commit as logical units rather than with every file change.
