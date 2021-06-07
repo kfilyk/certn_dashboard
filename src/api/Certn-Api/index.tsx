@@ -1,5 +1,7 @@
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
+import { Softcheck } from '../Certn-Api-Mock/index';
+
 
 const Login = async (username: string, password: string) => {
     try {	
@@ -18,6 +20,7 @@ const Login = async (username: string, password: string) => {
             console.log(responseData.message);
             throw new Error(responseData.message);
         }
+
         // auth.login(responseData.user.id, responseData.token);
         // history.push("/");
     } catch (err) {
