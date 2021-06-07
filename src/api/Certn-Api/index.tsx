@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { Softcheck } from '../Certn-Api-Mock/index';
 
 const Login = async (username: string, password: string): Promise<void> => {
     try {

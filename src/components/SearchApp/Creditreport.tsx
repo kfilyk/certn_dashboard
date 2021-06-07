@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
 // import { setConstantValue } from 'typescript';
 import { Creditreport } from '../../api/Certn-Api-Mock/index';
 
-const CreditReport = () => {
+const CreditReport = (): JSX.Element => {
     const submit = (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
         const result = Creditreport('Bearer 47914591cbc760b9897070f8221af66176296352');
+        // eslint-disable-next-line no-console
         console.log(result);
     };
 
