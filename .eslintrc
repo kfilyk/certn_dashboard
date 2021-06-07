@@ -1,0 +1,145 @@
+{
+    "extends": [
+        // "airbnb",
+        // "prettier",
+        // "prettier/react",
+        "plugin:jsx-a11y/recommended",
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:testing-library/recommended",
+        "plugin:jest-dom/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "jquery": true,
+        "jest": true
+    },
+    "globals": {
+        "cy": true,
+        "Cypress": true
+    },
+    "rules": {
+        "react/no-unused-state": "off",
+        "react/sort-comp": "off",
+        "react/prop-types": "off",
+        "react/display-name": "off",
+        "react/destructuring-assignment": "off",
+        "react/no-unused-prop-types": 0,
+        "import/no-extraneous-dependencies": 0,
+        "import/no-unresolved": 0,
+        "import/first": 0,
+        "prefer-promise-reject-errors": 0,
+        "no-trailing-spaces": 1,
+        "no-nested-ternary": 0,
+        "camelcase": 0,
+        "linebreak-style": 0,
+        "no-debugger": 0,
+        "no-alert": 0,
+        "no-use-before-define": 0,
+        "import/order": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "error",
+        "prefer-const": [
+            "error",
+            {
+                "destructuring": "all"
+            }
+        ],
+        "arrow-body-style": [1, "as-needed"],
+        "no-param-reassign": [
+            2,
+            {
+                "props": false
+            }
+        ],
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "import/prefer-default-export": 0,
+        "prefer-rest-params": 1,
+        "import": 0,
+        "func-names": 0,
+        "no-plusplus": 1,
+        "no-bitwise": 1,
+        "array-callback-return": [
+            0,
+            {
+                "allowImplicit": false
+            }
+        ],
+        "react/jsx-fragments": 1,
+        "react/no-deprecated": 1,
+        "react/state-in-constructor": 0,
+        "no-unused-expressions": 0,
+        "space-before-function-paren": 0,
+        "comma-dangle": 0,
+        "max-len": 0,
+        "import/extensions": 0,
+        "no-underscore-dangle": 0,
+        "consistent-return": 0,
+        "react/no-array-index-key": 0,
+        "react/react-in-jsx-scope": 0,
+        "react/jsx-props-no-spreading": 0,
+        "react/prefer-stateless-function": 0,
+        "react/forbid-prop-types": 0,
+        "react/no-unescaped-entities": 0,
+        "react/no-did-update-set-state": 0,
+        "jsx-a11y/accessible-emoji": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-static-element-interactions": 0,
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [".js", ".jsx", ".tsx"]
+            }
+        ],
+        "radix": 0,
+        "no-shadow": [
+            2,
+            {
+                "hoist": "all",
+                "allow": ["resolve", "reject", "done", "next", "err", "error"]
+            }
+        ],
+        "quotes": [
+            2,
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        // "prettier/prettier": [
+        //     "error",
+        //     {
+        //         "trailingComma": "es5",
+        //         "singleQuote": true,
+        //         "printWidth": 120,
+        //         "tabWidth": 4,
+        //         "endOfLine": "auto"
+        //     }
+        // ],
+        "jsx-a11y/href-no-hash": "off",
+        "jsx-a11y/anchor-is-valid": [
+            "warn",
+            {
+                "aspects": ["invalidHref"]
+            }
+        ]
+    },
+    "plugins": [/*"prettier",*/ "testing-library", "jest-dom", "jsx-a11y", "@typescript-eslint", "react", "react-hooks"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
