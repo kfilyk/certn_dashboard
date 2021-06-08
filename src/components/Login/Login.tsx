@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { userLogin } from '../../api/Certn-Api/index';
+import { UserData } from '../../interfaces';
+import { WithUser } from '../../userContext';
 import logo from '../../logo.svg';
 import './Login.css';
 
@@ -16,6 +18,7 @@ interface Loading {
 const Login = (): JSX.Element => {
   // Loading state, error handling
   const [loading, setLoading] = useState<Loading>({ login: false });
+  const { setUserData } = WithUser();
 
   const submit = async (values: {
     email: string;
@@ -23,11 +26,18 @@ const Login = (): JSX.Element => {
   }): Promise<void> => {
     try {
       setLoading({ login: true });
-      const response = await userLogin(values.email, values.password);
+      const response: UserData = await userLogin(values.email, values.password);
       notification.success({
         message: 'Login Successful!',
         description: `API Token: ${response.token}`,
       });
+      setUserData({
+        user: response?.user,
+        token: response?.token,
+        expiry: response?.expiry,
+      });
+      // Route to different page here
+      // history.push(/)
     } catch (e) {
       notification.error({
         message: 'Login Failed!',

@@ -1,7 +1,9 @@
 import React from 'react';
-import './App.css';
 import Login from './components/Login/Login';
+import { UserProvider } from './userContext';
+
 import 'antd/dist/antd.css';
+import './App.css';
 // Browser routing typically happens in this file.
 
 import { notification } from 'antd';
@@ -13,8 +15,10 @@ notification.config({
 
 export function App(): JSX.Element {
   return (
-    <div className='App'>
-      <Login />
-    </div>
+    <UserProvider>
+      <div className='App'>
+        <Login />
+      </div>
+    </UserProvider>
   );
 }
