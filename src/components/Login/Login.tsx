@@ -18,7 +18,7 @@ interface Loading {
 const Login = (): JSX.Element => {
   // Loading state, error handling
   const [loading, setLoading] = useState<Loading>({ login: false });
-  const { setUserData } = WithUser();
+  const { setUserData, userLogout, token } = WithUser();
 
   const submit = async (values: {
     email: string;
@@ -51,6 +51,23 @@ const Login = (): JSX.Element => {
   return (
     <Spin spinning={loading.login}>
       <div className='login-page'>
+        {/* Logout button is temp!! */}
+        {token ? (
+          <button
+            style={{
+              color: '#1BB793',
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+            }}
+            onClick={() => userLogout()}
+          >
+            Log out
+          </button>
+        ) : (
+          ''
+        )}
+        {/* End of logout button */}
         <img src={logo} className='login-logo' alt='logo' />
         <p style={{ color: '#1BB793' }}>Login to access Support Tool</p>
         <div>
