@@ -9,16 +9,16 @@ import './App.css';
 import { notification } from 'antd';
 
 notification.config({
-  placement: 'topRight',
-  duration: 3,
+    placement: 'topRight',
+    duration: 3,
 });
 
 export function App(): JSX.Element {
-  return (
-    <UserProvider>
-      <div className='App'>
-        <Login />
-      </div>
-    </UserProvider>
-  );
+    return (
+        <UserProvider>
+            <div className="App">
+                <Login />
+            </div>
+        </UserProvider>
+    );
 }

@@ -1,9 +1,9 @@
 * {
-  font-family: 'Open Sans';
+    font-family: 'Open Sans';
 }
 
 body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
