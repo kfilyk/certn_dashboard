@@ -29,7 +29,7 @@ const Login = (): JSX.Element => {
       const response: UserData = await userLogin(values.email, values.password);
       notification.success({
         message: 'Login Successful!',
-        description: `API Token: ${response.token}`,
+        description: 'Welcome to the Certn support tool',
       });
       setUserData({
         user: response?.user,
