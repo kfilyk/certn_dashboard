@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-// import { setConstantValue } from 'typescript';
 import { userLogin } from '../../api/Certn-Api/index';
+import logo from '../../logo.svg';
+import './Login.css';
 
 // Ant Design Imports
 import { Spin, notification } from 'antd';
@@ -14,19 +15,18 @@ interface Loading {
 
 const Login = (): JSX.Element => {
   // Loading state, error handling
-  const [loadingLogin, setLoadingLogin] = useState<Loading>({ login: false });
+  const [loading, setLoading] = useState<Loading>({ login: false });
 
   const submit = async (values: {
     email: string;
     password: string;
   }): Promise<void> => {
     try {
-      setLoadingLogin({ login: true });
+      setLoading({ login: true });
       const response = await userLogin(values.email, values.password);
-      // This is where we need to store the response.
       notification.success({
         message: 'Login Successful!',
-        description: `${response.token}`,
+        description: `API Token: ${response.token}`,
       });
     } catch (e) {
       notification.error({
@@ -35,12 +35,18 @@ const Login = (): JSX.Element => {
           'Please create and account or click on "forgot your password" to reset your password.',
       });
     }
-    setLoadingLogin({ login: false });
+    setLoading({ login: false });
   };
 
   return (
-    <Spin spinning={loadingLogin.login}>
-      <LoginForm onSubmit={submit} />
+    <Spin spinning={loading.login}>
+      <div className='login-page'>
+        <img src={logo} className='login-logo' alt='logo' />
+        <p style={{ color: '#1BB793' }}>Login to access Support Tool</p>
+        <div>
+          <LoginForm onSubmit={submit} />
+        </div>
+      </div>
     </Spin>
   );
 };
