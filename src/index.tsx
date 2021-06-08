@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'antd/dist/antd.css';
 import './index.css';
 import { App } from './App';
 
-// This file is typically left alone except for project wide imports
+import { notification } from 'antd';
 
-ReactDOM.render(
-    <App />,
-  document.getElementById('root')
-);
+notification.config({
+  placement: 'topRight',
+  duration: 3,
+});
+
+ReactDOM.render(<App />, document.getElementById('root'));
