@@ -1,4 +1,4 @@
-// my-theme.ts
+// certn-theme.ts
 import { DefaultTheme } from 'styled-components';
 import {
     certnGray,

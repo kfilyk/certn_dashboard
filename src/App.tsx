@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './components/Login/Login';
 import { UserProvider } from './userContext';
-import { certnTheme } from './Theme/my-theme';
+import { certnTheme } from './Theme/certn-theme';
 import styled, { ThemeProvider } from 'styled-components';
 
 import 'antd/dist/antd.css';
