@@ -1,7 +1,9 @@
 // Ant Design Imports
-import { Form, Input, Button } from 'antd';
+import { Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
+// Styled Components
+import { LoginButton, StyledLink } from './LoginSC';
 interface LoginFormProps {
     onSubmit: (values: { email: string; password: string }) => Promise<void>;
 }
@@ -15,28 +17,15 @@ const LoginForm = (Props: LoginFormProps): JSX.Element => (
             <Input prefix={<LockOutlined />} type="password" placeholder="Password" size="large" />
         </Form.Item>
         <Form.Item>
-            <Button
-                type="primary"
-                htmlType="submit"
-                size="large"
-                style={{
-                    width: '100%',
-                    background: '#2fb99a',
-                    borderColor: '#2fb99a',
-                }}
-            >
+            <LoginButton type="primary" htmlType="submit" size="large">
                 Log in
-            </Button>
+            </LoginButton>
         </Form.Item>
         <Form.Item>
-            <a href="https://whitelabel.certn.co/login" style={{ color: '#2fb99a' }}>
-                Create Account
-            </a>
+            <StyledLink href="https://whitelabel.certn.co/login">Create Account</StyledLink>
         </Form.Item>
         <Form.Item>
-            <a href="https://whitelabel.certn.co/forgot" style={{ color: '#2fb99a' }}>
-                Forgot your password?
-            </a>
+            <StyledLink href="https://whitelabel.certn.co/forgot">Forgot your password?</StyledLink>
         </Form.Item>
     </Form>
 );

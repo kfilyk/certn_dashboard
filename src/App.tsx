@@ -1,9 +1,10 @@
 import React from 'react';
 import Login from './components/Login/Login';
 import { UserProvider } from './userContext';
+import { myTheme } from './Theme/my-theme';
+import { ThemeProvider } from 'styled-components';
 
 import 'antd/dist/antd.css';
-import './App.css';
 // Browser routing typically happens in this file.
 
 import { notification } from 'antd';
@@ -15,10 +16,12 @@ notification.config({
 
 export function App(): JSX.Element {
     return (
-        <UserProvider>
-            <div className="App">
-                <Login />
-            </div>
-        </UserProvider>
+        <ThemeProvider theme={myTheme}>
+            <UserProvider>
+                <div>
+                    <Login />
+                </div>
+            </UserProvider>
+        </ThemeProvider>
     );
 }

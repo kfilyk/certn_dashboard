@@ -1,10 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-
-interface UserData {
-    expiry: string;
-    token: string;
-    user: Record<string, unknown>;
-}
+import { UserData } from './interfaces';
 
 type Props = {
     children: React.ReactNode;
