@@ -11,7 +11,7 @@ import { Spin, notification } from 'antd';
 import LoginForm from './LoginForm';
 
 // Styled Components
-import { LogoutButton, StyledPara, Image, LoginDiv } from './LoginSC';
+import { LogoutButton, StyledPara, Image, LoginDiv, FormWrapper } from './LoginSC';
 
 // Interfaces
 interface Loading {
@@ -55,9 +55,9 @@ const Login = (): JSX.Element => {
                 {/* End of logout button */}
                 <Image src={logo} alt="logo" />
                 <StyledPara>Login to access Support Tool</StyledPara>
-                <div>
+                <FormWrapper>
                     <LoginForm onSubmit={submit} />
-                </div>
+                </FormWrapper>
             </LoginDiv>
         </Spin>
     );

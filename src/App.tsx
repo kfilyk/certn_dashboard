@@ -1,8 +1,8 @@
 import React from 'react';
 import Login from './components/Login/Login';
 import { UserProvider } from './userContext';
-import { myTheme } from './Theme/my-theme';
-import { ThemeProvider } from 'styled-components';
+import { certnTheme } from './Theme/my-theme';
+import styled, { ThemeProvider } from 'styled-components';
 
 import 'antd/dist/antd.css';
 // Browser routing typically happens in this file.
@@ -14,13 +14,17 @@ notification.config({
     duration: 3,
 });
 
+const AppDiv = styled.div`
+    font-family: ${(props) => props.theme.fontFamily};
+`;
+
 export function App(): JSX.Element {
     return (
-        <ThemeProvider theme={myTheme}>
+        <ThemeProvider theme={certnTheme}>
             <UserProvider>
-                <div>
+                <AppDiv>
                     <Login />
-                </div>
+                </AppDiv>
             </UserProvider>
         </ThemeProvider>
     );

@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 
 export const LogoutButton = styled(Button)`
-    color: ${(props) => props.theme.colors.textGreen};
+    color: ${(props) => props.theme.color.green[400]};
     position: absolute;
     top: 10px;
     right: 10px;
 `;
 
 export const StyledPara = styled.p`
-    color: ${(props) => props.theme.colors.textGreen};
+    color: ${(props) => props.theme.color.green[400]};
 `;
 
 export const Image = styled.img`
@@ -30,10 +30,18 @@ export const LoginDiv = styled.div`
 
 export const LoginButton = styled(Button)`
     width: 100%;
-    background: ${(props) => props.theme.colors.mainGreen};
-    border-color: ${(props) => props.theme.colors.mainGreen};
+    background: ${(props) => props.theme.color.green.default};
+    border-color: ${(props) => props.theme.color.green.default};
+    :hover {
+        background: ${(props) => props.theme.color.green[400]};
+        border-color: ${(props) => props.theme.color.green[400]};
+    }
+`;
+
+export const FormWrapper = styled.div`
+    text-align: center;
 `;
 
 export const StyledLink = styled.a`
-    color: ${(props) => props.theme.colors.mainGreen};
+    color: ${(props) => props.theme.color.green.default};
 `;
