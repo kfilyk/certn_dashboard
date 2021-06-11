@@ -1,14 +1,11 @@
+//import React, {useState, useEffect} from 'react';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
-
-import { UserProvider } from './userContext';
+import { UserProvider, WithUser } from './userContext';
 import { certnTheme } from './Theme/certn-theme';
 import styled, { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';
-// Browser routing typically happens in this file.
-
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { notification } from 'antd';
 
 notification.config({
@@ -21,14 +18,27 @@ const AppDiv = styled.div`
 `;
 
 export function App(): JSX.Element {
+    //const [token, setToken] = useState(0);
+
+    const { token } = WithUser();
+
+    /*
+    useEffect(() => {
+        // Update the document title using the browser API
+        token = WithUser();
+    });
+    */
+
     return (
         <Router>
             <Switch>
                 <ThemeProvider theme={certnTheme}>
                     <UserProvider>
                         <AppDiv>
-                            <Route exact path="/" component={Login} />
-                            <Route exact path="/dashboard" component={Dashboard} />
+                            <h1>Token: {token}</h1>
+                            {token ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+                            <Route path="/login" component={Login} />
+                            <Route path="/dashboard" component={Dashboard} />
                         </AppDiv>
                     </UserProvider>
                 </ThemeProvider>
@@ -36,3 +46,4 @@ export function App(): JSX.Element {
         </Router>
     );
 }
+//<Route exact path="/">
