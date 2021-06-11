@@ -5,9 +5,12 @@ const Softcheck = async (token: string): Promise<void> => {
     console.log('TOKEN: ', token);
     const raw = JSON.stringify({
         request_softcheck: true,
+        email: 'test@certn.co',
+        /*
         information: {
             first_name: 'Andrew',
             last_name: 'McLeod',
+
             date_of_birth: '1970-06-28',
             addresses: [
                 {
@@ -18,12 +21,16 @@ const Softcheck = async (token: string): Promise<void> => {
                 },
             ],
             sin_ssn: '123456789',
+
         },
+        */
     });
     console.log('BODY: ');
     console.log(raw);
     try {
-        const response = await fetch(`https://demo-api.certn.co/api/v2/applications/invite/`, {
+        // hr/v1: checks human resources;
+        //`https://demo-api.certn.co/api/v2/applications/invite/` checks property management
+        const response = await fetch(`https://demo-api.certn.co/hr/v1/applications/invite/`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
