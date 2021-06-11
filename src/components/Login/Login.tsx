@@ -1,53 +1,66 @@
 import React, { useState } from 'react';
-// import { setConstantValue } from 'typescript';
-import { Login } from '../../api/Certn-Api/index';
+import { userLogin } from '../../api/Certn-Api/index';
+import { UserData } from '../../interfaces';
+import { WithUser } from '../../userContext';
+import logo from '../../logo.svg';
 
-const LoginForm = (): JSX.Element => {
-    const [formInputs, setFormInputs] = useState({
-        email: '',
-        password: '',
-    });
+// Ant Design Imports
+import { Spin, notification } from 'antd';
 
-    const emailHandler = (event: React.FormEvent<HTMLInputElement>) => {
-        setFormInputs({
-            email: event.currentTarget.value,
-            password: formInputs.password,
-        });
-    };
+// Components
+import LoginForm from './LoginForm';
 
-    const passwordHandler = (event: React.FormEvent<HTMLInputElement>) => {
-        setFormInputs({
-            email: formInputs.email,
-            password: event.currentTarget.value,
-        });
-    };
+// Styled Components
+import { LogoutButton, StyledPara, Image, LoginDiv, FormWrapper } from './LoginSC';
 
-    const submit = (event: React.FormEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        Login(formInputs.email, formInputs.password);
+// Interfaces
+interface Loading {
+    login: boolean;
+}
+
+const Login = (): JSX.Element => {
+    // Loading state, error handling
+    const [loading, setLoading] = useState<Loading>({ login: false });
+    const { setUserData, userLogout, token } = WithUser();
+
+    const submit = async (values: { email: string; password: string }): Promise<void> => {
+        try {
+            setLoading({ login: true });
+            const response: UserData = await userLogin(values.email, values.password);
+            notification.success({
+                message: 'Login Successful!',
+                description: 'Welcome to the Certn support tool',
+            });
+            setUserData({
+                user: response?.user,
+                token: response?.token,
+                expiry: response?.expiry,
+            });
+            // Route to different page here
+            // history.push(/)
+        } catch (e) {
+            notification.error({
+                message: 'Login Failed!',
+                description: 'Please create and account or click on "forgot your password" to reset your password.',
+            });
+        }
+        setLoading({ login: false });
     };
 
     return (
-        <div>
-            <form>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Email"
-                    onChange={emailHandler}
-                    value={formInputs.email}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={passwordHandler}
-                    value={formInputs.password}
-                />
-                <input type="submit" onClick={submit} />
-            </form>
-        </div>
+        <Spin spinning={loading.login}>
+            <LoginDiv>
+                {/* Logout button is temp!! */}
+                {token ? <LogoutButton onClick={() => userLogout()}>Log out</LogoutButton> : ''}
+                {/* End of logout button */}
+                <Image src={logo} alt="logo" />
+                <StyledPara>Login to access Support Tool</StyledPara>
+                <FormWrapper>
+                    <LoginForm onSubmit={submit} />
+                </FormWrapper>
+            </LoginDiv>
+        </Spin>
     );
 };
 
-export default LoginForm;
+export default Login;
