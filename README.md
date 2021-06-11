@@ -30,7 +30,7 @@ Support Tool built for Certn by UVic Seng 499 students.
 
 ## Certn API
 
--   **Team Expert: Kelvin & Keegan**
+-   **Team Expert(s): Kelvin & Keegan**
 
 ## Notable Packages
 
@@ -63,27 +63,72 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
 ### React Router
 
 -   ??
--   **Team Expert: ??**
+-   **Team Expert(s): ??**
 
 ### Cypress Testing
 
--   **Team Expert: ??**
+-   **Team Expert(s): ??**
 
 ### Typescript
 
 -   This project uses Typescript, which can sometimes be an extra burden on top of JS which is difficult to learn. This project has linting support for Typescript built in, and this should be relied on to help ensure correct Typescript syntax.
 -   Docs for typescript can be found [here](https://www.typescriptlang.org/docs/)
--   **Team Expert: ??**
+-   **Team Expert(s): ??**
+
+### AntD
+
+-   AntD provides pre-built react components that can be imported to each file and used throughout.
+-   Be sure to read the [docs](https://ant.design/components/overview/) for each component that you plan to use so that you know all of the props that are available to use on that specific component.
+-   The AntD components have a default style that does not match the Certn theme. To style the components to match the Certn theme, use Styled Components. For examples, see `LoginSC.tsx`
+-   Usage:
+```
+    import { Button } from 'antd';
+
+    export const Demo = (): JSX.Element => {
+
+        const doSomething = () => {
+            <fun code>
+        }
+
+        return (
+            <div>
+                <Button size='large' onClick={() => doSomething()}>
+                    Click Me!
+                </Button>
+            </div>
+        );
+    };
+```
+-   **Team Expert(s): Conor**
 
 ### Styled Components
 
 -   Styled components is a library which allows for the creation of unique React components with CSS styling built in on a component by component basis. Read the basics [here](https://styled-components.com/).
--   **Team Expert: Conor**
-
-### AntD
-
--   ??
--   **Team Expert: ??**
+-   Styled components also provides an option to use a custom theme. In the case of this project, the theme provided by Certn in the figma doc has been imported into the `Theme` folder. To access the project theme, see the Usage below and note the use of props.
+-   To see examples of styled components in use refer to `LoginSC.tsx`
+-   Usage:
+1. Standard html element (Important to notice the backticks):
+```
+        export const StyledDiv = styled.div`
+            background: ${(props) => props.theme.color.green.default};
+            border-color: ${(props) => props.theme.color.green.default};
+        `;
+```
+2. AntD Component:
+```
+        import { Button } from 'antd';
+        
+        export const StyledButton = styled(Button)`
+            width: 100%;
+            background: ${(props) => props.theme.color.green.default};
+            border-color: ${(props) => props.theme.color.green.default};
+            :hover {
+                background: ${(props) => props.theme.color.green[400]};
+                border-color: ${(props) => props.theme.color.green[400]};
+            }
+        `;
+```
+-   **Team Expert(s): Conor**
 
 ## Useful Resources
 
