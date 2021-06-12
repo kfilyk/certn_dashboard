@@ -24,7 +24,7 @@ const Dashboard = (): JSX.Element => {
         <ThemeProvider theme={certnTheme}>
             <UserProvider>
                 <AppDiv>
-                    <h1>{token}</h1>
+                    <h1>Dashboard: {token}</h1>
                     <SoftCheck />
                     <CreditReport />
                 </AppDiv>
