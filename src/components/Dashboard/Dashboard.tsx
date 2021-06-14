@@ -20,7 +20,6 @@ const Dashboard = (): JSX.Element => {
     const { token } = WithUser();
 
     // Loading state, error handling
-    //<h1>Dashboard: {token}</h1>
     return (
         <ThemeProvider theme={certnTheme}>
             <UserProvider>

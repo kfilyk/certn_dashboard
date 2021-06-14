@@ -18,7 +18,6 @@ const AppDiv = styled.div`
 
 export function App(): JSX.Element {
     const { token } = WithUser();
-    //<h1>Token: {token}</h1>
     return (
         <Router>
             <ThemeProvider theme={certnTheme}>
@@ -35,4 +34,3 @@ export function App(): JSX.Element {
         </Router>
     );
 }
-//<Route exact path="/">
