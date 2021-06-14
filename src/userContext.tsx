@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { createContext, useContext, useState } from 'react';
 import { UserData } from './interfaces';
 
@@ -13,10 +14,20 @@ type ContextProps = {
     userLogout: () => void;
 };
 
+const getToken = (): string => {
+    const initialAuth = JSON.parse(localStorage.getItem('certn-auth') || '""');
+    return initialAuth !== '' ? initialAuth.token : '';
+};
+
+const getExpiry = (): string => {
+    const initialAuth = JSON.parse(localStorage.getItem('certn-auth') || '""');
+    return initialAuth !== '' ? initialAuth.expiry : '';
+};
+
 const UserContext = createContext<ContextProps>({
-    token: '',
+    token: getToken(),
     user: {},
-    expiry: '',
+    expiry: getExpiry(),
     setUserData: () => {
         // Set in provider
     },
@@ -26,19 +37,23 @@ const UserContext = createContext<ContextProps>({
 });
 
 const UserProvider = ({ children }: Props): JSX.Element => {
-    const [token, setToken] = useState('');
+    const [token, setToken] = useState(getToken());
     const [user, setUser] = useState({});
-    const [expiry, setExpiry] = useState('');
+    const [expiry, setExpiry] = useState(getExpiry());
 
     const setUserData = (userData: UserData) => {
         setExpiry(userData.expiry);
         setUser(userData.user);
         setToken(userData.token);
-        localStorage.setItem('certn-token', userData.token);
+        const auth = {
+            token: userData.token,
+            expiry: userData.expiry,
+        };
+        localStorage.setItem('certn-auth', JSON.stringify(auth));
     };
 
     const userLogout = () => {
-        localStorage.removeItem('certn-token');
+        localStorage.removeItem('certn-auth');
         setExpiry('');
         setUser('');
         setToken('');

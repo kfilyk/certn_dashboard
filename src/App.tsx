@@ -1,12 +1,10 @@
-import React from 'react';
 import Login from './components/Login/Login';
-import { UserProvider } from './userContext';
+import Dashboard from './components/Dashboard/Dashboard';
+import { UserProvider, WithUser } from './userContext';
 import { certnTheme } from './Theme/certn-theme';
 import styled, { ThemeProvider } from 'styled-components';
-
 import 'antd/dist/antd.css';
-// Browser routing typically happens in this file.
-
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { notification } from 'antd';
 
 notification.config({
@@ -19,13 +17,20 @@ const AppDiv = styled.div`
 `;
 
 export function App(): JSX.Element {
+    const { token } = WithUser();
     return (
-        <ThemeProvider theme={certnTheme}>
-            <UserProvider>
-                <AppDiv>
-                    <Login />
-                </AppDiv>
-            </UserProvider>
-        </ThemeProvider>
+        <Router>
+            <ThemeProvider theme={certnTheme}>
+                <UserProvider>
+                    <Switch>
+                        <AppDiv>
+                            {token ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+                            <Route path="/login" component={Login} />
+                            <Route path="/dashboard" component={Dashboard} />
+                        </AppDiv>
+                    </Switch>
+                </UserProvider>
+            </ThemeProvider>
+        </Router>
     );
 }

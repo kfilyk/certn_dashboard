@@ -3,6 +3,7 @@ import { userLogin } from '../../api/Certn-Api/index';
 import { UserData } from '../../interfaces';
 import { WithUser } from '../../userContext';
 import logo from '../../logo.svg';
+import { useHistory } from 'react-router-dom';
 
 // Ant Design Imports
 import { Spin, notification } from 'antd';
@@ -22,7 +23,7 @@ const Login = (): JSX.Element => {
     // Loading state, error handling
     const [loading, setLoading] = useState<Loading>({ login: false });
     const { setUserData, userLogout, token } = WithUser();
-
+    const history = useHistory();
     const submit = async (values: { email: string; password: string }): Promise<void> => {
         try {
             setLoading({ login: true });
@@ -37,7 +38,7 @@ const Login = (): JSX.Element => {
                 expiry: response?.expiry,
             });
             // Route to different page here
-            // history.push(/)
+            history.push('/dashboard');
         } catch (e) {
             notification.error({
                 message: 'Login Failed!',

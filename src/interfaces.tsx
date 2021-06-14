@@ -4,4 +4,9 @@ interface UserData {
     user: Record<string, unknown>;
 }
 
-export type { UserData };
+interface StoredAuth {
+    storedToken: string;
+    storedExpiry: string;
+}
+
+export type { UserData, StoredAuth };
