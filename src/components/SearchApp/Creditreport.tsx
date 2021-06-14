@@ -4,7 +4,8 @@ import { Creditreport } from '../../api/Certn-Api/index';
 const CreditReport = (): JSX.Element => {
     const submit = (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        const result = Creditreport('Bearer 47914591cbc760b9897070f8221af66176296352');
+        // eslint-disable-next-line no-console
+        const result = Creditreport();
         // eslint-disable-next-line no-console
         console.log(result);
     };

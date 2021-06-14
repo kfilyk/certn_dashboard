@@ -1,7 +1,7 @@
 import SoftCheck from '../SearchApp/Softcheck';
 import CreditReport from '../SearchApp/Creditreport';
 // Ant Design Imports
-import { UserProvider, WithUser } from '../../userContext';
+import { UserProvider } from '../../userContext';
 import { certnTheme } from '../../Theme/certn-theme';
 import styled, { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';

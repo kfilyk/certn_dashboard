@@ -22,8 +22,7 @@ const userLogin = async (username: string, password: string): Promise<UserData> 
     return responseData;
 };
 
-const Softcheck = async (token: string): Promise<void> => {
-    console.log('TOKEN: ', token);
+const Softcheck = async (): Promise<void> => {
     console.log(getToken());
     const raw = JSON.stringify({
         request_softcheck: true,
@@ -38,7 +37,7 @@ const Softcheck = async (token: string): Promise<void> => {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                Authorization: token,
+                Authorization: 'Token ' + getToken(),
             },
             body: raw,
         });
@@ -55,9 +54,10 @@ const Softcheck = async (token: string): Promise<void> => {
     }
 };
 
-const Creditreport = async (token: string): Promise<void> => {
+const Creditreport = async (): Promise<void> => {
     const raw = JSON.stringify({
         request_equifax: true,
+        email: 'test@certn.co',
         information: {
             first_name: 'Andrew',
             last_name: 'McLeod',
@@ -76,11 +76,11 @@ const Creditreport = async (token: string): Promise<void> => {
     console.log('BODY: ');
     console.log(raw);
     try {
-        const response = await fetch(`https://demo-api.certn.co/api/v2/applications/invite/`, {
+        const response = await fetch(`https://demo-api.certn.co/hr/v1/applications/invite/`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                Authorization: token,
+                Authorization: 'Token ' + getToken(),
             },
             body: raw,
         });
@@ -94,4 +94,4 @@ const Creditreport = async (token: string): Promise<void> => {
     }
 };
 
-export { userLogin, Softcheck, Creditreport };
+export { userLogin, Softcheck, Creditreport, getToken };

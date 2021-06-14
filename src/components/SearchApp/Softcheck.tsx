@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
-// import { setConstantValue } from 'typescript';
 import { Softcheck } from '../../api/Certn-Api/index';
 
 const SoftCheck = (): JSX.Element => {
     const submit = (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        const result = Softcheck('Bearer 47914591cbc760b9897070f8221af66176296352');
+        const result = Softcheck();
+        // eslint-disable-next-line no-console
         console.log(result);
     };
 
