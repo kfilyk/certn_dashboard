@@ -37,15 +37,16 @@ const Login = (): JSX.Element => {
                 token: response?.token,
                 expiry: response?.expiry,
             });
+            setLoading({ login: false });
             // Route to different page here
             history.push('/dashboard');
         } catch (e) {
+            setLoading({ login: false });
             notification.error({
                 message: 'Login Failed!',
                 description: 'Please create and account or click on "forgot your password" to reset your password.',
             });
         }
-        setLoading({ login: false });
     };
 
     return (

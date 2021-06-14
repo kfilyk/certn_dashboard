@@ -4,7 +4,7 @@ import { Base64 } from 'js-base64';
 import { UserData } from '../../interfaces';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getToken = () => {
+const getToken = (): string => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
     return authObj === '' ? '' : 'Token ' + authObj.token;
 };
@@ -23,13 +23,10 @@ const userLogin = async (username: string, password: string): Promise<UserData> 
 };
 
 const Softcheck = async (): Promise<void> => {
-    console.log(getToken());
     const raw = JSON.stringify({
         request_softcheck: true,
         email: 'test@certn.co',
     });
-    console.log('BODY: ');
-    console.log(raw);
     try {
         // hr/v1: checks human resources;
         //`https://demo-api.certn.co/api/v2/applications/invite/` checks property management
@@ -41,16 +38,13 @@ const Softcheck = async (): Promise<void> => {
             },
             body: raw,
         });
-
         const responseData = await response.json();
         console.log('data: ', responseData);
-        console.log('Token: ', responseData.token);
-        console.log('UserID: ', responseData.user.id);
         if (!response.ok) {
             throw new Error(responseData.message);
         }
     } catch (err) {
-        console.log('something went wrong');
+        console.log('something went wrong: ' + err);
     }
 };
 
@@ -73,8 +67,6 @@ const Creditreport = async (): Promise<void> => {
             sin_ssn: '123456789',
         },
     });
-    console.log('BODY: ');
-    console.log(raw);
     try {
         const response = await fetch(`https://demo-api.certn.co/hr/v1/applications/invite/`, {
             method: 'POST',
@@ -90,7 +82,7 @@ const Creditreport = async (): Promise<void> => {
             throw new Error(responseData.message);
         }
     } catch (err) {
-        console.log('something went wrong');
+        console.log('something went wrong: ' + err);
     }
 };
 
