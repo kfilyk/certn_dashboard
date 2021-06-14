@@ -31,6 +31,7 @@ Support Tool built for Certn by UVic Seng 499 students.
 ## Certn API
 
 -   **Team Expert(s): Kelvin & Keegan**
+
     There are two sections of the Certn API: 'Property Management' and 'Human Resources'. As of yet, we have no requirements that pertain to the 'Property Management' functionality: our domain is entirely concerning Human Resources, which deals with applicant background checks:
     https://docs.certn.co/#tag/Human-Resources
     https://docs.certn.co/#section/Services
@@ -69,6 +70,7 @@ Support Tool built for Certn by UVic Seng 499 students.
 
 ### ESLint and Prettier
 
+-   **Team Expert: Reed**
 -   ESLint and Prettier are tools for maintaining code standards throughout this project.
 -   To integrate prettier and ESLint with VSCode, install the ESLint and Prettier VSCode extensions.
     -   [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
@@ -76,7 +78,6 @@ Support Tool built for Certn by UVic Seng 499 students.
 -   Once the extensions have been installed, you need to enable Auto Formatting on Save
     -   Click Settings button in bottom left in VSCode (Gear -> Settings)
     -   Text Editor Dropdown -> Formatting -> Format on Save
--   **Team Expert: Reed**
 
 ```
 npm run lint            # runs the linter in the src/ directory looking for issues
@@ -100,16 +101,21 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
 
 ### Cypress Testing
 
--   **Team Expert(s): ??**
+-   **Team Expert(s): Reed**
+-   Cypress is an automated testing tool that has been installed in the repo to faciliate the testing of this application.
+-   Cypress makes use of common testing patterns used by other popular testing frameworks, such as Mocha, Chai, and others.
+-   To run cypress, enter `npm run cypress`
+-   Check our their [documentation](https://docs.cypress.io/guides/overview/why-cypress) to learn more
 
 ### Typescript
 
+-   **Team Expert(s): Conor, Keegan, Kelvin, and Reed**
 -   This project uses Typescript, which can sometimes be an extra burden on top of JS which is difficult to learn. This project has linting support for Typescript built in, and this should be relied on to help ensure correct Typescript syntax.
 -   Docs for typescript can be found [here](https://www.typescriptlang.org/docs/)
--   **Team Expert(s): ??**
 
 ### AntD
 
+-   **Team Expert(s): Conor**
 -   AntD provides pre-built react components that can be imported to each file and used throughout.
 -   Be sure to read the [docs](https://ant.design/components/overview/) for each component that you plan to use so that you know all of the props that are available to use on that specific component.
 -   The AntD components have a default style that does not match the Certn theme. To style the components to match the Certn theme, use Styled Components. For examples, see `LoginSC.tsx`
@@ -134,10 +140,9 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
     };
 ```
 
--   **Team Expert(s): Conor**
-
 ### Styled Components
 
+-   **Team Expert(s): Conor**
 -   Styled components is a library which allows for the creation of unique React components with CSS styling built in on a component by component basis. Read the basics [here](https://styled-components.com/).
 -   Styled components also provides an option to use a custom theme. In the case of this project, the theme provided by Certn in the figma doc has been imported into the `Theme` folder. To access the project theme, see the Usage below and note the use of props.
 -   To see examples of styled components in use refer to `LoginSC.tsx`
@@ -168,8 +173,18 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
         `;
 ```
 
--   **Team Expert(s): Conor**
-
 ## Useful Resources
 
 -   If you find any good resources, whether it is tutorials, stackoverflow pages, etc, feel free to leave the links here
+
+## Common Bugs
+
+-   If you're having issues with errors related to `some node modules is missing`, a good trick to fixing this is to delete the `node_modules` folder and the `package-lock.json` file and then run
+
+```
+npm install && npm start
+```
+
+-   `npm ci` is also a useful tool and will run a clean install, however there must be a `package-lock.json` file existing for this commanto work
+
+-   If you're seeing issues related to `chokidar` being the incorrect version, try running an `npm update` to see if that fixes the problem.
