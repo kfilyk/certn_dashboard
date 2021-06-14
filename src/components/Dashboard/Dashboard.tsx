@@ -16,20 +16,15 @@ const AppDiv = styled.div`
     font-family: ${(props) => props.theme.fontFamily};
 `;
 
-const Dashboard = (): JSX.Element => {
-    const { token } = WithUser();
-
-    // Loading state, error handling
-    return (
-        <ThemeProvider theme={certnTheme}>
-            <UserProvider>
-                <AppDiv>
-                    <SoftCheck />
-                    <CreditReport />
-                </AppDiv>
-            </UserProvider>
-        </ThemeProvider>
-    );
-};
+const Dashboard = (): JSX.Element => (
+    <ThemeProvider theme={certnTheme}>
+        <UserProvider>
+            <AppDiv>
+                <SoftCheck />
+                <CreditReport />
+            </AppDiv>
+        </UserProvider>
+    </ThemeProvider>
+);
 
 export default Dashboard;
