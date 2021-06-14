@@ -8,7 +8,6 @@ import 'antd/dist/antd.css';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { notification } from 'antd';
 
-
 notification.config({
     placement: 'topRight',
     duration: 3,
@@ -22,11 +21,11 @@ export function App(): JSX.Element {
     //const [token, setToken] = useState(0);
 
     //const { token } = WithUser();
-    let token = {string: '55'};
+    const token = '55';
 
     useEffect(() => {
         // Update the document title using the browser API
-        token = { WithUser().token };
+        //token = { WithUser() };
     });
 
     return (
