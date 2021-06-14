@@ -31,6 +31,39 @@ Support Tool built for Certn by UVic Seng 499 students.
 ## Certn API
 
 -   **Team Expert(s): Kelvin & Keegan**
+    There are two sections of the Certn API: 'Property Management' and 'Human Resources'. As of yet, we have no requirements that pertain to the 'Property Management' functionality: our domain is entirely concerning Human Resources, which deals with applicant background checks:
+    https://docs.certn.co/#tag/Human-Resources
+    https://docs.certn.co/#section/Services
+
+    _Our two major API POST endpoints are:_
+
+    *https://demo-api.certn.co/hr/v1/applications/invite/*
+    When you don't know the applicant, and want to 'invite' them by email to participate in a background check- thus none of their information is needed to be filled out, and the body of an invite can be as simple as:
+    {
+    request_softcheck: true,
+    email: 'test@certn.co',
+    });
+
+    *https://demo-api.certn.co/hr/v1/applications/quick/*
+    When you do know the applicant, and want to fill our their application for them. Will require more detailed to be filled out in order to pass.
+
+    So far, we have the following checks written out:
+
+    -   Softcheck
+    -   Equifax (credit check)
+
+    Our goal is to implement all 24 checks available in the API. All of these checks follow the same simple JSON formatting and only require the use of a boolean flag to indicate that a certain check is being requested. Some checks require preliminary data to be provided (credit check requires SSN). Others require other checks to be completed beforehand in order to be authorized.
+
+    Importing and calling the function useToken() within the Certn-Api/index.tsx file returns your session key upon valid login entry. This can be used to issue check requests to the API and is structured:
+
+    "Token (SESSION KEY)"
+
+    _Our major API GET endpoints are:_
+    *https://demo-api.certn.co/hr/v1/applications/?adjudication_status!=ARCHIVED&ordering=created*
+    Gets the entire list of archived applicants currently in the database.
+
+    *https://demo-api.certn.co/hr/v1/applicants/{applicant_id}/*
+    Gets an applicant's information given their ID.
 
 ## Notable Packages
 
@@ -81,6 +114,7 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
 -   Be sure to read the [docs](https://ant.design/components/overview/) for each component that you plan to use so that you know all of the props that are available to use on that specific component.
 -   The AntD components have a default style that does not match the Certn theme. To style the components to match the Certn theme, use Styled Components. For examples, see `LoginSC.tsx`
 -   Usage:
+
 ```
     import { Button } from 'antd';
 
@@ -99,6 +133,7 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
         );
     };
 ```
+
 -   **Team Expert(s): Conor**
 
 ### Styled Components
@@ -107,17 +142,21 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
 -   Styled components also provides an option to use a custom theme. In the case of this project, the theme provided by Certn in the figma doc has been imported into the `Theme` folder. To access the project theme, see the Usage below and note the use of props.
 -   To see examples of styled components in use refer to `LoginSC.tsx`
 -   Usage:
+
 1. Standard html element (Important to notice the backticks):
+
 ```
         export const StyledDiv = styled.div`
             background: ${(props) => props.theme.color.green.default};
             border-color: ${(props) => props.theme.color.green.default};
         `;
 ```
+
 2. AntD Component:
+
 ```
         import { Button } from 'antd';
-        
+
         export const StyledButton = styled(Button)`
             width: 100%;
             background: ${(props) => props.theme.color.green.default};
@@ -128,6 +167,7 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
             }
         `;
 ```
+
 -   **Team Expert(s): Conor**
 
 ## Useful Resources
