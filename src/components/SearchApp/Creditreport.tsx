@@ -5,9 +5,8 @@ const CreditReport = (): JSX.Element => {
     const submit = (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault();
         // eslint-disable-next-line no-console
-        const result = Creditreport();
-        // eslint-disable-next-line no-console
-        console.log(result);
+        console.log('Generating credit check...');
+        Creditreport();
     };
 
     return (

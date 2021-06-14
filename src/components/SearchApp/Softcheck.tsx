@@ -2,10 +2,10 @@ import { Softcheck } from '../../api/Certn-Api/index';
 
 const SoftCheck = (): JSX.Element => {
     const submit = (event: React.FormEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-        const result = Softcheck();
         // eslint-disable-next-line no-console
-        console.log(result);
+        console.log('Generating softcheck...');
+        event.preventDefault();
+        Softcheck();
     };
 
     return (
