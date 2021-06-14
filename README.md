@@ -96,7 +96,15 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
 
 ### React Router
 
--   ??
+-   React Router provides a way to easily navigate between pages. Docs can be found [here](https://reactrouter.com/web/guides/quick-start)
+-   See App.tsx for examples on how routing is done.
+-   For each page/component, wrap the component in a `<Route>` and within the Route, list the component name and the desired URL ending.
+-   Example:
+```
+<Route path="/login" component={Login} />
+```
+-   The above example will place the Login component at the URL `{base_url}/login`.
+-   To navigate between pages, use `history.push('/dashboard')`. Docs on the use of history can be found [here](https://reactrouter.com/web/api/history)
 -   **Team Expert(s): ??**
 
 ### Cypress Testing
