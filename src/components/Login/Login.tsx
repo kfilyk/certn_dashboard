@@ -44,7 +44,7 @@ const Login = (): JSX.Element => {
             setLoading({ login: false });
             notification.error({
                 message: 'Login Failed!',
-                description: 'Please create and account or click on "forgot your password" to reset your password.',
+                description: 'Please create an account or click on "forgot your password" to reset your password.',
             });
         }
     };

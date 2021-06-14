@@ -23,7 +23,7 @@ const LoginForm = (Props: LoginFormProps): JSX.Element => (
             </LoginButton>
         </Form.Item>
         <Form.Item>
-            <StyledLink href="https://whitelabel.certn.co/login">Create Account</StyledLink>
+            <StyledLink href="https://whitelabel.certn.co/welcome/signUp">Create Account</StyledLink>
         </Form.Item>
         <Form.Item>
             <StyledLink href="https://whitelabel.certn.co/forgot">Forgot your password?</StyledLink>
