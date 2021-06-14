@@ -1,4 +1,4 @@
-//import React, {useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import { UserProvider, WithUser } from './userContext';
@@ -7,6 +7,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import { notification } from 'antd';
+
 
 notification.config({
     placement: 'topRight',
@@ -20,14 +21,13 @@ const AppDiv = styled.div`
 export function App(): JSX.Element {
     //const [token, setToken] = useState(0);
 
-    const { token } = WithUser();
+    //const { token } = WithUser();
+    let token = {string: '55'};
 
-    /*
     useEffect(() => {
         // Update the document title using the browser API
-        token = WithUser();
+        token = { WithUser().token };
     });
-    */
 
     return (
         <Router>
