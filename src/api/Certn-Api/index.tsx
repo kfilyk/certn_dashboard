@@ -4,7 +4,10 @@ import { Base64 } from 'js-base64';
 import { UserData } from '../../interfaces';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getToken = () => localStorage.getItem('certn-token');
+const getToken = () => {
+    const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
+    return authObj === '' ? '' : authObj.token;
+};
 
 const userLogin = async (username: string, password: string): Promise<UserData> => {
     const response = await fetch(`https://demo-api.certn.co/api/v2/login/`, {
@@ -21,6 +24,7 @@ const userLogin = async (username: string, password: string): Promise<UserData> 
 
 const Softcheck = async (token: string): Promise<void> => {
     console.log('TOKEN: ', token);
+    console.log(getToken());
     const raw = JSON.stringify({
         request_softcheck: true,
         email: 'test@certn.co',
