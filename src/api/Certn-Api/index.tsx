@@ -6,7 +6,7 @@ import { UserData } from '../../interfaces';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getToken = () => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
-    return authObj === '' ? '' : authObj.token;
+    return authObj === '' ? '' : 'Token ' + authObj.token;
 };
 
 const userLogin = async (username: string, password: string): Promise<UserData> => {
@@ -37,7 +37,7 @@ const Softcheck = async (): Promise<void> => {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                Authorization: 'Token ' + getToken(),
+                Authorization: getToken(),
             },
             body: raw,
         });
@@ -80,7 +80,7 @@ const Creditreport = async (): Promise<void> => {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                Authorization: 'Token ' + getToken(),
+                Authorization: getToken(),
             },
             body: raw,
         });
