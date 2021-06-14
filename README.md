@@ -70,7 +70,7 @@ Support Tool built for Certn by UVic Seng 499 students.
 
 ### ESLint and Prettier
 
--   **Team Expert: Reed**
+-   **Team Expert(s): Reed**
 -   ESLint and Prettier are tools for maintaining code standards throughout this project.
 -   To integrate prettier and ESLint with VSCode, install the ESLint and Prettier VSCode extensions.
     -   [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
@@ -90,12 +90,12 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
 ```
 
 ### Husky Precommit Hooks
-
+-   **Team Expert(s): Reed**
 -   Husky is a package we have installed which can trigger commands/scripts to be run after a developer sends a commit message off. If that command suceeds then the commit goes through, but if the command fails then so too does the commit.
 -   The various hooks which can be added are stored in the `/.husky` directory. Existing hooks can be edited and removed by going into the specific hook file (`/.husky/pre-commit` for example) and editing the text. New commands can also be added this way.
 
 ### React Router
-
+-   **Team Expert(s): Conor and Kelvin**
 -   React Router provides a way to easily navigate between pages. Docs can be found [here](https://reactrouter.com/web/guides/quick-start)
 -   See App.tsx for examples on how routing is done.
 -   For each page/component, wrap the component in a `<Route>` and within the Route, list the component name and the desired URL ending.
@@ -105,7 +105,7 @@ npm run prettier:fix    # runs prettier in the entire repo and fixes any formatt
 ```
 -   The above example will place the Login component at the URL `{base_url}/login`.
 -   To navigate between pages, use `history.push('/dashboard')`. Docs on the use of history can be found [here](https://reactrouter.com/web/api/history)
--   **Team Expert(s): ??**
+
 
 ### Cypress Testing
 
