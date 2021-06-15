@@ -1,5 +1,6 @@
 import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
+import Search from './components/Search/Search';
 import { UserProvider, WithUser } from './userContext';
 import { certnTheme } from './Theme/certn-theme';
 import styled, { ThemeProvider } from 'styled-components';
@@ -24,9 +25,10 @@ export function App(): JSX.Element {
                 <UserProvider>
                     <Switch>
                         <AppDiv>
-                            {token ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+                            {!token && <Redirect to="/login" />}
                             <Route path="/login" component={Login} />
                             <Route path="/dashboard" component={Dashboard} />
+                            <Route path="/search" component={Search} />
                         </AppDiv>
                     </Switch>
                 </UserProvider>
