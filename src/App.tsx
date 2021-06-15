@@ -25,7 +25,9 @@ export function App(): JSX.Element {
                 <UserProvider>
                     <Switch>
                         <AppDiv>
-                            {!token && <Redirect to="/login" />}
+                            <Route exact path="/">
+                                {!token ? <Redirect to="/login" /> : <Redirect to="/dashboard" />}
+                            </Route>
                             <Route path="/login" component={Login} />
                             <Route path="/dashboard" component={Dashboard} />
                             <Route path="/search" component={Search} />
