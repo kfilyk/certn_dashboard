@@ -1,21 +1,15 @@
-import { UserProvider } from '../../userContext';
-import { certnTheme } from '../../Theme/certn-theme';
-import styled, { ThemeProvider } from 'styled-components';
+// Ant Design Imports
 
-const AppDiv = styled.div`
-    font-family: ${(props) => props.theme.fontFamily};
-`;
+// Components
+
+// Styled Components
+
+// Interfaces
 
 const Search = (): JSX.Element => (
-    <ThemeProvider theme={certnTheme}>
-        <UserProvider>
-            <AppDiv>
-                <div>
-                    <p>Welcome to the Search Page!</p>
-                </div>
-            </AppDiv>
-        </UserProvider>
-    </ThemeProvider>
+    <div>
+        <p>Welcome to the Search Page!</p>
+    </div>
 );
 
 export default Search;
