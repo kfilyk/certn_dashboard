@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React, { createContext, useContext, useState } from 'react';
 import { UserData } from './interfaces';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
     children: React.ReactNode;
@@ -40,6 +41,7 @@ const UserProvider = ({ children }: Props): JSX.Element => {
     const [token, setToken] = useState(getToken());
     const [user, setUser] = useState({});
     const [expiry, setExpiry] = useState(getExpiry());
+    const history = useHistory();
 
     const setUserData = (userData: UserData) => {
         setExpiry(userData.expiry);
@@ -57,6 +59,7 @@ const UserProvider = ({ children }: Props): JSX.Element => {
         setExpiry('');
         setUser('');
         setToken('');
+        history.push('/login');
     };
 
     return (

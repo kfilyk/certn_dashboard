@@ -1,12 +1,15 @@
-import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import Search from './components/Search/Search';
+import { ApplicationPage } from './components/ApplicationPage/ApplicationPage';
+import Login from './components/Login/Login';
 import { UserProvider, WithUser } from './userContext';
 import { certnTheme } from './Theme/certn-theme';
 import styled, { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { notification } from 'antd';
+
+import { LogoutButton } from './components/Login/LoginSC';
 
 notification.config({
     placement: 'topRight',
@@ -18,23 +21,48 @@ const AppDiv = styled.div`
 `;
 
 export function App(): JSX.Element {
-    const { token } = WithUser();
     return (
         <Router>
             <ThemeProvider theme={certnTheme}>
                 <UserProvider>
-                    <Switch>
-                        <AppDiv>
-                            <Route exact path="/">
-                                {!token ? <Redirect to="/login" /> : <Redirect to="/dashboard" />}
-                            </Route>
-                            <Route path="/login" component={Login} />
-                            <Route path="/dashboard" component={Dashboard} />
-                            <Route path="/search" component={Search} />
-                        </AppDiv>
-                    </Switch>
+                    <AppDiv>
+                        <NavBar />
+                        <RouteWrapper />
+                    </AppDiv>
                 </UserProvider>
             </ThemeProvider>
         </Router>
     );
 }
+
+const RouteWrapper = (): JSX.Element => {
+    const validAuth = () => {
+        const { token } = WithUser();
+        return token !== '';
+    };
+
+    if (!validAuth()) {
+        return <Login />;
+    } else {
+        return (
+            <Switch>
+                <Route exact path="/">
+                    <Redirect to="/dashboard" />
+                </Route>
+                <Route path="/login">
+                    <Redirect to="/dashboard" />
+                </Route>
+                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/search" component={Search} />
+                <Route path="/application" component={ApplicationPage} />
+            </Switch>
+        );
+    }
+};
+
+// This is temporary and part of a different ticket!
+const NavBar = (): JSX.Element => {
+    const { token, userLogout } = WithUser();
+
+    return token ? <LogoutButton onClick={() => userLogout()}>Log Out</LogoutButton> : <div></div>;
+};
