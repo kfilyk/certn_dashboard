@@ -13,6 +13,7 @@ import LoginForm from './LoginForm';
 
 // Styled Components
 import { LogoutButton, StyledPara, Image, LoginDiv, FormWrapper } from './LoginSC';
+import { useEffect } from 'react';
 
 // Interfaces
 interface Loading {
@@ -24,6 +25,9 @@ const Login = (): JSX.Element => {
     const [loading, setLoading] = useState<Loading>({ login: false });
     const { setUserData, userLogout, token } = WithUser();
     const history = useHistory();
+    useEffect(() => {
+        history.replace('/login');
+    }, [history]);
     const submit = async (values: { email: string; password: string }): Promise<void> => {
         try {
             setLoading({ login: true });
