@@ -28,6 +28,7 @@ const Login = (): JSX.Element => {
         try {
             setLoading({ login: true });
             const response: UserData = await userLogin(values.email, values.password);
+            setLoading({ login: false });
             notification.success({
                 message: 'Login Successful!',
                 description: 'Welcome to the Certn support tool',
@@ -37,7 +38,6 @@ const Login = (): JSX.Element => {
                 token: response?.token,
                 expiry: response?.expiry,
             });
-            setLoading({ login: false });
             // Route to different page here
             history.push('/dashboard');
         } catch (e) {
