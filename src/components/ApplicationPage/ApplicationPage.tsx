@@ -10,7 +10,7 @@ import { ApplicationInfo } from './ApplicationInfo';
 // Styled Components
 
 // Interfaces
-const TableInfoDefault: AdvApplicationInfo = {
+export const TableInfoDefault: AdvApplicationInfo = {
     key: '',
     email: '',
     firstName: '',
@@ -25,6 +25,7 @@ const TableInfoDefault: AdvApplicationInfo = {
 
 export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [applicationInfo, setApplicationInfo] = useState({});
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
 
@@ -73,6 +74,7 @@ export const ApplicationPage = (): JSX.Element => {
 
 // Temp dummy data
 // Ignore, will get deleted with ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const fakeApi = (id: string) => mockApiResp;
 
 const mockApiResp: ApplicationAPIResponse = {

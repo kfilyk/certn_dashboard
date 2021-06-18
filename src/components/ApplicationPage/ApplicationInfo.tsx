@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
+import { useEffect, useState } from 'react';
+import { AdvApplicationInfo } from '../../interfaces';
+import { TableInfoDefault } from './ApplicationPage';
 // Ant Design Imports
-
 import 'antd/dist/antd.css';
 import { Table } from 'antd';
-import { AdvApplicationInfo } from '../../interfaces';
 import { ColumnsType } from 'antd/es/table';
-import styled from 'styled-components';
-import { certnTheme } from '../../Theme/certn-theme';
 
-// Components
+import { certnTheme } from '../../Theme/certn-theme';
+import styled from 'styled-components';
 
 // Styled Components
 const Dot = styled.span`
@@ -19,6 +19,7 @@ const Dot = styled.span`
     display: block;
 `;
 
+// Temp until all components for application page are completed
 const TableWrapper = styled.div`
     margin: 50px;
     border: 1px solid gray;
@@ -97,10 +98,30 @@ type InfoProps = {
 };
 
 export const ApplicationInfo = ({ info }: InfoProps): JSX.Element => {
-    console.log(info);
+    const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
+
+    useEffect(() => {
+        const formattedInfo = { ...info };
+        formattedInfo.created = checkDate(formattedInfo.created);
+        formattedInfo.updated = checkDate(formattedInfo.updated);
+        setTableInfo(formattedInfo);
+    }, [info]);
+
+    const checkDate = (date: string): string => {
+        const d = new Date(date);
+        if (Object.prototype.toString.call(d) === '[object Date]') {
+            if (isNaN(d.getTime())) {
+                return 'N/A';
+            } else {
+                return d.toDateString();
+            }
+        }
+        return 'N/A';
+    };
+
     return (
         <TableWrapper>
-            <Table<AdvApplicationInfo> size={'middle'} pagination={false} columns={columns} dataSource={[info]} />
+            <Table<AdvApplicationInfo> size={'middle'} pagination={false} columns={columns} dataSource={[tableInfo]} />
         </TableWrapper>
     );
 };
