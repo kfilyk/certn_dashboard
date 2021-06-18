@@ -1522,6 +1522,6 @@ export interface Result {
 export interface RootObject {
     count: number;
     next: string;
-    previous?: unknown;
+    previous?: string;
     results: Result[];
 }
