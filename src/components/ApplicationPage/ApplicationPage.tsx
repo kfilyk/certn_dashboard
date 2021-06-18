@@ -28,10 +28,13 @@ export const ApplicationPage = (): JSX.Element => {
     const [applicationInfo, setApplicationInfo] = useState({});
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
 
+    // Runs only on initial render, will get id from URL. Ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
     useEffect(() => {
+        // Get the id from the URL, will be passed by the search page
         setId('fakeId');
     }, []);
 
+    // Runs when the id changes, will make an api call. Currently mock data. Ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
     useEffect(() => {
         const fetchApplication = async (): Promise<void> => {
             try {
@@ -47,6 +50,7 @@ export const ApplicationPage = (): JSX.Element => {
         fetchApplication();
     }, [id]);
 
+    // Extracts the info needed for the application info table from the api response
     const buildTableInfo = (resp: ApplicationAPIResponse): AdvApplicationInfo => ({
         key: resp.id,
         email: resp.applicant.email,

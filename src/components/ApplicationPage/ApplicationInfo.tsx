@@ -100,7 +100,7 @@ export const ApplicationInfo = ({ info }: InfoProps): JSX.Element => {
     console.log(info);
     return (
         <TableWrapper>
-            <Table<AdvApplicationInfo> pagination={false} columns={columns} dataSource={[info]} />
+            <Table<AdvApplicationInfo> size={'middle'} pagination={false} columns={columns} dataSource={[info]} />
         </TableWrapper>
     );
 };
