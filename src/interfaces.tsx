@@ -22,7 +22,7 @@ interface AdvApplicationInfo {
     team: string;
 }
 
-interface ApplicationAPIResponse {
+interface Application {
     created: string;
     modified: string;
     id: string;
@@ -53,4 +53,4 @@ interface ApplicationAPIResponse {
     };
 }
 
-export type { UserData, StoredAuth, AdvApplicationInfo, ApplicationAPIResponse };
+export type { UserData, StoredAuth, AdvApplicationInfo, Application };

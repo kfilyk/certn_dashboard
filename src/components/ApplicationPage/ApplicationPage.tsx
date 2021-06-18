@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { AdvApplicationInfo, ApplicationAPIResponse } from '../../interfaces';
+import { AdvApplicationInfo, Application } from '../../interfaces';
 import { ApplicationInfo } from './ApplicationInfo';
 
 // Components
@@ -52,7 +52,7 @@ export const ApplicationPage = (): JSX.Element => {
     }, [id]);
 
     // Extracts the info needed for the application info table from the api response
-    const buildTableInfo = (resp: ApplicationAPIResponse): AdvApplicationInfo => ({
+    const buildTableInfo = (resp: Application): AdvApplicationInfo => ({
         key: resp.id,
         email: resp.applicant.email,
         firstName: resp.applicant.first_name,
@@ -77,7 +77,7 @@ export const ApplicationPage = (): JSX.Element => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const fakeApi = (id: string) => mockApiResp;
 
-const mockApiResp: ApplicationAPIResponse = {
+const mockApiResp: Application = {
     created: '2021-06-14T00:00:00Z',
     modified: '2021-06-14T00:00:00Z',
     id: '95fa72c2-a439-4088-9d99-8399fe6426b0',
