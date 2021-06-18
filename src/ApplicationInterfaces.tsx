@@ -1519,7 +1519,7 @@ export interface Result {
     comments: unknown[];
 }
 
-export interface RootObject {
+export interface MutipleApplicationSearchResults {
     count: number;
     next: string;
     previous?: string;
