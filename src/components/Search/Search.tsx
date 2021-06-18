@@ -1,5 +1,5 @@
 // Ant Design Imports
-
+import SearchBar from './SearchBar';
 // Components
 import SearchTable from './SearchTable';
 // Styled Components
@@ -10,6 +10,7 @@ const Search = (): JSX.Element => (
     <div>
         <p>Welcome to the Search Page!</p>
         <SearchTable />
+        <SearchBar />
     </div>
 );
 
