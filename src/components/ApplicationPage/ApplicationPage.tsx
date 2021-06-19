@@ -2,8 +2,9 @@
 
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { AdvApplicationInfo, Application } from '../../interfaces';
+import { AdvApplicationInfo, Application, ChecksInfo } from '../../interfaces';
 import { ApplicationInfo } from './ApplicationInfo';
+import { CriticalChecks } from './CriticalChecks';
 
 // Components
 
@@ -23,11 +24,18 @@ export const TableInfoDefault: AdvApplicationInfo = {
     team: '',
 };
 
+export const ChecksInfoDefault: ChecksInfo = {
+    complete: [],
+    pending: [],
+    failure: [],
+};
+
 export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [applicationInfo, setApplicationInfo] = useState({});
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
+    const [checksInfo, setChecksInfo] = useState<ChecksInfo>(ChecksInfoDefault);
 
     // Runs only on initial render, will get id from URL. Ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
     useEffect(() => {
@@ -44,6 +52,7 @@ export const ApplicationPage = (): JSX.Element => {
                 const response = fakeApi(id);
                 setApplicationInfo(response);
                 setTableInfo(buildTableInfo(response));
+                setChecksInfo(buildChecksInfo(response));
             } catch (e) {
                 // Handle failed request
             }
@@ -65,9 +74,16 @@ export const ApplicationPage = (): JSX.Element => {
         team: resp.team.name,
     });
 
+    const buildChecksInfo = (resp: Application): ChecksInfo => ({
+        complete: resp.complete,
+        pending: resp.pending,
+        failure: resp.failure,
+    });
+
     return (
         <div>
             <ApplicationInfo info={tableInfo} />
+            <CriticalChecks checks={checksInfo} />
         </div>
     );
 };
@@ -110,4 +126,7 @@ const mockApiResp: Application = {
         name: 'UVIC',
         country: 'CA',
     },
+    complete: ['Criminal Record Search', 'Equifax Credit Report', 'US Criminal Record Check'],
+    pending: ['References Check', 'Motor Vehicle Records (USA)', 'Education Verification'],
+    failure: ['Credential Verification', 'Employment Verification', 'SSN Verification'],
 };

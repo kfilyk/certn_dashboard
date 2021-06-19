@@ -22,6 +22,12 @@ interface AdvApplicationInfo {
     team: string;
 }
 
+interface ChecksInfo {
+    complete: Array<string>;
+    pending: Array<string>;
+    failure: Array<string>;
+}
+
 interface Application {
     created: string;
     modified: string;
@@ -51,6 +57,9 @@ interface Application {
         name: string;
         country: string;
     };
+    complete: Array<string>;
+    pending: Array<string>;
+    failure: Array<string>;
 }
 
-export type { UserData, StoredAuth, AdvApplicationInfo, Application };
+export type { UserData, StoredAuth, AdvApplicationInfo, ChecksInfo, Application };
