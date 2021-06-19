@@ -22,7 +22,6 @@ export const SearchForm = styled(Search)`
 
 export const SearchButton = styled(Button)`
     margin-left: 16px;
-    margin-right: 16px;
     background-color: ${(props) => props.theme.color.green[400]};
     color: ${(props) => props.theme.color.white};
     border-color: ${(props) => props.theme.color.green[400]};
@@ -42,5 +41,6 @@ export const AdvancedSearchItem = styled(Form.Item)`
 
 export const AdvancedWapper = styled(Form)`
     margin-left: 0px;
-    margin-bottom: 30px;
+    margin-bottom: 7px;
+    width: 75%;
 `;
