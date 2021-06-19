@@ -1,7 +1,7 @@
 // Ant Design
 import { SearchOutlined } from '@ant-design/icons';
 import { SearchForm, SearchWrapper, SearchButton, AdvancedSearchItem, AdvancedWapper } from './SearchSC';
-import { Form, Input } from 'antd';
+import { Input } from 'antd';
 
 const BasicSearch = (): JSX.Element => (
     <SearchForm
