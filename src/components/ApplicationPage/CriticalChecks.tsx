@@ -2,7 +2,8 @@
 import { CriticalChecksInfo, CriticalItem } from '../../interfaces';
 // Ant Design Imports
 import 'antd/dist/antd.css';
-import { Collapse, List } from 'antd';
+import { Collapse, List, Badge } from 'antd';
+import { certnTheme } from '../../Theme/certn-theme';
 import styled from 'styled-components';
 
 // Temp until all components for application page are completed
@@ -94,13 +95,61 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
     return (
         <CollapseWrapper>
             <Collapse defaultActiveKey={['1', '2', '3']}>
-                <Panel header="Complete" key="1">
+                <Panel
+                    header={
+                        <span style={{ color: certnTheme.color.green[600], fontWeight: 'bold' }}>
+                            Complete
+                            <Badge
+                                style={{
+                                    marginLeft: '5px',
+                                    backgroundColor: certnTheme.color.green[100],
+                                    color: certnTheme.color.green[600],
+                                    fontWeight: 'bold',
+                                }}
+                                count={complete.length}
+                            />
+                        </span>
+                    }
+                    key="1"
+                >
                     <List dataSource={complete} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
-                <Panel header="In Progress" key="2">
+                <Panel
+                    header={
+                        <span style={{ color: certnTheme.color.yellow[600], fontWeight: 'bold' }}>
+                            In Progress
+                            <Badge
+                                style={{
+                                    marginLeft: '5px',
+                                    backgroundColor: certnTheme.color.yellow[100],
+                                    color: certnTheme.color.yellow[600],
+                                    fontWeight: 'bold',
+                                }}
+                                count={pending.length}
+                            />
+                        </span>
+                    }
+                    key="2"
+                >
                     <List dataSource={pending} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
-                <Panel header="Failure" key="3">
+                <Panel
+                    header={
+                        <span style={{ color: certnTheme.color.red[600], fontWeight: 'bold' }}>
+                            Failure
+                            <Badge
+                                style={{
+                                    marginLeft: '5px',
+                                    backgroundColor: certnTheme.color.red[100],
+                                    color: certnTheme.color.red[600],
+                                    fontWeight: 'bold',
+                                }}
+                                count={failure.length}
+                            />
+                        </span>
+                    }
+                    key="3"
+                >
                     <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
             </Collapse>
