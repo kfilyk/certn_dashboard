@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Input, Button, Form } from 'antd';
 const { Search } = Input;
 
-export const SearchWrapper = styled.div`
+export const SearchWrapper = styled(Form)`
     margin-top: 16px;
     margin-left: 16px;
     width: 100%;

@@ -1,5 +1,5 @@
 // Ant Design Imports
-import { SearchBar } from './SearchBar';
+import SearchBar from './SearchBar';
 // Components
 import SearchTable from './SearchTable';
 // Styled Components
