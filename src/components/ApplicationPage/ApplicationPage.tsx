@@ -180,9 +180,6 @@ const mockApiResp: Application = {
         name: 'UVIC',
         country: 'CA',
     },
-    complete: ['Criminal Record Search', 'Equifax Credit Report', 'US Criminal Record Check'],
-    pending: ['References Check', 'Motor Vehicle Records (USA)', 'Education Verification'],
-    failure: ['Credential Verification', 'Employment Verification', 'SSN Verification'],
 };
 
 const mockApplicant: Applicant = {
