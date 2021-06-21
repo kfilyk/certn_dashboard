@@ -739,7 +739,6 @@ export interface HrOnboardingSession {
 }
 
 export interface Applicant {
-    // We need this as the KEY
     id: string;
     status: string;
     first_name: string;
