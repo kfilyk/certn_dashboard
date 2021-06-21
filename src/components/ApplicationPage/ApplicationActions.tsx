@@ -4,7 +4,6 @@ import { useState } from 'react';
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import styled from 'styled-components';
-//import { certnTheme } from '../../Theme/certn-theme';
 
 //likely temporary styling
 const ActionListWrapper = styled(Menu)`
