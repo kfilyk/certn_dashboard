@@ -21,9 +21,11 @@ import {
 
 //Interfaces
 
+const setEmail = (user: Record<string, unknown>) => (user ? (user.email as string) : '');
+
 const NavBar = (): JSX.Element => {
     const { user, userLogout } = WithUser();
-    const [email] = useState(user.email as string);
+    const [email] = useState(setEmail(user));
     const history = useHistory();
 
     return (
@@ -31,9 +33,6 @@ const NavBar = (): JSX.Element => {
             <FlexWrapper>
                 <NavBarLink to="/search" activeClassName="selected" onClick={() => history.push('/search')}>
                     Find Application
-                </NavBarLink>
-                <NavBarLink to="/application" activeClassName="selected" onClick={() => history.push('/application')}>
-                    Application
                 </NavBarLink>
             </FlexWrapper>
             <FlexWrapper>
