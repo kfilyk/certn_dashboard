@@ -12,7 +12,7 @@ import { Spin, notification } from 'antd';
 import LoginForm from './LoginForm';
 
 // Styled Components
-import { LogoutButton, StyledPara, Image, LoginDiv, FormWrapper } from './LoginSC';
+import { StyledPara, Image, LoginDiv, FormWrapper } from './LoginSC';
 import { useEffect } from 'react';
 
 // Interfaces
@@ -23,7 +23,7 @@ interface Loading {
 const Login = (): JSX.Element => {
     // Loading state, error handling
     const [loading, setLoading] = useState<Loading>({ login: false });
-    const { setUserData, userLogout, token } = WithUser();
+    const { setUserData } = WithUser();
     const history = useHistory();
     useEffect(() => {
         history.replace('/login');
@@ -56,9 +56,6 @@ const Login = (): JSX.Element => {
     return (
         <Spin spinning={loading.login}>
             <LoginDiv>
-                {/* Logout button is temp!! */}
-                {token ? <LogoutButton onClick={() => userLogout()}>Log out</LogoutButton> : ''}
-                {/* End of logout button */}
                 <Image src={logo} alt="logo" />
                 <StyledPara>Login to access Support Tool</StyledPara>
                 <FormWrapper>
