@@ -47,8 +47,8 @@ const criticalCheckTitles = {
 const sortChecks = (
     acc: Record<string, Array<string>>,
     curr: SimplifiedChecks,
-    index: number,
-    arr: Array<SimplifiedChecks>
+    _index: number,
+    _arr: Array<SimplifiedChecks>
 ): Record<string, Array<string>> => {
     switch (curr.result) {
         case 'CLEARED':
@@ -78,7 +78,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                 ) {
                     const item = (checks as unknown as Record<string, CertnVerification>)[key];
                     formattedChecks.push({
-                        result: (item as Record<string, any>)[innerKey],
+                        result: (item as unknown as Record<string, string>)[innerKey],
                         name: innerKey,
                     });
                 }
