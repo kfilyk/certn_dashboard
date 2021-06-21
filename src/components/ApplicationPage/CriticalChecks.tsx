@@ -2,8 +2,15 @@
 import { CriticalChecksInfo, CriticalItem } from '../../interfaces';
 // Ant Design Imports
 import 'antd/dist/antd.css';
-import { Collapse, List, Badge } from 'antd';
-import { certnTheme } from '../../Theme/certn-theme';
+import { Collapse, List } from 'antd';
+import {
+    CompleteHeader,
+    CompleteBadge,
+    PendingHeader,
+    PendingBadge,
+    FailureHeader,
+    FailureBadge,
+} from './ApplicationPageSC';
 import styled from 'styled-components';
 
 // Temp until all components for application page are completed
@@ -97,18 +104,10 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
             <Collapse defaultActiveKey={['1', '2', '3']}>
                 <Panel
                     header={
-                        <span style={{ color: certnTheme.color.green[600], fontWeight: 'bold' }}>
+                        <CompleteHeader>
                             Complete
-                            <Badge
-                                style={{
-                                    marginLeft: '5px',
-                                    backgroundColor: certnTheme.color.green[100],
-                                    color: certnTheme.color.green[600],
-                                    fontWeight: 'bold',
-                                }}
-                                count={complete.length}
-                            />
-                        </span>
+                            <CompleteBadge count={complete.length} />
+                        </CompleteHeader>
                     }
                     key="1"
                 >
@@ -116,18 +115,10 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                 </Panel>
                 <Panel
                     header={
-                        <span style={{ color: certnTheme.color.yellow[600], fontWeight: 'bold' }}>
+                        <PendingHeader>
                             In Progress
-                            <Badge
-                                style={{
-                                    marginLeft: '5px',
-                                    backgroundColor: certnTheme.color.yellow[100],
-                                    color: certnTheme.color.yellow[600],
-                                    fontWeight: 'bold',
-                                }}
-                                count={pending.length}
-                            />
-                        </span>
+                            <PendingBadge count={pending.length} />
+                        </PendingHeader>
                     }
                     key="2"
                 >
@@ -135,18 +126,10 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                 </Panel>
                 <Panel
                     header={
-                        <span style={{ color: certnTheme.color.red[600], fontWeight: 'bold' }}>
+                        <FailureHeader>
                             Failure
-                            <Badge
-                                style={{
-                                    marginLeft: '5px',
-                                    backgroundColor: certnTheme.color.red[100],
-                                    color: certnTheme.color.red[600],
-                                    fontWeight: 'bold',
-                                }}
-                                count={failure.length}
-                            />
-                        </span>
+                            <FailureBadge count={failure.length} />
+                        </FailureHeader>
                     }
                     key="3"
                 >
