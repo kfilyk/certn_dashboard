@@ -2,8 +2,9 @@
 
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { AdvApplicationInfo, Application } from '../../interfaces';
+import { AdvApplicationInfo, Applicant, Application, CriticalChecksInfo } from '../../interfaces';
 import { ApplicationInfo } from './ApplicationInfo';
+import { CriticalChecks } from './CriticalChecks';
 
 // Components
 
@@ -23,11 +24,45 @@ export const TableInfoDefault: AdvApplicationInfo = {
     team: '',
 };
 
+export const ChecksInfoDefault: CriticalChecksInfo = {
+    us_criminal_record_check_result: {
+        status: '',
+        result: '',
+    },
+    international_criminal_record_check_result: {
+        status: '',
+        result: '',
+    },
+    ssn_verification_result: {
+        status: '',
+        result: '',
+    },
+    reference_result: {
+        status: '',
+        result: '',
+    },
+    motor_vehicle_record_result: {
+        status: '',
+        result: '',
+    },
+    equifax_result: {
+        status: '',
+        result: '',
+    },
+    certn_verification: {
+        status: '',
+        employment_verification: '',
+        education_verification: '',
+        credential_verification: '',
+    },
+};
+
 export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [applicationInfo, setApplicationInfo] = useState({});
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
+    const [criticalChecksInfo, setChecksInfo] = useState<CriticalChecksInfo>(ChecksInfoDefault);
 
     // Runs only on initial render, will get id from URL. Ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
     useEffect(() => {
@@ -43,7 +78,8 @@ export const ApplicationPage = (): JSX.Element => {
                 // https://demo-api.certn.co/hr/v1/applications/<application_id>
                 const response = fakeApi(id);
                 setApplicationInfo(response);
-                setTableInfo(buildTableInfo(response));
+                setTableInfo(buildTableInfo(response.application));
+                setChecksInfo(buildChecksInfo(response.report_summary));
             } catch (e) {
                 // Handle failed request
             }
@@ -65,9 +101,43 @@ export const ApplicationPage = (): JSX.Element => {
         team: resp.team.name,
     });
 
+    const buildChecksInfo = (resp: CriticalChecksInfo): CriticalChecksInfo => ({
+        us_criminal_record_check_result: {
+            status: resp.us_criminal_record_check_result.status,
+            result: resp.us_criminal_record_check_result.result,
+        },
+        international_criminal_record_check_result: {
+            status: resp.international_criminal_record_check_result.status,
+            result: resp.international_criminal_record_check_result.result,
+        },
+        ssn_verification_result: {
+            status: resp.ssn_verification_result.status,
+            result: resp.ssn_verification_result.result,
+        },
+        reference_result: {
+            status: resp.reference_result.status,
+            result: resp.reference_result.result,
+        },
+        motor_vehicle_record_result: {
+            status: resp.motor_vehicle_record_result.status,
+            result: resp.motor_vehicle_record_result.result,
+        },
+        equifax_result: {
+            status: resp.equifax_result.status,
+            result: resp.equifax_result.result,
+        },
+        certn_verification: {
+            status: resp.certn_verification.status,
+            employment_verification: resp.certn_verification.employment_verification,
+            education_verification: resp.certn_verification.education_verification,
+            credential_verification: resp.certn_verification.credential_verification,
+        },
+    });
+
     return (
         <div>
             <ApplicationInfo info={tableInfo} />
+            <CriticalChecks checks={criticalChecksInfo} />
         </div>
     );
 };
@@ -75,7 +145,7 @@ export const ApplicationPage = (): JSX.Element => {
 // Temp dummy data
 // Ignore, will get deleted with ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const fakeApi = (id: string) => mockApiResp;
+const fakeApi = (id: string) => mockApplicant;
 
 const mockApiResp: Application = {
     created: '2021-06-14T00:00:00Z',
@@ -110,4 +180,40 @@ const mockApiResp: Application = {
         name: 'UVIC',
         country: 'CA',
     },
+};
+
+const mockApplicant: Applicant = {
+    report_summary: {
+        us_criminal_record_check_result: {
+            status: 'ANALYZING', // "ANALYZING" "ERROR" "PARTIAL" "RETURNED" "PENDING" "NONE"
+            result: 'NONE', // "REVIEW" "CLEARED" "NONE"
+        },
+        international_criminal_record_check_result: {
+            status: 'ANALYZING',
+            result: 'NONE',
+        },
+        ssn_verification_result: {
+            status: 'ANALYZING',
+            result: 'NONE',
+        },
+        reference_result: {
+            status: 'RETURNED',
+            result: 'CLEARED',
+        },
+        motor_vehicle_record_result: {
+            status: 'RETURNED',
+            result: 'CLEARED',
+        },
+        equifax_result: {
+            status: 'RETURNED',
+            result: 'CLEARED',
+        },
+        certn_verification: {
+            status: 'RETURNED',
+            employment_verification: 'UNVERIFIED',
+            education_verification: 'UNVERIFIED',
+            credential_verification: 'UNVERIFIED',
+        },
+    },
+    application: mockApiResp,
 };
