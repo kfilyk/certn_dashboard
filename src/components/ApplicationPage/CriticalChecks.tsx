@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { CriticalChecksInfo, CriticalItem } from '../../interfaces';
+import { CriticalChecksInfo, CriticalChecksResult, CertnVerification } from '../../interfaces';
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import { Collapse, List } from 'antd';
@@ -76,7 +76,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                 if (
                     ['employment_verification', 'education_verification', 'credential_verification'].includes(innerKey)
                 ) {
-                    const item = (checks as unknown as Record<string, CriticalItem>)[key];
+                    const item = (checks as unknown as Record<string, CertnVerification>)[key];
                     formattedChecks.push({
                         result: (item as Record<string, any>)[innerKey],
                         name: innerKey,
@@ -86,7 +86,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
             // ...while the remaining 6 checks follow the same {name : {result: string, status: string}} format
         } else {
             formattedChecks.push({
-                result: (checks as unknown as Record<string, CriticalItem>)[key].result,
+                result: (checks as unknown as Record<string, CriticalChecksResult>)[key].result,
                 name: key,
             });
         }
