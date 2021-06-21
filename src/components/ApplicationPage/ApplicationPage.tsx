@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { AdvApplicationInfo, Applicant, Application, CriticalChecksInfo } from '../../interfaces';
 import { ApplicationInfo } from './ApplicationInfo';
 import { CriticalChecks } from './CriticalChecks';
+import { ApplicationActions } from './ApplicationActions';
 
 // Components
 
@@ -138,6 +139,7 @@ export const ApplicationPage = (): JSX.Element => {
         <div>
             <ApplicationInfo info={tableInfo} />
             <CriticalChecks checks={criticalChecksInfo} />
+            <ApplicationActions />
         </div>
     );
 };
