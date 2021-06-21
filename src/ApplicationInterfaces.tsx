@@ -21,7 +21,7 @@ export interface Address {
     reason_for_leaving: string;
     landlords_first_name: number;
     landlords_last_name: string;
-    landlords_phone?: unknown;
+    landlords_phone: PhoneNumber;
     landlords_email: string;
     reference?: unknown;
     full_address: string;
@@ -56,7 +56,7 @@ export interface Information {
     alias: string;
     date_of_birth: string;
     sin_ssn: string;
-    phone_number: string;
+    phone_number: PhoneNumber;
     phone?: unknown;
     gender?: unknown;
     birth_city: string;
@@ -249,7 +249,7 @@ export interface RiskInformationResult {
     names: Name[];
     educations: Education[];
     emails: unknown[];
-    phone_numbers: unknown[];
+    phone_numbers: PhoneNumber[];
     sources: Source[];
 }
 
@@ -729,7 +729,7 @@ export interface ApplicantAccount {
     id: string;
     email: string;
     email_verified: boolean;
-    phone_number: number;
+    phone_number: PhoneNumber;
 }
 
 export interface HrOnboardingSession {
@@ -744,7 +744,7 @@ export interface Applicant {
     first_name: string;
     last_name: string;
     email: string;
-    phone_number: number;
+    phone_number: PhoneNumber;
     certn_score?: unknown;
     application_url: Url;
     report_url: Url;
