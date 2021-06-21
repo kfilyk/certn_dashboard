@@ -43,7 +43,7 @@ const Login = (): JSX.Element => {
                 expiry: response?.expiry,
             });
             // Route to different page here
-            history.push('/dashboard');
+            history.push('/search');
         } catch (e) {
             setLoading({ login: false });
             notification.error({

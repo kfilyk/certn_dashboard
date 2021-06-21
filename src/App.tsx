@@ -47,14 +47,14 @@ const RouteWrapper = (): JSX.Element => {
                 <NavBar />
                 <Switch>
                     <Route exact path="/">
-                        <Redirect to="/dashboard" />
+                        <Redirect to="/search" />
                     </Route>
                     <Route path="/login">
-                        <Redirect to="/dashboard" />
+                        <Redirect to="/search" />
                     </Route>
-                    <Route path="/dashboard" component={Dashboard} />
                     <Route path="/search" component={Search} />
                     <Route path="/application" component={ApplicationPage} />
+                    <Route path="/dashboard" component={Dashboard} />
                 </Switch>
             </div>
         );
