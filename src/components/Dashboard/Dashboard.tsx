@@ -1,5 +1,7 @@
 import SoftCheck from '../SearchApp/Softcheck';
 import CreditReport from '../SearchApp/Creditreport';
+import ActiveApplicants from '../SearchApp/Activeapplicants';
+
 // Ant Design Imports
 import { UserProvider, WithUser } from '../../userContext';
 import { certnTheme } from '../../Theme/certn-theme';
@@ -32,6 +34,7 @@ const Dashboard = (): JSX.Element => {
                     )}
                     <SoftCheck />
                     <CreditReport />
+                    <ActiveApplicants />
                 </AppDiv>
             </UserProvider>
         </ThemeProvider>

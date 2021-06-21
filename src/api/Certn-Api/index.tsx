@@ -5,8 +5,10 @@ import { UserData } from '../../interfaces';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getToken = (): string => {
-    const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
+    const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""'); // instead of localstorage, use cookies: session storage eliminates local storage when browser closes
+    console.log('Token', authObj.token);
     return authObj === '' ? '' : 'Token ' + authObj.token;
+    // # check if object instead of empty string // this keeps breaking because localstorage not updating token to token of current session. Use cookies with timer - creates a token and stays signed in for a duration.
 };
 
 const userLogin = async (username: string, password: string): Promise<UserData> => {
@@ -86,4 +88,34 @@ const Creditreport = async (): Promise<void> => {
     }
 };
 
-export { userLogin, Softcheck, Creditreport, getToken };
+const Activeapplicants = async (): Promise<void> => {
+    try {
+        const response = await fetch(
+            `https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=created`,
+            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=-created&search=phone@test.com`,
+            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=created&search=benjamin%20gambling`,
+            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&report_status=COMPLETE`,
+            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=information__first_name&report_status=COMPLETE`,
+            //"^applicant_account__email", "^information__first_name","^information__last_name","^application__owner__email","^application__team__name",
+            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&request_softcheck=True&under_review_us=True`,
+
+            {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json',
+                    Authorization: getToken(), //  'Token xyz...' // Basic a2VsdmluZmlseWtAZ21haWwuY29tOlNlbmc0OTkhISE', //', //'Bearer 47914591cbc760b9897070f8221af66176296352'
+                },
+            }
+        );
+
+        const responseData = await response.json();
+        if (!response.ok) {
+            throw new Error(responseData.message);
+        }
+        console.log(responseData);
+    } catch (err) {
+        console.log('something went wrong: ' + err);
+    }
+};
+
+export { userLogin, Softcheck, Creditreport, getToken, Activeapplicants };
