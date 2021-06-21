@@ -105,9 +105,6 @@ interface Application {
         name: string;
         country: string;
     };
-    complete: Array<string>;
-    pending: Array<string>;
-    failure: Array<string>;
 }
 
 export type { UserData, StoredAuth, AdvApplicationInfo, CriticalItem, CriticalChecksInfo, Applicant, Application };
