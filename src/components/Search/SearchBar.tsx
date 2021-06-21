@@ -1,5 +1,5 @@
 // Ant Design
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, UserOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons';
 import { SearchForm, SearchWrapper, SearchButton, AdvancedSearchItem, AdvancedWapper } from './SearchSC';
 import { Input } from 'antd';
 
@@ -27,16 +27,16 @@ const AdvancedSearch = (): JSX.Element => (
     // Form for advanced Search, with form wrapper and items
     <AdvancedWapper name="Advanced Search">
         <AdvancedSearchItem name="firstname" label="First Name">
-            <Input placeholder="Candidate First Name" type="firstname" />
+            <Input prefix={<UserOutlined />} placeholder="Candidate First Name" type="firstname" />
         </AdvancedSearchItem>
         <AdvancedSearchItem name="lastname" label="Last Name">
-            <Input placeholder="Candidate First Name" type="lastname" />
+            <Input prefix={<UserOutlined />} placeholder="Candidate Last Name" type="lastname" />
         </AdvancedSearchItem>
         <AdvancedSearchItem name="phone" label="Phone Number">
-            <Input placeholder="Candidate Phone Number" type="phone" />
+            <Input prefix={<PhoneOutlined />} placeholder="Candidate Phone #" type="phone" />
         </AdvancedSearchItem>
         <AdvancedSearchItem name="email" label="Email">
-            <Input placeholder="Candidate Email" type="email" />
+            <Input prefix={<MailOutlined />} placeholder="Candidate Email" type="email" />
         </AdvancedSearchItem>
     </AdvancedWapper>
 );
