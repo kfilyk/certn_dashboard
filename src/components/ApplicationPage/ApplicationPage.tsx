@@ -17,6 +17,8 @@ import { fakeApi } from './ApiMock';
 import { useRef } from 'react';
 
 // Styled Components
+import { APErrorButton, APErrorWrapper, APMessageWrapper } from './ApplicationPageSC';
+import { useHistory } from 'react-router-dom';
 
 export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
@@ -26,6 +28,8 @@ export const ApplicationPage = (): JSX.Element => {
     const [applicationPageData, setApplicationPageData] = useState<ApplicationPageData>(ApplicationPageDataDefault);
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
     const [criticalChecksInfo, setChecksInfo] = useState<CriticalChecksInfo>(ChecksInfoDefault);
+
+    const history = useHistory();
 
     // Runs only on initial render, will get id from URL. Ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
     useEffect(() => {
@@ -76,17 +80,20 @@ export const ApplicationPage = (): JSX.Element => {
     const checkFailure = () => {
         if (loadingApplication) {
             return '';
-        } else if (id === '') {
-            return <div>No ID</div>;
         } else {
-            return <div>Failed Api call</div>;
+            return (
+                <APErrorWrapper>
+                    <APMessageWrapper>{id === '' ? 'No ID Provided' : 'Error Fetching Application'}</APMessageWrapper>
+                    <APErrorButton onClick={() => history.push('/search')}>Return to Search</APErrorButton>
+                </APErrorWrapper>
+            );
         }
     };
 
     return (
         <Spin spinning={loadingApplication} tip="Loading Application...">
             {id === '' || !success ? (
-                <div>{checkFailure()}</div>
+                checkFailure()
             ) : (
                 <>
                     <ApplicationInfo info={tableInfo} />
