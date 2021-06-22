@@ -7,6 +7,7 @@ import { Spin, notification } from 'antd';
 // Components
 import { ApplicationInfo } from './ApplicationInfo';
 import { CriticalChecks } from './CriticalChecks';
+import { ApplicationActions } from './ApplicationActions';
 
 // Interfaces
 import { ChecksInfoDefault, TableInfoDefault, ApplicationPageDataDefault } from './ApplicationPageDefaults';
@@ -98,6 +99,7 @@ export const ApplicationPage = (): JSX.Element => {
                 <>
                     <ApplicationInfo info={tableInfo} />
                     <CriticalChecks checks={criticalChecksInfo} />
+                    <ApplicationActions />
                 </>
             )}
         </Spin>
