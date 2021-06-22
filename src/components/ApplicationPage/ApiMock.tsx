@@ -138,7 +138,7 @@ const mockApplicationPageData: ApplicationPageData = {
 export const fakeApi = async (id: string): Promise<ApplicationPageData> => {
     await sleep(1000);
     return new Promise((resolve, reject) => {
-        if (id) {
+        if (id !== 'fail' && id !== '' && id !== null) {
             resolve(mockApplicationPageData);
         } else {
             reject(new Error('Invalid Id'));
