@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { AdvApplicationInfo } from '../../interfaces';
-import { TableInfoDefault } from './ApplicationPage';
+import { TableInfoDefault } from './ApplicationPageDefaults';
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import { Table } from 'antd';
