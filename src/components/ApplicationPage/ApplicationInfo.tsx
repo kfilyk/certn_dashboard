@@ -7,11 +7,9 @@ import 'antd/dist/antd.css';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
-import { certnTheme } from '../../Theme/certn-theme';
-
 // Styled Components
 import styled from 'styled-components';
-import { Dot } from './ApplicationPageSC';
+import { Dot, dotColor } from './ApplicationPageSC';
 
 // Temp until all components for application page are completed
 const TableWrapper = styled.div`
@@ -19,21 +17,12 @@ const TableWrapper = styled.div`
     border: 1px solid gray;
 `;
 
-const dotColor = [
-    {
-        status: 'Completed',
-        color: certnTheme.color.green.default,
-    },
-    {
-        status: 'Pending',
-        color: certnTheme.color.yellow.default,
-    },
-    {
-        status: 'Failed',
-        color: certnTheme.color.red.default,
-    },
-];
+// Interfaces
+type InfoProps = {
+    info: AdvApplicationInfo;
+};
 
+// Table config
 const columns: ColumnsType<AdvApplicationInfo> = [
     {
         key: 'email',
@@ -85,11 +74,6 @@ const columns: ColumnsType<AdvApplicationInfo> = [
         dataIndex: 'team',
     },
 ];
-
-// Interfaces
-type InfoProps = {
-    info: AdvApplicationInfo;
-};
 
 export const ApplicationInfo = ({ info }: InfoProps): JSX.Element => {
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);

@@ -1,3 +1,4 @@
+import { certnTheme } from '../../Theme/certn-theme';
 import styled from 'styled-components';
 import { Badge, Button } from 'antd';
 
@@ -76,3 +77,18 @@ export const Dot = styled.span`
     border-radius: 50%;
     display: block;
 `;
+
+export const dotColor = [
+    {
+        status: 'Completed',
+        color: certnTheme.color.green.default,
+    },
+    {
+        status: 'Pending',
+        color: certnTheme.color.yellow.default,
+    },
+    {
+        status: 'Failed',
+        color: certnTheme.color.red.default,
+    },
+];
