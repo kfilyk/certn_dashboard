@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CriticalChecksInfo, CriticalChecksResult, CertnVerification } from '../../interfaces';
 // Ant Design Imports
 import 'antd/dist/antd.css';

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // Ant Design Imports
 
 import { useEffect, useState } from 'react';

@@ -1,23 +1,17 @@
-/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { AdvApplicationInfo } from '../../interfaces';
 import { TableInfoDefault } from './ApplicationPageDefaults';
+
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 import { certnTheme } from '../../Theme/certn-theme';
-import styled from 'styled-components';
 
 // Styled Components
-const Dot = styled.span`
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: block;
-`;
+import styled from 'styled-components';
+import { Dot } from './ApplicationPageSC';
 
 // Temp until all components for application page are completed
 const TableWrapper = styled.div`

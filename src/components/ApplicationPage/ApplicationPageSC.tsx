@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import styled from 'styled-components';
 import { Badge, Button } from 'antd';
 
@@ -68,4 +67,12 @@ export const APErrorButton = styled(Button)`
         background-color: ${(props) => props.theme.color.green[300]};
         border: none;
     }
+`;
+
+export const Dot = styled.span`
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: block;
 `;

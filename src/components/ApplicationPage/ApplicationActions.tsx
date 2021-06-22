@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Menu } from 'antd';
 import { useState } from 'react';
 // Ant Design Imports
