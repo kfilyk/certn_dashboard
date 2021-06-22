@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { UserData } from '../../interfaces';
+import { UserData, AdvApplicationInfo } from '../../interfaces';
+import { MutipleApplicationSearchResults } from '../../ApplicationInterfaces';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getToken = (): string => {
@@ -86,4 +87,58 @@ const Creditreport = async (): Promise<void> => {
     }
 };
 
-export { userLogin, Softcheck, Creditreport, getToken };
+const pruneApplicationsData = (response_data: MutipleApplicationSearchResults) => {
+    const pruned_applications: Array<AdvApplicationInfo> = [];
+    response_data.results.forEach((response) => {
+        const applicant = response.application.applicant;
+        const owner = response.application.owner;
+        const application: AdvApplicationInfo = {
+            application_id: response.application.id,
+            key: applicant.id, // applicant_id
+            email: applicant.email,
+            firstName: applicant.first_name,
+            lastName: applicant.last_name,
+            phone: applicant.phone_number ? applicant.phone_number.toString() : '',
+            created: response.application.created ? response.application.created.toString() : '', // this could be of type Date if we update in interface
+            updated: response.application.modified ? response.application.modified.toString() : '', // this could be of type Date if we update in interface
+            status: response.report_status, // Need to check if this is the right status
+            orderedBy: owner.email, // Need to see if I can get owner name
+            team: owner.team.internal_name,
+        };
+        pruned_applications.push(application);
+    });
+
+    return pruned_applications;
+};
+
+/**
+ * search parameters are searched with the logical operator AND
+ * Note: prequesting different pages will require adding on to the search query
+ */
+const getApplications = async (search: string): Promise<Array<AdvApplicationInfo>> => {
+    const base_url = 'https://demo-api.certn.co/hr/v1/applicants/?search=';
+    const search_url = base_url + search.split(' ').join('+');
+    let pruned_applications: Array<AdvApplicationInfo> = [];
+    console.log(search_url); // DEBUG
+    try {
+        const response = await fetch(search_url, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: getToken(),
+            },
+        });
+
+        const response_data = await response.json();
+        if (!response.ok) {
+            throw new Error(response_data.message);
+        }
+        pruned_applications = pruneApplicationsData(response_data);
+    } catch (err) {
+        console.log('something went wrong: ' + err);
+    }
+    console.log(pruned_applications); //DEBUG
+    return pruned_applications;
+};
+
+export { userLogin, Softcheck, Creditreport, getToken, getApplications };

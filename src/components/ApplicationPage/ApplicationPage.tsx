@@ -13,6 +13,7 @@ import { ApplicationActions } from './ApplicationActions';
 
 // Interfaces
 export const TableInfoDefault: AdvApplicationInfo = {
+    application_id: '',
     key: '',
     email: '',
     firstName: '',
@@ -90,7 +91,8 @@ export const ApplicationPage = (): JSX.Element => {
 
     // Extracts the info needed for the application info table from the api response
     const buildTableInfo = (resp: Application): AdvApplicationInfo => ({
-        key: resp.id,
+        application_id: resp.id,
+        key: resp.applicant.id,
         email: resp.applicant.email,
         firstName: resp.applicant.first_name,
         lastName: resp.applicant.last_name,
