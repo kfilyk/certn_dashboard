@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 import styled from 'styled-components';
 
 //likely temporary styling
-const ActionListWrapper = styled(Menu)`
+const ActionListWrapper = styled.div`
     margin: 50px;
     border: 1px solid gray;
     width: 25%;

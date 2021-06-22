@@ -47,7 +47,9 @@ const criticalCheckTitles = {
 const sortChecks = (
     acc: Record<string, Array<string>>,
     curr: SimplifiedChecks,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _index: number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _arr: Array<SimplifiedChecks>
 ): Record<string, Array<string>> => {
     switch (curr.result) {
