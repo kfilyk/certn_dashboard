@@ -1,7 +1,18 @@
 // Ant Design
 import { SearchOutlined, UserOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons';
 import { SearchForm, SearchWrapper, SearchButton, AdvancedSearchItem, AdvancedWapper } from './SearchSC';
-import { Input } from 'antd';
+import { Input, message } from 'antd';
+
+const regExp = /[a-zA-Z]/g;
+
+// Validator to check if it contains any letters, expand to include special non-dash chars later?
+const validPhone = (rule: any, value: any) => {
+    if (regExp.test(value)) {
+        return Promise.reject('Must be a valid number');
+    } else {
+        return Promise.resolve();
+    }
+};
 
 interface SearchProps {
     onSubmit: (values: {
@@ -26,16 +37,20 @@ const BasicSearch = (): JSX.Element => (
 const AdvancedSearch = (): JSX.Element => (
     // Form for advanced Search, with form wrapper and items
     <AdvancedWapper name="Advanced Search">
-        <AdvancedSearchItem name="firstname" label="First Name">
+        <AdvancedSearchItem name="firstname" label="First Name" rules={[{ type: 'string' }]}>
             <Input prefix={<UserOutlined />} placeholder="Candidate First Name" type="firstname" />
         </AdvancedSearchItem>
-        <AdvancedSearchItem name="lastname" label="Last Name">
+        <AdvancedSearchItem name="lastname" label="Last Name" rules={[{ type: 'string' }]}>
             <Input prefix={<UserOutlined />} placeholder="Candidate Last Name" type="lastname" />
         </AdvancedSearchItem>
-        <AdvancedSearchItem name="phone" label="Phone Number">
+        <AdvancedSearchItem name="phone" label="Phone Number" rules={[{ validator: validPhone }]}>
             <Input prefix={<PhoneOutlined />} placeholder="Candidate Phone #" type="phone" />
         </AdvancedSearchItem>
-        <AdvancedSearchItem name="email" label="Email">
+        <AdvancedSearchItem
+            name="email"
+            label="Email"
+            rules={[{ type: 'email', message: 'Please enter a valid email' }]}
+        >
             <Input prefix={<MailOutlined />} placeholder="Candidate Email" type="email" />
         </AdvancedSearchItem>
     </AdvancedWapper>
