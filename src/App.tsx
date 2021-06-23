@@ -35,7 +35,12 @@ export function App(): JSX.Element {
 
 const RouteWrapper = (): JSX.Element => {
     const validAuth = () => {
-        const { token } = WithUser();
+        const { token, expiry, userLogout } = WithUser();
+        if (expiry !== '') {
+            if (Date.parse(expiry) < Date.now()) {
+                userLogout();
+            }
+        }
         return token !== '';
     };
 
