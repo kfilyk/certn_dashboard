@@ -17,7 +17,7 @@ import { fakeApi } from './ApiMock';
 import { useRef } from 'react';
 
 // Styled Components
-import { APErrorButton, APErrorWrapper, APMessageWrapper } from './ApplicationPageSC';
+import { APErrorButton, APErrorWrapper, APMessageWrapper, APErrorContentWrapper } from './ApplicationPageSC';
 import { useHistory } from 'react-router-dom';
 
 export const ApplicationPage = (): JSX.Element => {
@@ -83,8 +83,12 @@ export const ApplicationPage = (): JSX.Element => {
         } else {
             return (
                 <APErrorWrapper>
-                    <APMessageWrapper>{id === '' ? 'No ID Provided' : 'Error Fetching Application'}</APMessageWrapper>
-                    <APErrorButton onClick={() => history.push('/search')}>Return to Search</APErrorButton>
+                    <APErrorContentWrapper>
+                        <APMessageWrapper>
+                            {id === '' ? 'No ID Provided' : 'Error Fetching Application'}
+                        </APMessageWrapper>
+                        <APErrorButton onClick={() => history.push('/search')}>Return to Search</APErrorButton>
+                    </APErrorContentWrapper>
                 </APErrorWrapper>
             );
         }

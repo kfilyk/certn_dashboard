@@ -48,6 +48,7 @@ export const APErrorWrapper = styled.div`
     box-shadow: inset 0px 13px 12px white;
     text-align: center;
     padding-top: 30vh;
+    width: 100%;
     height: calc(100vh - 80px);
     background-color: ${(props) => props.theme.color.red[50]};
 `;
@@ -56,7 +57,7 @@ export const APMessageWrapper = styled.p`
     font-size: 30px;
     font-weight: ${(props) => props.theme.fontWeights.regular};
 `;
-//line-height: calc(100vh - 160px);
+
 export const APErrorButton = styled(Button)`
     color: ${(props) => props.theme.color.white};
     background-color: ${(props) => props.theme.color.green[400]};
@@ -68,6 +69,16 @@ export const APErrorButton = styled(Button)`
         background-color: ${(props) => props.theme.color.green[300]};
         border: none;
     }
+`;
+
+export const APErrorContentWrapper = styled.div`
+    margin: 0 auto;
+    height: 150px;
+    width: 400px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 13px 13px 20px 0px ${(props) => props.theme.color.red[200]};
+    background-color: ${(props) => props.theme.color.red[100]};
 `;
 
 export const Dot = styled.span`
