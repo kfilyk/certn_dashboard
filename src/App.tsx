@@ -1,11 +1,14 @@
-import Login from './components/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
+import Search from './components/Search/Search';
+import { ApplicationPage } from './components/ApplicationPage/ApplicationPage';
+import Login from './components/Login/Login';
 import { UserProvider, WithUser } from './userContext';
 import { certnTheme } from './Theme/certn-theme';
 import styled, { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { notification } from 'antd';
+import NavBar from './components/NavBar/NavBar';
 
 notification.config({
     placement: 'topRight',
@@ -17,20 +20,43 @@ const AppDiv = styled.div`
 `;
 
 export function App(): JSX.Element {
-    const { token } = WithUser();
     return (
         <Router>
             <ThemeProvider theme={certnTheme}>
                 <UserProvider>
-                    <Switch>
-                        <AppDiv>
-                            {token ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
-                            <Route path="/login" component={Login} />
-                            <Route path="/dashboard" component={Dashboard} />
-                        </AppDiv>
-                    </Switch>
+                    <AppDiv>
+                        <RouteWrapper />
+                    </AppDiv>
                 </UserProvider>
             </ThemeProvider>
         </Router>
     );
 }
+
+const RouteWrapper = (): JSX.Element => {
+    const validAuth = () => {
+        const { token } = WithUser();
+        return token !== '';
+    };
+
+    if (!validAuth()) {
+        return <Login />;
+    } else {
+        return (
+            <div>
+                <NavBar />
+                <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/search" />
+                    </Route>
+                    <Route path="/login">
+                        <Redirect to="/search" />
+                    </Route>
+                    <Route path="/search" component={Search} />
+                    <Route path="/application" component={ApplicationPage} />
+                    <Route path="/dashboard" component={Dashboard} />
+                </Switch>
+            </div>
+        );
+    }
+};
