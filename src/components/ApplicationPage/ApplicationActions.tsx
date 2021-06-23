@@ -14,9 +14,11 @@ export const ApplicationActions = (): JSX.Element => {
         <div>
             <ActionListWrapper>
                 <Menu onClick={(e) => setSelectedAction(e.key)} defaultSelectedKeys={['onboarding']} mode="inline">
-                    <Menu.Item key="onboarding">Send Onboarding Link</Menu.Item>
-                    <Menu.Item key="report">Send Report Link</Menu.Item>
-                    <Menu.Item key="documents">Send Consent Documents</Menu.Item>
+                    <Menu.ItemGroup key="header" title="Application Actions">
+                        <Menu.Item key="onboarding">Send Onboarding Link</Menu.Item>
+                        <Menu.Item key="report">Send Report Link</Menu.Item>
+                        <Menu.Item key="documents">Send Consent Documents</Menu.Item>
+                    </Menu.ItemGroup>
                 </Menu>
             </ActionListWrapper>
             <ActionTabs action={selectedAction} email="jane.cooper@certn.co" />
