@@ -101,13 +101,12 @@ const pruneApplicationsData = (response_data: MutipleApplicationSearchResults) =
             phone: applicant.phone_number ? applicant.phone_number.toString() : '',
             created: response.application.created ? response.application.created.toString() : '', // this could be of type Date if we update in interface
             updated: response.application.modified ? response.application.modified.toString() : '', // this could be of type Date if we update in interface
-            status: response.report_status, // Need to check if this is the right status
-            orderedBy: owner.email, // Need to see if I can get owner name
-            team: owner.team.internal_name,
+            status: response.report_status, // Waiting to hear from Ben (certn) if this is right
+            orderedBy: owner.email, // Waiting to hear from Ben (certn) if it is possible to get name instead
+            team: owner.team.settings_config.org_name,
         };
         pruned_applications.push(application);
     });
-
     return pruned_applications;
 };
 
@@ -119,7 +118,6 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
     const base_url = 'https://demo-api.certn.co/hr/v1/applicants/?search=';
     const search_url = base_url + search.split(' ').join('+');
     let pruned_applications: Array<AdvApplicationInfo> = [];
-    console.log(search_url); // DEBUG
     try {
         const response = await fetch(search_url, {
             method: 'GET',
@@ -137,7 +135,6 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
     } catch (err) {
         console.log('something went wrong: ' + err);
     }
-    console.log(pruned_applications); //DEBUG
     return pruned_applications;
 };
 
