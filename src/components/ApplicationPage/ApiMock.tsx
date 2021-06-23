@@ -1,11 +1,11 @@
 /* This file contains mock data that feeds the Application Page.
  * Once the api request is completed, this file can be deleted.
  * The application page is expecting data in the following format:
- * interface Applicant {
+ * interface ApplicationPageData {
  *   critical_checks: CriticalChecksInfo;
  *   application: AdvApplicationInfo;
  * }
- * see the Applicant interface in interfaces.tsx for more details
+ * see the ApplicationPageData interface in interfaces.tsx for more details
  */
 
 import { AdvApplicationInfo, Applicant, Application, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
