@@ -1,6 +1,6 @@
 // Ant Design Imports
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Spin, notification } from 'antd';
 
 // Components
@@ -8,17 +8,16 @@ import { ApplicationInfo } from './ApplicationInfo';
 import { CriticalChecks } from './CriticalChecks';
 import { ApplicationActions } from './ApplicationActions';
 
-// Interfaces
+// Interfaces & Defaults
 import { ChecksInfoDefault, TableInfoDefault, ApplicationPageDataDefault } from './ApplicationPageDefaults';
 import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
-
-// Temp
-import { fakeApi } from './ApiMock';
-import { useRef } from 'react';
 
 // Styled Components
 import { APErrorButton, APErrorWrapper, APMessageWrapper, APErrorContentWrapper } from './ApplicationPageSC';
 import { useHistory } from 'react-router-dom';
+
+// Temp
+import { fakeApi } from './ApiMock';
 
 export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
