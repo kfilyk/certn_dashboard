@@ -18,6 +18,11 @@ export const SearchForm = styled(Search)`
         border-color: ${(props) => props.theme.color.gray[200]};
         color: black;
     }
+    .ant-input-affix-wrapper:focus,
+    .ant-input-affix-wrapper:hover {
+        border-color: ${(props) => props.theme.color.green[400]} !important;
+        box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
+    }
 `;
 
 export const SearchButton = styled(Button)`
@@ -37,6 +42,11 @@ export const AdvancedSearchItem = styled(Form.Item)`
     margin-left: 16px;
     width: 20%;
     display: inline-block;
+    .ant-input-affix-wrapper:focus,
+    .ant-input-affix-wrapper:hover {
+        border-color: ${(props) => props.theme.color.green[400]} !important;
+        box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
+    }
 `;
 
 export const AdvancedWapper = styled(Form)`
