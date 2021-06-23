@@ -1,4 +1,4 @@
-import { Menu, Form, Input, Button, Modal, Checkbox, Space } from 'antd';
+import { Menu, Form, Input, Button } from 'antd';
 import styled from 'styled-components';
 
 //likely temporary styling
@@ -39,7 +39,7 @@ export const InputWrapper = styled(Input)`
 `;
 
 export const InputLinkWrapper = styled(Input)`
-    margin: 25px;
+    margin: 5px 25px 25px 25px;
     border: 1px solid gray;
     width: 80%;
 `;
