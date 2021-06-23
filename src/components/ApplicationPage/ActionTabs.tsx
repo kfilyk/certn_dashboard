@@ -33,33 +33,29 @@ export const ActionTabs = ({ action, email }: ActionTabProps): JSX.Element => {
     return (
         <h1>
             {action === 'documents' ? (
-                <div>
-                    <FormWrapper>
-                        <Form>
-                            <StyledParaB>Recipient</StyledParaB>
-                            <StyledParaN> Send documents to the following email</StyledParaN>
+                <FormWrapper>
+                    <Form>
+                        <StyledParaB>Recipient</StyledParaB>
+                        <StyledParaN> Send documents to the following email</StyledParaN>
+                        <InputWrapper value={email} />
+                        <ButtonWrapper type="primary">Send</ButtonWrapper>
+                        <StyledParaNB> Documents to Send</StyledParaNB>
+                        <ButtonWrapper type="primary">Preview</ButtonWrapper>
+                    </Form>
+                </FormWrapper>
+            ) : (
+                <FormWrapper>
+                    <Form>
+                        <StyledParaB>Recipient</StyledParaB>
+                        <StyledParaN> Send {textT} to the following email </StyledParaN>
+                        <div>
                             <InputWrapper value={email} />
                             <ButtonWrapper type="primary">Send</ButtonWrapper>
-                            <StyledParaNB> Documents to Send</StyledParaNB>
-                            <ButtonWrapper type="primary">Preview</ButtonWrapper>
-                        </Form>
-                    </FormWrapper>
-                </div>
-            ) : (
-                <div>
-                    <FormWrapper>
-                        <Form>
-                            <StyledParaB>Recipient</StyledParaB>
-                            <StyledParaN> Send {textT} to the following email </StyledParaN>
-                            <div>
-                                <InputWrapper value={email} />
-                                <ButtonWrapper type="primary">Send</ButtonWrapper>
-                            </div>
-                            <StyledParaNB> {textT} </StyledParaNB>
-                            <InputLinkWrapper addonBefore="http://" defaultValue={linkT} disabled />
-                        </Form>
-                    </FormWrapper>
-                </div>
+                        </div>
+                        <StyledParaNB> {textT} </StyledParaNB>
+                        <InputLinkWrapper addonBefore="http://" defaultValue={linkT} disabled />
+                    </Form>
+                </FormWrapper>
             )}
         </h1>
     );
