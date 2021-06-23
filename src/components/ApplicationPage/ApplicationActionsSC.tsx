@@ -7,14 +7,15 @@ export const ActionListWrapper = styled(Menu)`
     border: 1px solid gray;
     width: 25%;
 
-    .ant-menu > .ant-menu-item-selected,
-    .ant-menu > .ant-menu-submenu-selected {
+    .ant-menu-item-selected,
+    .ant-menu-submenu-selected,
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
         color: ${(props) => props.theme.color.green[900]};
         background-color: ${(props) => props.theme.color.green[100]};
     }
 
-    .ant-menu > .ant-menu-item:hover,
-    .ant-menu > .ant-menu-submenu:hover {
+    .ant-menu-item:hover,
+    .ant-menu-submenu:hover {
         color: ${(props) => props.theme.color.green[600]};
     }
 
