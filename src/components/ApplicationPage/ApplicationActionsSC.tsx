@@ -49,7 +49,8 @@ export const ButtonWrapper = styled(Button)`
     width: 20%;
     background: ${(props) => props.theme.color.green.default};
     border-color: ${(props) => props.theme.color.green.default};
-    :hover {
+    :hover,
+    :focus {
         background: ${(props) => props.theme.color.green[400]};
         border-color: ${(props) => props.theme.color.green[400]};
     }
