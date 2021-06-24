@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { Menu } from 'antd';
 import { ActionListWrapper } from './ApplicationActionsSC';
 import { useState } from 'react';

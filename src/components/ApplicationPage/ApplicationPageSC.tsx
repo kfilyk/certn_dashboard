@@ -1,5 +1,6 @@
+import { certnTheme } from '../../Theme/certn-theme';
 import styled from 'styled-components';
-import { Badge } from 'antd';
+import { Badge, Button } from 'antd';
 
 export const CompleteHeader = styled.span`
     color: ${(props) => props.theme.color.green[600]};
@@ -42,3 +43,63 @@ export const FailureBadge = styled(Badge)`
         font-weight: bold;
     }
 `;
+
+export const APErrorWrapper = styled.div`
+    box-shadow: inset 0px 13px 12px white;
+    text-align: center;
+    padding-top: 30vh;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: ${(props) => props.theme.color.red[50]};
+`;
+
+export const APMessageWrapper = styled.p`
+    font-size: 30px;
+    font-weight: ${(props) => props.theme.fontWeights.regular};
+`;
+
+export const APErrorButton = styled(Button)`
+    color: ${(props) => props.theme.color.white};
+    background-color: ${(props) => props.theme.color.green[400]};
+    border: none;
+    border-radius: 5px;
+
+    :hover {
+        color: ${(props) => props.theme.color.white};
+        background-color: ${(props) => props.theme.color.green[300]};
+        border: none;
+    }
+`;
+
+export const APErrorContentWrapper = styled.div`
+    margin: 0 auto;
+    height: 150px;
+    width: 400px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 13px 13px 20px 0px ${(props) => props.theme.color.red[200]};
+    background-color: ${(props) => props.theme.color.red[100]};
+`;
+
+export const Dot = styled.span`
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: block;
+`;
+
+export const dotColor = [
+    {
+        status: 'Completed',
+        color: certnTheme.color.green.default,
+    },
+    {
+        status: 'Pending',
+        color: certnTheme.color.yellow.default,
+    },
+    {
+        status: 'Failed',
+        color: certnTheme.color.red.default,
+    },
+];

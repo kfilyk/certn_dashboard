@@ -1,8 +1,8 @@
-import { Menu, Form, Input, Button } from 'antd';
+import { Input, Button } from 'antd';
 import styled from 'styled-components';
 
 //likely temporary styling
-export const ActionListWrapper = styled(Menu)`
+export const ActionListWrapper = styled.div`
     margin: 50px;
     border: 1px solid gray;
     width: 25%;
@@ -27,7 +27,7 @@ export const ActionListWrapper = styled(Menu)`
     }
 `;
 
-export const FormWrapper = styled(Form)`
+export const FormWrapper = styled.div`
     margin: 50px;
     border: 1px solid gray;
     width: 30%;
