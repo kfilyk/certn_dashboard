@@ -22,6 +22,38 @@ interface AdvApplicationInfo {
     team: string;
 }
 
+interface CriticalChecksResult {
+    status: string;
+    result: string;
+}
+
+interface CertnVerification {
+    status: string;
+    employment_verification: string;
+    education_verification: string;
+    credential_verification: string;
+}
+
+interface CriticalChecksInfo {
+    us_criminal_record_check_result: CriticalChecksResult;
+    international_criminal_record_check_result: CriticalChecksResult;
+    ssn_verification_result: CriticalChecksResult;
+    reference_result: CriticalChecksResult;
+    motor_vehicle_record_result: CriticalChecksResult;
+    equifax_result: CriticalChecksResult;
+    certn_verification: CertnVerification;
+}
+
+interface Applicant {
+    report_summary: CriticalChecksInfo;
+    application: Application;
+}
+
+interface ApplicationPageData {
+    critical_checks: CriticalChecksInfo;
+    application_info: AdvApplicationInfo;
+}
+
 interface Application {
     created: string;
     modified: string;
@@ -53,4 +85,14 @@ interface Application {
     };
 }
 
-export type { UserData, StoredAuth, AdvApplicationInfo, Application };
+export type {
+    UserData,
+    StoredAuth,
+    AdvApplicationInfo,
+    CriticalChecksResult,
+    CertnVerification,
+    CriticalChecksInfo,
+    ApplicationPageData,
+    Application,
+    Applicant,
+};

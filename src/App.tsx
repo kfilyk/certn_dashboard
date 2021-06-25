@@ -8,8 +8,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { notification } from 'antd';
-
-import { LogoutButton } from './components/Login/LoginSC';
+import NavBar from './components/NavBar/NavBar';
 
 notification.config({
     placement: 'topRight',
@@ -26,7 +25,6 @@ export function App(): JSX.Element {
             <ThemeProvider theme={certnTheme}>
                 <UserProvider>
                     <AppDiv>
-                        <NavBar />
                         <RouteWrapper />
                     </AppDiv>
                 </UserProvider>
@@ -45,24 +43,20 @@ const RouteWrapper = (): JSX.Element => {
         return <Login />;
     } else {
         return (
-            <Switch>
-                <Route exact path="/">
-                    <Redirect to="/dashboard" />
-                </Route>
-                <Route path="/login">
-                    <Redirect to="/dashboard" />
-                </Route>
-                <Route path="/dashboard" component={Dashboard} />
-                <Route path="/search" component={Search} />
-                <Route path="/application" component={ApplicationPage} />
-            </Switch>
+            <div>
+                <NavBar />
+                <Switch>
+                    <Route exact path="/">
+                        <Redirect to="/search" />
+                    </Route>
+                    <Route path="/login">
+                        <Redirect to="/search" />
+                    </Route>
+                    <Route path="/search" component={Search} />
+                    <Route path="/application" component={ApplicationPage} />
+                    <Route path="/dashboard" component={Dashboard} />
+                </Switch>
+            </div>
         );
     }
-};
-
-// This is temporary and part of a different ticket!
-const NavBar = (): JSX.Element => {
-    const { token, userLogout } = WithUser();
-
-    return token ? <LogoutButton onClick={() => userLogout()}>Log Out</LogoutButton> : <div></div>;
 };
