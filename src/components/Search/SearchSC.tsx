@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Input, Button, Form } from 'antd';
 const { Search } = Input;
 
-export const SearchWrapper = styled(Form)`
+export const SearchWrapper = styled.div`
     margin-top: 16px;
     margin-left: 16px;
     width: 100%;
@@ -36,6 +36,12 @@ export const SearchButton = styled(Button)`
         background-color: ${(props) => props.theme.color.green[400]};
         border-color: ${(props) => props.theme.color.green[400]};
     }
+`;
+
+export const AdvancedSwitch = styled.div`
+    background-color: none;
+    border-color: none;
+    color: black;
 `;
 
 export const AdvancedSearchItem = styled(Form.Item)`

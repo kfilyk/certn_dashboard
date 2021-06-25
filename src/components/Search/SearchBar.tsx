@@ -1,9 +1,26 @@
 // Ant Design
 import { SearchOutlined, UserOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons';
-import { SearchForm, SearchWrapper, SearchButton, AdvancedSearchItem, AdvancedWapper } from './SearchSC';
-import { Input, message } from 'antd';
+import {
+    SearchForm,
+    SearchWrapper,
+    SearchButton,
+    AdvancedSearchItem,
+    AdvancedWapper,
+    AdvancedSwitch,
+} from './SearchSC';
+import { useEffect } from 'react';
+import { Input } from 'antd';
 
 const regExp = /[a-zA-Z]/g;
+
+let showAdvanced = false;
+
+const toggleShow = () => {
+    showAdvanced = !showAdvanced;
+
+    console.warn('changed advanced toggle');
+    console.warn(String(showAdvanced));
+};
 
 // Validator to check if it contains any letters, expand to include special non-dash chars later?
 const validPhone = (rule: any, value: any) => {
@@ -29,10 +46,12 @@ const BasicSearch = (): JSX.Element => (
         name="basic"
         prefix={<SearchOutlined />}
         placeholder="Input search text"
-        enterButton="Advanced"
+        enterButton={<AdvancedToggle />}
         style={{ width: '500' }}
     />
 );
+
+const AdvancedToggle = (): JSX.Element => <AdvancedSwitch onClick={() => toggleShow()}> Advanced </AdvancedSwitch>;
 
 const AdvancedSearch = (): JSX.Element => (
     // Form for advanced Search, with form wrapper and items
@@ -69,7 +88,7 @@ const SearchBar = (): JSX.Element => {
         <SearchWrapper>
             <BasicSearch />
             <SearchCommit />
-            <AdvancedSearch />
+            {showAdvanced ? <AdvancedSearch /> : null}
         </SearchWrapper>
     );
 };
