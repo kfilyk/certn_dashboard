@@ -8,6 +8,7 @@ import {
     StyledParaN,
     StyledParaNB,
 } from './ApplicationActionsSC';
+import { PDFViewer } from './PDFViewer';
 
 const actionVariables = {
     onboarding: {
@@ -39,7 +40,7 @@ export const ActionTabs = ({ action, email }: ActionTabProps): JSX.Element => {
                     <InputWrapper value={email} />
                     <ButtonWrapper type="primary">Send</ButtonWrapper>
                     <StyledParaNB> Documents to Send</StyledParaNB>
-                    <ButtonWrapper type="primary">Preview</ButtonWrapper>
+                    <PDFViewer />
                 </Form>
             ) : (
                 <Form>
