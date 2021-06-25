@@ -3,7 +3,6 @@
 import { Base64 } from 'js-base64';
 import { UserData } from '../../interfaces';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getToken = (): string => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""'); // instead of localstorage, use cookies: session storage eliminates local storage when browser closes
     console.log('Token', authObj.token);
