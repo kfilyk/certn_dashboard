@@ -3,6 +3,8 @@ import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { certnTheme } from '../../Theme/certn-theme';
 import { useHistory } from 'react-router-dom';
+import { AdvApplicationInfo } from '../../interfaces';
+import './SearchTable.css';
 
 // Styled Components
 import styled from 'styled-components';
@@ -29,19 +31,6 @@ const dotColor = [
         color: certnTheme.color.red.default,
     },
 ];
-
-interface AdvApplicationInfo {
-    key: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    created: string;
-    updated: string;
-    status: string;
-    orderedBy: string;
-    team: string;
-}
 
 const columns: ColumnsType<AdvApplicationInfo> = [
     {
@@ -116,7 +105,7 @@ for (let i = 0; i < 100; i = i + 1) {
             break;
     }
     data.push({
-        key: i,
+        key: i.toString(),
         email: 'jack@jack.com',
         firstName: name + i,
         lastName: 'Black',
@@ -136,6 +125,7 @@ const SearchTable = (): JSX.Element => {
     return (
         <div style={{ width: '85%', margin: '7.5%' }}>
             <Table<AdvApplicationInfo>
+                rowClassName="pointer"
                 columns={columns}
                 dataSource={data}
                 onRow={(record) => ({
