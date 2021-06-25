@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { createContext, useContext, useState } from 'react';
 import { UserData } from './interfaces';
 import { useHistory } from 'react-router-dom';
@@ -25,9 +24,14 @@ const getExpiry = (): string => {
     return initialAuth !== '' ? initialAuth.expiry : '';
 };
 
+const getUser = (): Record<string, unknown> => {
+    const initialAuth = JSON.parse(localStorage.getItem('certn-auth') || '""');
+    return initialAuth !== '' ? initialAuth.user : '';
+};
+
 const UserContext = createContext<ContextProps>({
     token: getToken(),
-    user: {},
+    user: getUser(),
     expiry: getExpiry(),
     setUserData: () => {
         // Set in provider
@@ -39,7 +43,7 @@ const UserContext = createContext<ContextProps>({
 
 const UserProvider = ({ children }: Props): JSX.Element => {
     const [token, setToken] = useState(getToken());
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(getUser());
     const [expiry, setExpiry] = useState(getExpiry());
     const history = useHistory();
 
@@ -50,6 +54,7 @@ const UserProvider = ({ children }: Props): JSX.Element => {
         const auth = {
             token: userData.token,
             expiry: userData.expiry,
+            user: userData.user,
         };
         localStorage.setItem('certn-auth', JSON.stringify(auth));
     };
@@ -57,7 +62,7 @@ const UserProvider = ({ children }: Props): JSX.Element => {
     const userLogout = () => {
         localStorage.removeItem('certn-auth');
         setExpiry('');
-        setUser('');
+        setUser({});
         setToken('');
         history.push('/login');
     };
