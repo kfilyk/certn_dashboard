@@ -49,6 +49,11 @@ interface Applicant {
     application: Application;
 }
 
+interface ApplicationPageData {
+    critical_checks: CriticalChecksInfo;
+    application_info: AdvApplicationInfo;
+}
+
 interface Application {
     created: string;
     modified: string;
@@ -87,6 +92,7 @@ export type {
     CriticalChecksResult,
     CertnVerification,
     CriticalChecksInfo,
-    Applicant,
+    ApplicationPageData,
     Application,
+    Applicant,
 };
