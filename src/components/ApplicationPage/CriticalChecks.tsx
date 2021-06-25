@@ -15,7 +15,7 @@ import styled from 'styled-components';
 // Temp until all components for application page are completed
 const CollapseWrapper = styled.div`
     margin-left: 25px;
-    min-width: 185px;
+    min-width: 220px;
     max-width: 300px;
     border-radius: 10px;
 
