@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { PreviewCheckbox, ButtonWrapper, ModalWrapper } from './ApplicationActionsSC';
 
 export const PDFViewer = (): JSX.Element => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [page, setPage] = useState(1);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [pages, setPages] = useState(null);
 
     const [showModal, setShowModal] = useState(false);

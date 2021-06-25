@@ -13,7 +13,14 @@ import { ChecksInfoDefault, TableInfoDefault, ApplicationPageDataDefault } from 
 import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
 
 // Styled Components
-import { APErrorButton, APErrorWrapper, APMessageWrapper, APErrorContentWrapper } from './ApplicationPageSC';
+import {
+    APErrorButton,
+    APErrorWrapper,
+    APMessageWrapper,
+    APErrorContentWrapper,
+    ApplicationPageWrapper,
+    APSpinWrapper,
+} from './ApplicationPageSC';
 import { useHistory } from 'react-router-dom';
 
 // Temp
@@ -94,16 +101,20 @@ export const ApplicationPage = (): JSX.Element => {
     };
 
     return (
-        <Spin spinning={loadingApplication} tip="Loading Application...">
-            {id === '' || !success ? (
-                checkFailure()
-            ) : (
-                <>
-                    <ApplicationInfo info={tableInfo} />
-                    <CriticalChecks checks={criticalChecksInfo} />
-                    <ApplicationActions />
-                </>
-            )}
-        </Spin>
+        <APSpinWrapper>
+            <Spin spinning={loadingApplication} tip="Loading Application...">
+                {id === '' || !success ? (
+                    checkFailure()
+                ) : (
+                    <ApplicationPageWrapper>
+                        <ApplicationInfo info={tableInfo} />
+                        <div style={{ display: 'flex', padding: '50px 0px 0px 0px' }}>
+                            <ApplicationActions />
+                            <CriticalChecks checks={criticalChecksInfo} />
+                        </div>
+                    </ApplicationPageWrapper>
+                )}
+            </Spin>
+        </APSpinWrapper>
     );
 };

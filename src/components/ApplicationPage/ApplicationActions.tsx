@@ -1,5 +1,5 @@
 import { Menu } from 'antd';
-import { ActionListWrapper } from './ApplicationActionsSC';
+import { ActionListWrapper, ActionWrapper } from './ApplicationActionsSC';
 import { useState } from 'react';
 // Ant Design Imports
 import 'antd/dist/antd.css';
@@ -11,7 +11,7 @@ export const ApplicationActions = (): JSX.Element => {
     //currently shows dummy text corresponding to each of the 3 pages based on the selected action
     //Each should be replaced with their relevant page when complete.
     return (
-        <div>
+        <ActionWrapper>
             <ActionListWrapper>
                 <Menu onClick={(e) => setSelectedAction(e.key)} defaultSelectedKeys={['onboarding']} mode="inline">
                     <Menu.ItemGroup key="header" title="Application Actions">
@@ -22,6 +22,6 @@ export const ApplicationActions = (): JSX.Element => {
                 </Menu>
             </ActionListWrapper>
             <ActionTabs action={selectedAction} email="jane.cooper@certn.co" />
-        </div>
+        </ActionWrapper>
     );
 };
