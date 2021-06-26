@@ -8,19 +8,20 @@ import {
     AdvancedWapper,
     AdvancedSwitch,
 } from './SearchSC';
-import { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Input } from 'antd';
+import { useCallback } from 'react';
 
 const regExp = /[a-zA-Z]/g;
 
-let showAdvanced = false;
+// let showAdvanced = false;
 
-const toggleShow = () => {
-    showAdvanced = !showAdvanced;
+// const toggleShow = () => {
+//     showAdvanced = !showAdvanced;
 
-    console.warn('changed advanced toggle');
-    console.warn(String(showAdvanced));
-};
+//     console.warn('changed advanced toggle');
+//     console.warn(String(showAdvanced));
+// };
 
 // Validator to check if it contains any letters, expand to include special non-dash chars later?
 const validPhone = (rule: any, value: any) => {
@@ -42,16 +43,8 @@ interface SearchProps {
 }
 
 const BasicSearch = (): JSX.Element => (
-    <SearchForm
-        name="basic"
-        prefix={<SearchOutlined />}
-        placeholder="Input search text"
-        enterButton={<AdvancedToggle />}
-        style={{ width: '500' }}
-    />
+    <SearchForm name="basic" prefix={<SearchOutlined />} placeholder="Input search text" style={{ width: '500' }} />
 );
-
-const AdvancedToggle = (): JSX.Element => <AdvancedSwitch onClick={() => toggleShow()}> Advanced </AdvancedSwitch>;
 
 const AdvancedSearch = (): JSX.Element => (
     // Form for advanced Search, with form wrapper and items
@@ -82,13 +75,26 @@ const SearchCommit = (): JSX.Element => (
     </SearchButton>
 );
 
+const AdvancedToggle = (initialValue = false): [boolean, () => void] => {
+    const [toggle, setToggle] = useState(initialValue);
+
+    const toggleButton = useCallback(() => {
+        setToggle(!toggle);
+    }, [toggle]);
+
+    return [toggle, toggleButton];
+};
+
 // Actual Searchbar element, contains basic search bar form, submit button and advanced search form
 const SearchBar = (): JSX.Element => {
+    const [advanced, setAdvanced] = AdvancedToggle();
+
     return (
         <SearchWrapper>
             <BasicSearch />
+            <AdvancedSwitch onClick={setAdvanced}>{advanced ? 'Basic' : 'Advanced'}</AdvancedSwitch>
+            {advanced && <AdvancedSearch />}
             <SearchCommit />
-            {showAdvanced ? <AdvancedSearch /> : null}
         </SearchWrapper>
     );
 };
