@@ -4,7 +4,7 @@ const { Search } = Input;
 
 export const SearchWrapper = styled.div`
     margin-top: 16px;
-    margin-left: 16px;
+    margin-left: 5%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -19,6 +19,7 @@ export const SearchForm = styled(Search)`
         color: black;
     }
     .ant-input-affix-wrapper:focus,
+    .ant-input-affix-wrapper-focused,
     .ant-input-affix-wrapper:hover {
         border-color: ${(props) => props.theme.color.green[400]} !important;
         box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
@@ -49,6 +50,7 @@ export const AdvancedSearchItem = styled(Form.Item)`
     width: 20%;
     display: inline-block;
     .ant-input-affix-wrapper:focus,
+    .ant-input-affix-wrapper-focused,
     .ant-input-affix-wrapper:hover {
         border-color: ${(props) => props.theme.color.green[400]} !important;
         box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);

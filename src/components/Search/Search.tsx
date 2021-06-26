@@ -8,9 +8,8 @@ import SearchTable from './SearchTable';
 
 const Search = (): JSX.Element => (
     <div>
-        <p>Welcome to the Search Page!</p>
-        <SearchTable />
         <SearchBar />
+        <SearchTable />
     </div>
 );
 
