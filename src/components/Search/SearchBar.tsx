@@ -32,19 +32,26 @@ interface SearchProps {
     }) => Promise<void>;
 }
 
-// TODO: Define these as booleans
-const BasicSearch = ({ passShowAd, passSetShowAd }): JSX.Element => (
+// Declare types of args to be passed
+type toggleProps = {
+    showAd: boolean;
+    setShowAd: any;
+};
+
+// Basic search form with advanced mode toggle
+const BasicSearch = ({ showAd, setShowAd }: toggleProps): JSX.Element => (
     <SearchForm
         name="basic"
         prefix={<SearchOutlined />}
         placeholder="Input search text"
-        enterButton={<AdvancedToggle showAd={passShowAd} setshowAd={passSetShowAd} />}
+        enterButton={<AdvancedToggle showAd={showAd} setShowAd={setShowAd} />}
         style={{ width: '500' }}
     />
 );
 
-const AdvancedToggle = ({ showAd, setshowAd }): JSX.Element => (
-    <AdvancedSwitch onClick={() => setshowAd(!showAd)}> Advanced </AdvancedSwitch>
+// Toggles the advanced search inputs
+const AdvancedToggle = ({ showAd, setShowAd }: toggleProps): JSX.Element => (
+    <AdvancedSwitch onClick={() => setShowAd(!showAd)}> Advanced </AdvancedSwitch>
 );
 
 const AdvancedSearch = (): JSX.Element => (
@@ -81,7 +88,7 @@ const SearchBar = (): JSX.Element => {
     const [showAd, setshowAd] = useState(false);
     return (
         <SearchWrapper>
-            <BasicSearch passShowAd={showAd} passSetShowAd={setshowAd} />
+            <BasicSearch showAd={showAd} setShowAd={setshowAd} />
             <SearchCommit />
             {showAd && <AdvancedSearch />}
         </SearchWrapper>
