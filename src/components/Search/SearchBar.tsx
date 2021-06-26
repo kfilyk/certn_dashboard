@@ -8,19 +8,10 @@ import {
     AdvancedWapper,
     AdvancedSwitch,
 } from './SearchSC';
-import { useEffect } from 'react';
 import { Input } from 'antd';
+import { useState } from 'react';
 
 const regExp = /[a-zA-Z]/g;
-
-let showAdvanced = false;
-
-const toggleShow = () => {
-    showAdvanced = !showAdvanced;
-
-    console.warn('changed advanced toggle');
-    console.warn(String(showAdvanced));
-};
 
 // Validator to check if it contains any letters, expand to include special non-dash chars later?
 const validPhone = (rule: any, value: any) => {
@@ -41,17 +32,20 @@ interface SearchProps {
     }) => Promise<void>;
 }
 
-const BasicSearch = (): JSX.Element => (
+// TODO: Define these as booleans
+const BasicSearch = ({ passShowAd, passSetShowAd }): JSX.Element => (
     <SearchForm
         name="basic"
         prefix={<SearchOutlined />}
         placeholder="Input search text"
-        enterButton={<AdvancedToggle />}
+        enterButton={<AdvancedToggle showAd={passShowAd} setshowAd={passSetShowAd} />}
         style={{ width: '500' }}
     />
 );
 
-const AdvancedToggle = (): JSX.Element => <AdvancedSwitch onClick={() => toggleShow()}> Advanced </AdvancedSwitch>;
+const AdvancedToggle = ({ showAd, setshowAd }): JSX.Element => (
+    <AdvancedSwitch onClick={() => setshowAd(!showAd)}> Advanced </AdvancedSwitch>
+);
 
 const AdvancedSearch = (): JSX.Element => (
     // Form for advanced Search, with form wrapper and items
@@ -84,11 +78,12 @@ const SearchCommit = (): JSX.Element => (
 
 // Actual Searchbar element, contains basic search bar form, submit button and advanced search form
 const SearchBar = (): JSX.Element => {
+    const [showAd, setshowAd] = useState(false);
     return (
         <SearchWrapper>
-            <BasicSearch />
+            <BasicSearch passShowAd={showAd} passSetShowAd={setshowAd} />
             <SearchCommit />
-            {showAdvanced ? <AdvancedSearch /> : null}
+            {showAd && <AdvancedSearch />}
         </SearchWrapper>
     );
 };
