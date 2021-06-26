@@ -8,20 +8,10 @@ import {
     AdvancedWapper,
     AdvancedSwitch,
 } from './SearchSC';
-import React, { useState } from 'react';
 import { Input } from 'antd';
-import { useCallback } from 'react';
+import { useState } from 'react';
 
 const regExp = /[a-zA-Z]/g;
-
-// let showAdvanced = false;
-
-// const toggleShow = () => {
-//     showAdvanced = !showAdvanced;
-
-//     console.warn('changed advanced toggle');
-//     console.warn(String(showAdvanced));
-// };
 
 // Validator to check if it contains any letters, expand to include special non-dash chars later?
 const validPhone = (rule: any, value: any) => {
@@ -42,8 +32,30 @@ interface SearchProps {
     }) => Promise<void>;
 }
 
-const BasicSearch = (): JSX.Element => (
-    <SearchForm name="basic" prefix={<SearchOutlined />} placeholder="Input search text" style={{ width: '500' }} />
+// const BasicSearch = (): JSX.Element => (
+//     <SearchForm name="basic" prefix={<SearchOutlined />} placeholder="Input search text" style={{ width: '500' }} />
+// );
+
+// Declare types of args to be passed
+type toggleProps = {
+    showAd: boolean;
+    setShowAd: any;
+};
+
+// Basic search form with advanced mode toggle
+const BasicSearch = ({ showAd, setShowAd }: toggleProps): JSX.Element => (
+    <SearchForm
+        name="basic"
+        prefix={<SearchOutlined />}
+        placeholder="Input search text"
+        enterButton={<AdvancedToggle showAd={showAd} setShowAd={setShowAd} />}
+        style={{ width: '500' }}
+    />
+);
+
+// Toggles the advanced search inputs
+const AdvancedToggle = ({ showAd, setShowAd }: toggleProps): JSX.Element => (
+    <AdvancedSwitch onClick={() => setShowAd(!showAd)}> Advanced </AdvancedSwitch>
 );
 
 const AdvancedSearch = (): JSX.Element => (
@@ -75,26 +87,32 @@ const SearchCommit = (): JSX.Element => (
     </SearchButton>
 );
 
-const AdvancedToggle = (initialValue = false): [boolean, () => void] => {
-    const [toggle, setToggle] = useState(initialValue);
+// const AdvancedToggle = (initialValue = false): [boolean, () => void] => {
+//     const [toggle, setToggle] = useState(initialValue);
 
-    const toggleButton = useCallback(() => {
-        setToggle(!toggle);
-    }, [toggle]);
+//     const toggleButton = useCallback(() => {
+//         setToggle(!toggle);
+//     }, [toggle]);
 
-    return [toggle, toggleButton];
-};
+//     return [toggle, toggleButton];
+// };
 
 // Actual Searchbar element, contains basic search bar form, submit button and advanced search form
 const SearchBar = (): JSX.Element => {
-    const [advanced, setAdvanced] = AdvancedToggle();
+    // const [advanced, setAdvanced] = AdvancedToggle();
 
+    // return (
+    //     <SearchWrapper>
+    //         <BasicSearch />
+    //         <AdvancedSwitch onClick={setAdvanced}>{advanced ? 'Basic' : 'Advanced'}</AdvancedSwitch>
+    //         {advanced && <AdvancedSearch />}
+    //         <SearchCommit />
+    const [showAd, setshowAd] = useState(false);
     return (
         <SearchWrapper>
-            <BasicSearch />
-            <AdvancedSwitch onClick={setAdvanced}>{advanced ? 'Basic' : 'Advanced'}</AdvancedSwitch>
-            {advanced && <AdvancedSearch />}
+            <BasicSearch showAd={showAd} setShowAd={setshowAd} />
             <SearchCommit />
+            {showAd && <AdvancedSearch />}
         </SearchWrapper>
     );
 };

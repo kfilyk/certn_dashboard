@@ -123,7 +123,7 @@ const SearchTable = (): JSX.Element => {
     const history = useHistory();
 
     return (
-        <div style={{ width: '85%', margin: '7.5%' }}>
+        <div style={{ width: '85%', margin: '5%' }}>
             <Table<AdvApplicationInfo>
                 rowClassName="pointer"
                 columns={columns}
