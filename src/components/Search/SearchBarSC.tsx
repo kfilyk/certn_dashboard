@@ -72,7 +72,6 @@ export const ToggleButtonWrapper = styled.div`
 export const AdvancedSearchItem = styled(Form.Item)`
     margin-left: 16px;
     flex: 1;
-    // width: 25%;
     display: inline-block;
     .ant-input-affix-wrapper:focus,
     .ant-input-affix-wrapper-focused,
