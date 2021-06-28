@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { CriticalChecksInfo, CriticalChecksResult, CertnVerification } from '../../interfaces';
 // Ant Design Imports
 import 'antd/dist/antd.css';
@@ -15,9 +14,15 @@ import styled from 'styled-components';
 
 // Temp until all components for application page are completed
 const CollapseWrapper = styled.div`
-    margin: 50px;
-    border: 1px solid gray;
-    width: 15%;
+    margin-left: 25px;
+    min-width: 220px;
+    max-width: 300px;
+    border-radius: 10px;
+
+    .ant-collapse {
+        border: 1px solid ${(props) => props.theme.color.gray[100]};
+        border-radius: 10px;
+    }
 `;
 
 // Interfaces
@@ -47,7 +52,9 @@ const criticalCheckTitles = {
 const sortChecks = (
     acc: Record<string, Array<string>>,
     curr: SimplifiedChecks,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _index: number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _arr: Array<SimplifiedChecks>
 ): Record<string, Array<string>> => {
     switch (curr.result) {
