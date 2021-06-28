@@ -20,7 +20,7 @@ import {
     TextWrapper,
 } from './SearchBarSC';
 import { Input } from 'antd';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 const regExp = /[a-zA-Z]/g;
 
@@ -72,19 +72,9 @@ const SearchCommit = (): JSX.Element => (
     </SearchButton>
 );
 
-const AdvancedToggle = (initialValue = false): [boolean, () => void] => {
-    const [toggle, setToggle] = useState(initialValue);
-
-    const toggleButton = useCallback(() => {
-        setToggle(!toggle);
-    }, [toggle]);
-
-    return [toggle, toggleButton];
-};
-
 // Actual Searchbar element, contains basic search bar form, submit button and advanced search form
 const SearchBar = (): JSX.Element => {
-    const [advanced, setAdvanced] = AdvancedToggle();
+    const [advanced, setAdvanced] = useState(false);
 
     return (
         <SearchWrapper>
@@ -99,7 +89,7 @@ const SearchBar = (): JSX.Element => {
                         placeholder="Search All Fields..."
                         allowClear
                     />
-                    <AdvancedSwitch onClick={setAdvanced}>
+                    <AdvancedSwitch onClick={() => setAdvanced(!advanced)}>
                         {advanced ? (
                             <ToggleButtonWrapper>
                                 <MenuFoldOutlined /> <p>Basic</p>
