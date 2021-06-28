@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'antd';
 
-export const LogoutButton = styled(Button)`
-    color: ${(props) => props.theme.color.green[400]};
-    position: absolute;
-    top: 10px;
-    right: 10px;
-`;
-
 export const StyledPara = styled.p`
     color: ${(props) => props.theme.color.green[400]};
 `;
