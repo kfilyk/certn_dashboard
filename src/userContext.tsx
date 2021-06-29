@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { createContext, useContext, useState } from 'react';
 import { UserData } from './interfaces';
 import { useHistory } from 'react-router-dom';

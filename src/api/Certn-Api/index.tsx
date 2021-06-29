@@ -4,7 +4,6 @@ import { Base64 } from 'js-base64';
 import { UserData, AdvApplicationInfo } from '../../interfaces';
 import { MutipleApplicationSearchResults } from '../../ApplicationInterfaces';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getToken = (): string => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
     return authObj === '' ? '' : 'Token ' + authObj.token;

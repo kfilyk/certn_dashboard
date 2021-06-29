@@ -1,45 +1,33 @@
-/* eslint-disable no-console */
 import { useEffect, useState } from 'react';
 import { AdvApplicationInfo } from '../../interfaces';
-import { TableInfoDefault } from './ApplicationPage';
+import { TableInfoDefault } from './ApplicationPageDefaults';
+
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
-import { certnTheme } from '../../Theme/certn-theme';
-import styled from 'styled-components';
-
 // Styled Components
-const Dot = styled.span`
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: block;
-`;
+import styled from 'styled-components';
+import { Dot, dotColor } from './ApplicationPageSC';
 
 // Temp until all components for application page are completed
 const TableWrapper = styled.div`
-    margin: 50px;
-    border: 1px solid gray;
+    border: 1px solid ${(props) => props.theme.color.gray[100]};
+    padding: 0px;
+    border-radius: 10px;
+
+    .ant-table {
+        border-radius: 10px;
+    }
 `;
 
-const dotColor = [
-    {
-        status: 'Completed',
-        color: certnTheme.color.green.default,
-    },
-    {
-        status: 'Pending',
-        color: certnTheme.color.yellow.default,
-    },
-    {
-        status: 'Failed',
-        color: certnTheme.color.red.default,
-    },
-];
+// Interfaces
+type InfoProps = {
+    info: AdvApplicationInfo;
+};
 
+// Table config
 const columns: ColumnsType<AdvApplicationInfo> = [
     {
         key: 'email',
@@ -91,11 +79,6 @@ const columns: ColumnsType<AdvApplicationInfo> = [
         dataIndex: 'team',
     },
 ];
-
-// Interfaces
-type InfoProps = {
-    info: AdvApplicationInfo;
-};
 
 export const ApplicationInfo = ({ info }: InfoProps): JSX.Element => {
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
