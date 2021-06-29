@@ -135,6 +135,7 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
     } catch (err) {
         console.log('something went wrong: ' + err);
     }
+    console.log(pruned_applications);
     return pruned_applications;
 };
 
