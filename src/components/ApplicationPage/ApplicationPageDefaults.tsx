@@ -1,6 +1,7 @@
 import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
 
 export const TableInfoDefault: AdvApplicationInfo = {
+    application_id: '',
     key: '',
     email: '',
     firstName: '',
