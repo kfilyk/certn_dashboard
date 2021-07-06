@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { UserData, AdvApplicationInfo } from '../../interfaces';
-import { MutipleApplicationSearchResults } from '../../ApplicationInterfaces';
+import { UserData, AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
+import { MutipleApplicationSearchResults, Result } from '../../ApplicationInterfaces';
 
 const getToken = (): string => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
@@ -86,24 +86,29 @@ const Creditreport = async (): Promise<void> => {
     }
 };
 
-const pruneApplicationsData = (response_data: MutipleApplicationSearchResults) => {
+const buildAdvApplicationInfo = (response: Result): AdvApplicationInfo => {
+    const applicant = response.application.applicant;
+    const owner = response.application.owner;
+    const application: AdvApplicationInfo = {
+        application_id: response.application.id,
+        key: applicant.id,
+        email: applicant.email,
+        firstName: applicant.first_name,
+        lastName: applicant.last_name,
+        phone: applicant.phone_number ? applicant.phone_number.toString() : '',
+        created: response.application.created ? response.application.created.toString() : '',
+        updated: response.application.modified ? response.application.modified.toString() : '',
+        status: response.report_status,
+        orderedBy: owner.email,
+        team: owner.team.settings_config.org_name,
+    };
+    return application;
+};
+
+const pruneApplicationsData = (response_data: MutipleApplicationSearchResults): Array<AdvApplicationInfo> => {
     const pruned_applications: Array<AdvApplicationInfo> = [];
     response_data.results.forEach((response) => {
-        const applicant = response.application.applicant;
-        const owner = response.application.owner;
-        const application: AdvApplicationInfo = {
-            application_id: response.application.id,
-            key: applicant.id, // applicant_id
-            email: applicant.email,
-            firstName: applicant.first_name,
-            lastName: applicant.last_name,
-            phone: applicant.phone_number ? applicant.phone_number.toString() : '',
-            created: response.application.created ? response.application.created.toString() : '', // this could be of type Date if we update in interface
-            updated: response.application.modified ? response.application.modified.toString() : '', // this could be of type Date if we update in interface
-            status: response.report_status, // Waiting to hear from Ben (certn) if this is right
-            orderedBy: owner.email, // Waiting to hear from Ben (certn) if it is possible to get name instead
-            team: owner.team.settings_config.org_name,
-        };
+        const application: AdvApplicationInfo = buildAdvApplicationInfo(response);
         pruned_applications.push(application);
     });
     return pruned_applications;
@@ -134,8 +139,79 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
     } catch (err) {
         console.log('something went wrong: ' + err);
     }
-    console.log(pruned_applications);
     return pruned_applications;
 };
 
-export { userLogin, Softcheck, Creditreport, getToken, getApplications };
+const buildCriticalChecks = (response_data: Result): CriticalChecksInfo => {
+    const critical_checks: CriticalChecksInfo = {
+        us_criminal_record_check_result: {
+            status: response_data.report_summary.us_criminal_record_check_result.status,
+            result: response_data.report_summary.us_criminal_record_check_result.result,
+        },
+        international_criminal_record_check_result: {
+            status: response_data.report_summary.international_criminal_record_check_result.status,
+            result: response_data.report_summary.international_criminal_record_check_result.result,
+        },
+        ssn_verification_result: {
+            status: response_data.report_summary.ssn_verification_result.status,
+            result: response_data.report_summary.ssn_verification_result.result,
+        },
+        reference_result: {
+            status: response_data.report_summary.reference_result.status,
+            result: response_data.report_summary.reference_result.result,
+        },
+        motor_vehicle_record_result: {
+            status: response_data.report_summary.motor_vehicle_record_result.status,
+            result: response_data.report_summary.motor_vehicle_record_result.result,
+        },
+        equifax_result: {
+            status: response_data.report_summary.equifax_result.status,
+            result: response_data.report_summary.equifax_result.result,
+        },
+        certn_verification: {
+            status: response_data.report_summary.certn_verification.status,
+            employment_verification: response_data.report_summary.certn_verification.employment_verification,
+            education_verification: response_data.report_summary.certn_verification.education_verification,
+            credential_verification: response_data.report_summary.certn_verification.credential_verification,
+        },
+    };
+
+    return critical_checks;
+};
+
+const getApplicantData = (response_data: Result): ApplicationPageData => {
+    const application_page_data: ApplicationPageData = {
+        critical_checks: buildCriticalChecks(response_data),
+        application_info: buildAdvApplicationInfo(response_data),
+    };
+    return application_page_data;
+};
+
+const getApplicant = async (applicant_id: string): Promise<ApplicationPageData> => {
+    // Note to get a signle applicant we need to pass in application.applicant.id and not application.id
+    const version = 'v1';
+    const search_url = `https://demo-api.certn.co/hr/${version}/applicants/${applicant_id}`;
+    let application_page_data: ApplicationPageData = {} as ApplicationPageData;
+
+    try {
+        const response = await fetch(search_url, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: getToken(),
+            },
+        });
+
+        const response_data = await response.json();
+        if (!response.ok) {
+            throw new Error(response_data.message);
+        }
+        const result: Result = response_data;
+        application_page_data = getApplicantData(result);
+    } catch (err) {
+        console.log('something went wrong: ' + err);
+    }
+    return application_page_data;
+};
+
+export { userLogin, Softcheck, Creditreport, getToken, getApplications, getApplicant };
