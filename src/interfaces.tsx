@@ -91,7 +91,6 @@ interface Application {
         name: string;
         country: string;
     };
-    documents?: Array<Document>;
 }
 
 export type {
