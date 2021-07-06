@@ -55,6 +55,13 @@ interface ApplicationPageData {
     application_info: AdvApplicationInfo;
 }
 
+interface Document {
+    title: string;
+    key_string: string;
+    cached: boolean;
+    path: string;
+}
+
 interface Application {
     created: string;
     modified: string;
@@ -84,6 +91,7 @@ interface Application {
         name: string;
         country: string;
     };
+    documents?: Array<Document>;
 }
 
 export type {
@@ -96,4 +104,5 @@ export type {
     ApplicationPageData,
     Application,
     Applicant,
+    Document,
 };

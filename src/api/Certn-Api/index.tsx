@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { UserData, AdvApplicationInfo } from '../../interfaces';
+import { UserData, AdvApplicationInfo, Document } from '../../interfaces';
 import { MutipleApplicationSearchResults } from '../../ApplicationInterfaces';
 
 const getToken = (): string => {
@@ -138,4 +138,26 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
     return pruned_applications;
 };
 
-export { userLogin, Softcheck, Creditreport, getToken, getApplications };
+/*
+ * Function designed to simulate a call to the api in search of a list of all documents associated to a given application
+ * Will be turned into a proper call once endpoint is implemented
+ */
+const getListOfPdfsMOCK = async (numberOfEntries: number): Promise<Array<Document>> => {
+    const returnDocuments: Array<Document> = [];
+    for (let i = 0; i < numberOfEntries; i = i + 1) {
+        const interationTitle = 'Mock Consent Doc ' + i;
+        const iterationKey = 'MOCK KEY ' + i;
+
+        const sudoConsentDoc: Document = {
+            title: interationTitle,
+            key_string: iterationKey,
+            cached: false,
+            path: '/DeleteBeforeRelease/MockPDF.pdf', //Please delete this file as well as the associated PDF when proper endpoint is created
+        };
+        returnDocuments.push(sudoConsentDoc);
+    }
+
+    return returnDocuments;
+};
+
+export { userLogin, Softcheck, Creditreport, getToken, getApplications, getListOfPdfsMOCK };
