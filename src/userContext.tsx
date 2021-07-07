@@ -67,6 +67,15 @@ const UserProvider = ({ children }: Props): JSX.Element => {
         history.push('/login');
     };
 
+    // before starting routewrapper, check if user logged in
+    if (expiry !== '') {
+        // eslint-disable-next-line no-console
+        console.log('RUNNING');
+        if (Date.parse(expiry) < Date.now()) {
+            userLogout();
+        }
+    }
+
     return (
         <UserContext.Provider value={{ token, user, expiry, setUserData, userLogout }}>{children}</UserContext.Provider>
     );
