@@ -24,8 +24,9 @@ import { Form, Input } from 'antd';
 const regExp = /[a-zA-Z]/g;
 
 // Validator to check if it contains any letters, expand to include special non-dash chars later?
-const validPhone = (rule: any, value: any) => {
-    if (regExp.test(value)) {
+//AntD forces the "rule" variable and we need to check what type it is
+const validPhone = (rule: unknown, value: string) => {
+    if (regExp.test(value) && value !== '' && value !== undefined) {
         return Promise.reject('Must be a valid number');
     } else {
         return Promise.resolve();
