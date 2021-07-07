@@ -145,7 +145,7 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
 const getListOfPdfsMOCK = async (numberOfEntries: number): Promise<Array<Document>> => {
     const returnDocuments: Array<Document> = [];
     for (let i = 0; i < numberOfEntries; i = i + 1) {
-        const interationTitle = 'Mock Consent Doc ' + i;
+        const interationTitle = 'Mock Consent Doc ' + i; // random generation
         const iterationKey = 'MOCK KEY ' + i;
 
         const sudoConsentDoc: Document = {
