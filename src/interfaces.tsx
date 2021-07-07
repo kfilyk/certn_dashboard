@@ -58,8 +58,7 @@ interface ApplicationPageData {
 interface Document {
     title: string;
     key_string: string;
-    cached: boolean;
-    path: string;
+    url_mock: string;
 }
 
 interface Application {

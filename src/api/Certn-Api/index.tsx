@@ -151,8 +151,7 @@ const getListOfPdfsMOCK = async (numberOfEntries: number): Promise<Array<Documen
         const sudoConsentDoc: Document = {
             title: interationTitle,
             key_string: iterationKey,
-            cached: false,
-            path: '/DeleteBeforeRelease/MockPDF.pdf', //Please delete this file as well as the associated PDF when proper endpoint is created
+            url_mock: 'http://example.com/sample.pdf',
         };
         returnDocuments.push(sudoConsentDoc);
     }
