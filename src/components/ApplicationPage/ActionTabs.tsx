@@ -32,32 +32,28 @@ export const ActionTabs = ({ action, email }: ActionTabProps): JSX.Element => {
     const linkT = action == 'onboarding' ? actionVariables.onboarding.link : actionVariables.report.link;
 
     return (
-        <h1>
+        <FormWrapper>
             {action === 'documents' ? (
-                <FormWrapper>
-                    <Form>
-                        <StyledParaB>Recipient</StyledParaB>
-                        <StyledParaN> Send documents to the following email</StyledParaN>
+                <Form>
+                    <StyledParaB>Recipient</StyledParaB>
+                    <StyledParaN> Send documents to the following email</StyledParaN>
+                    <InputWrapper value={email} />
+                    <ButtonWrapper type="primary">Send</ButtonWrapper>
+                    <StyledParaNB> Documents to Send</StyledParaNB>
+                    <PDFViewer />
+                </Form>
+            ) : (
+                <Form>
+                    <StyledParaB>Recipient</StyledParaB>
+                    <StyledParaN> Send {textT} to the following email </StyledParaN>
+                    <div>
                         <InputWrapper value={email} />
                         <ButtonWrapper type="primary">Send</ButtonWrapper>
-                        <StyledParaNB> Documents to Send</StyledParaNB>
-                        <PDFViewer />
-                    </Form>
-                </FormWrapper>
-            ) : (
-                <FormWrapper>
-                    <Form>
-                        <StyledParaB>Recipient</StyledParaB>
-                        <StyledParaN> Send {textT} to the following email </StyledParaN>
-                        <div>
-                            <InputWrapper value={email} />
-                            <ButtonWrapper type="primary">Send</ButtonWrapper>
-                        </div>
-                        <StyledParaNB> {textT} </StyledParaNB>
-                        <InputLinkWrapper addonBefore="http://" defaultValue={linkT} disabled />
-                    </Form>
-                </FormWrapper>
+                    </div>
+                    <StyledParaNB> {textT} </StyledParaNB>
+                    <InputLinkWrapper addonBefore="http://" defaultValue={linkT} disabled />
+                </Form>
             )}
-        </h1>
+        </FormWrapper>
     );
 };

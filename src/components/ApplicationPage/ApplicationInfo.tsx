@@ -13,8 +13,13 @@ import { Dot, dotColor } from './ApplicationPageSC';
 
 // Temp until all components for application page are completed
 const TableWrapper = styled.div`
-    margin: 50px;
-    border: 1px solid gray;
+    border: 1px solid ${(props) => props.theme.color.gray[100]};
+    padding: 0px;
+    border-radius: 10px;
+
+    .ant-table {
+        border-radius: 10px;
+    }
 `;
 
 // Interfaces

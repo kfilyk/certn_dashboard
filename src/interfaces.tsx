@@ -10,13 +10,14 @@ interface StoredAuth {
 }
 
 interface AdvApplicationInfo {
-    key: string;
+    application_id: string;
+    key: string; // applicant_id
     email: string;
     firstName: string;
     lastName: string;
     phone: string;
-    created: string;
-    updated: string;
+    created: string; //this could be of type Date ?
+    updated: string; //this could be of type Date ?
     status: string;
     orderedBy: string;
     team: string;

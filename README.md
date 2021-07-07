@@ -59,12 +59,20 @@ Support Tool built for Certn by UVic Seng 499 students.
 
     "Token (SESSION KEY)"
 
+    except for the purpose of testing, please avoid using the API token "Bearer 47914591cbc760b9897070f8221af66176296352". This is a non-secure implementation of API access that only works for our 499 demo API.
+
     _Our major API GET endpoints are:_
-    *https://demo-api.certn.co/hr/v1/applications/?adjudication_status!=ARCHIVED&ordering=created*
+
+    #https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=created#
     Gets the entire list of archived applicants currently in the database.
 
-    *https://demo-api.certn.co/hr/v1/applicants/{applicant_id}/*
+    #https://demo-api.certn.co/hr/v1/applicants/{applicant_id}/#
     Gets an applicant's information given their ID.
+
+    #DELETE https://demo-api.certn.co/hr/v1/applicants/<applicant_id>/#
+    Treat DELETE like a GET request: deletes this applicant from database.
+
+    Note that all API requests should be written in src/Certn-Api/index.tsx. Relevant components for submitting requests should be included in src/components/SearchApp.
 
 ## Notable Packages
 

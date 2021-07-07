@@ -17,6 +17,7 @@ notification.config({
 
 const AppDiv = styled.div`
     font-family: ${(props) => props.theme.fontFamily};
+    height: 100%;
 `;
 
 export function App(): JSX.Element {
@@ -43,7 +44,7 @@ const RouteWrapper = (): JSX.Element => {
         return <Login />;
     } else {
         return (
-            <div>
+            <div style={{ height: '100%' }}>
                 <NavBar />
                 <Switch>
                     <Route exact path="/">

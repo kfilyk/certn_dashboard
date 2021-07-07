@@ -1,6 +1,6 @@
 import SoftCheck from '../SearchApp/Softcheck';
 import CreditReport from '../SearchApp/Creditreport';
-import ActiveApplicants from '../SearchApp/Activeapplicants';
+import GetPrunedApplications from '../SearchApp/GetPrunedApplications';
 
 // Ant Design Imports
 import 'antd/dist/antd.css';
@@ -15,7 +15,7 @@ const Dashboard = (): JSX.Element => (
     <div>
         <SoftCheck />
         <CreditReport />
-        <ActiveApplicants />
+        <GetPrunedApplications />
     </div>
 );
 

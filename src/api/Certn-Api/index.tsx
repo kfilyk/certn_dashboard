@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { UserData } from '../../interfaces';
+import { UserData, AdvApplicationInfo } from '../../interfaces';
+import { MutipleApplicationSearchResults } from '../../ApplicationInterfaces';
 
 const getToken = (): string => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""'); // instead of localstorage, use cookies: session storage eliminates local storage when browser closes
@@ -87,34 +88,56 @@ const Creditreport = async (): Promise<void> => {
     }
 };
 
-const Activeapplicants = async (): Promise<void> => {
+const pruneApplicationsData = (response_data: MutipleApplicationSearchResults) => {
+    const pruned_applications: Array<AdvApplicationInfo> = [];
+    response_data.results.forEach((response) => {
+        const applicant = response.application.applicant;
+        const owner = response.application.owner;
+        const application: AdvApplicationInfo = {
+            application_id: response.application.id,
+            key: applicant.id, // applicant_id
+            email: applicant.email,
+            firstName: applicant.first_name,
+            lastName: applicant.last_name,
+            phone: applicant.phone_number ? applicant.phone_number.toString() : '',
+            created: response.application.created ? response.application.created.toString() : '', // this could be of type Date if we update in interface
+            updated: response.application.modified ? response.application.modified.toString() : '', // this could be of type Date if we update in interface
+            status: response.report_status, // Waiting to hear from Ben (certn) if this is right
+            orderedBy: owner.email, // Waiting to hear from Ben (certn) if it is possible to get name instead
+            team: owner.team.settings_config.org_name,
+        };
+        pruned_applications.push(application);
+    });
+    return pruned_applications;
+};
+
+/**
+ * search parameters are searched with the logical operator AND
+ * Note: prequesting different pages will require adding on to the search query
+ */
+const getApplications = async (search: string): Promise<Array<AdvApplicationInfo>> => {
+    const base_url = 'https://demo-api.certn.co/hr/v1/applicants/?search=';
+    const search_url = base_url + search.split(' ').join('+');
+    let pruned_applications: Array<AdvApplicationInfo> = [];
     try {
-        const response = await fetch(
-            `https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=created`,
-            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=-created&search=phone@test.com`,
-            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=created&search=benjamin%20gambling`,
-            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&report_status=COMPLETE`,
-            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=information__first_name&report_status=COMPLETE`,
-            //"^applicant_account__email", "^information__first_name","^information__last_name","^application__owner__email","^application__team__name",
-            //`https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&request_softcheck=True&under_review_us=True`,
+        const response = await fetch(search_url, {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: getToken(),
+            },
+        });
 
-            {
-                method: 'GET',
-                headers: {
-                    'Content-type': 'application/json',
-                    Authorization: getToken(), //  'Token xyz...' // Basic a2VsdmluZmlseWtAZ21haWwuY29tOlNlbmc0OTkhISE', //', //'Bearer 47914591cbc760b9897070f8221af66176296352'
-                },
-            }
-        );
-
-        const responseData = await response.json();
+        const response_data = await response.json();
         if (!response.ok) {
-            throw new Error(responseData.message);
+            throw new Error(response_data.message);
         }
-        console.log(responseData);
+        pruned_applications = pruneApplicationsData(response_data);
     } catch (err) {
         console.log('something went wrong: ' + err);
     }
+    console.log(pruned_applications);
+    return pruned_applications;
 };
 
-export { userLogin, Softcheck, Creditreport, getToken, Activeapplicants };
+export { userLogin, Softcheck, Creditreport, getToken, getApplications };

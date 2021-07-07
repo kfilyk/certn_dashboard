@@ -3,10 +3,16 @@ import styled from 'styled-components';
 
 //likely temporary styling
 export const ActionListWrapper = styled.div`
-    margin: 50px;
-    border: 1px solid gray;
-    width: 25%;
+    border: 1px solid ${(props) => props.theme.color.gray[100]};
+    width: 35%;
+    max-width: 220px;
+    margin-right: 25px;
+    background-color: #fff;
+    border-radius: 10px;
 
+    .ant-menu {
+        border-radius: 10px;
+    }
     .ant-menu-item-selected,
     .ant-menu-submenu-selected,
     .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
@@ -27,10 +33,18 @@ export const ActionListWrapper = styled.div`
     }
 `;
 
+export const ActionWrapper = styled.div`
+    display: flex;
+    flex-grow: 2;
+`;
+
 export const FormWrapper = styled.div`
-    margin: 50px;
-    border: 1px solid gray;
+    background-color: #fff;
+    margin: 0px 25px 0px 25px;
+    border: 1px solid ${(props) => props.theme.color.gray[100]};
+    border-radius: 10px;
     width: 30%;
+    flex-grow: 2;
 `;
 
 export const InputWrapper = styled(Input)`

@@ -12,6 +12,7 @@ import { AdvApplicationInfo, Applicant, Application, ApplicationPageData, Critic
 
 // Extracts the info needed for the application info table from the api response
 const buildTableInfo = (resp: Application): AdvApplicationInfo => ({
+    application_id: '', // Rafay: this is the origin of my bug - Kelvin
     key: resp.id,
     email: resp.applicant.email,
     firstName: resp.applicant.first_name,

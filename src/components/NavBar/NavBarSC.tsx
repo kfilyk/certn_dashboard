@@ -8,7 +8,7 @@ export const NavBarWrapper = styled.div`
     height: 80px;
     background-color: ${(props) => props.theme.color.white};
     display: flex;
-    padding-left: 200px;
+    padding-left: 5%;
     justify-content: space-between;
     text-align: center;
 `;
@@ -22,7 +22,7 @@ export const NavBarLink = styled(NavLink)`
     text-decoration: none;
     height: 100%;
     cursor: pointer;
-    padding: 0 20px;
+    padding: 0 20px 0 0;
     // text-align: center;
     letter-spacing: 0.75px;
 
