@@ -5,10 +5,8 @@ import { UserData, AdvApplicationInfo } from '../../interfaces';
 import { MutipleApplicationSearchResults } from '../../ApplicationInterfaces';
 
 const getToken = (): string => {
-    const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""'); // instead of localstorage, use cookies: session storage eliminates local storage when browser closes
-    console.log('Token', authObj.token);
+    const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
     return authObj === '' ? '' : 'Token ' + authObj.token;
-    // # check if object instead of empty string // this keeps breaking because localstorage not updating token to token of current session. Use cookies with timer - creates a token and stays signed in for a duration.
 };
 
 const userLogin = async (username: string, password: string): Promise<UserData> => {
