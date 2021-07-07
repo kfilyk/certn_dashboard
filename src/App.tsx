@@ -36,8 +36,6 @@ export function App(): JSX.Element {
 
 const RouteWrapper = (): JSX.Element => {
     const validAuth = () => {
-        // eslint-disable-next-line no-console
-        console.log('SUP');
         const { token, expiry, userLogout } = WithUser();
         if (expiry !== '') {
             if (Date.parse(expiry) < Date.now()) {
