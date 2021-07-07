@@ -34,7 +34,7 @@ describe('Login Error Prompts Testing', () => {
     });
 });
 
-describe('Check deny logins', () => {
+describe('Check Deny Logins', () => {
     it('Check that nonexistant account returns error', () => {
         cy.clearCookies();
         cy.visit('/');
@@ -44,6 +44,18 @@ describe('Check deny logins', () => {
         cy.contains('', 'Log in').click();
         cy.url().should('include', '/login');
         cy.get('.ant-notification-notice').should('exist');
+    });
+});
+
+describe('Test Correct Login', () => {
+    it('Check page ends on correct page', () => {
+        cy.clearCookies();
+        cy.visit('/search');
+        cy.url().should('include', '/login');
+        cy.get('#login_email').type('certn.test.bot@gmail.com');
+        cy.get('#login_password').type('Seng499!!!');
+        cy.contains('', 'Log in').click();
+        cy.url().should('include', '/search');
     });
 });
 
