@@ -12,12 +12,12 @@ import {
     SearchWrapper,
     SearchButton,
     AdvancedSearchItem,
-    AdvancedWapper,
     AdvancedSwitch,
     ToggleButtonWrapper,
     BasicSearchWrapper,
     InputWrapper,
     TextWrapper,
+    BasicSearchItem,
 } from './SearchBarSC';
 import { Form, Input } from 'antd';
 
@@ -68,16 +68,20 @@ const SearchBar = (Props: any): JSX.Element => {
 
     return (
         <SearchWrapper>
-            {/* <AdvancedWrapper> needs to take the place of Form, but its not working at the moment */}
-            <Form name="search" initialValues={{ remember: true }} onFinish={Props.onSubmit}>
+            <Form
+                name="search"
+                initialValues={{ remember: true }}
+                onFinish={Props.onSubmit}
+                style={{ display: 'flex' }}
+            >
                 <BasicSearchWrapper>
                     <TextWrapper>
                         <p>Search Applications</p>
                     </TextWrapper>
                     <InputWrapper>
-                        <Form.Item name="basic">
+                        <BasicSearchItem name="basic">
                             <SearchForm prefix={<SearchOutlined />} placeholder="Search All Fields..." allowClear />
-                        </Form.Item>
+                        </BasicSearchItem>
                         <AdvancedSwitch onClick={() => Props.setAdvanced(!Props.advanced)}>
                             {Props.advanced ? (
                                 <ToggleButtonWrapper>
