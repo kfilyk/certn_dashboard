@@ -39,7 +39,6 @@ const Softcheck = async (): Promise<void> => {
             body: raw,
         });
         const responseData = await response.json();
-        console.log('data: ', responseData);
         if (!response.ok) {
             throw new Error(responseData.message);
         }
