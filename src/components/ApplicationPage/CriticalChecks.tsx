@@ -14,9 +14,15 @@ import styled from 'styled-components';
 
 // Temp until all components for application page are completed
 const CollapseWrapper = styled.div`
-    margin: 50px;
-    border: 1px solid gray;
-    width: 15%;
+    margin-left: 25px;
+    min-width: 220px;
+    max-width: 300px;
+    border-radius: 10px;
+
+    .ant-collapse {
+        border: 1px solid ${(props) => props.theme.color.gray[100]};
+        border-radius: 10px;
+    }
 `;
 
 // Interfaces
@@ -105,12 +111,23 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
             <Collapse defaultActiveKey={['1', '2', '3']}>
                 <Panel
                     header={
+                        <FailureHeader>
+                            Failure
+                            <FailureBadge count={failure.length} />
+                        </FailureHeader>
+                    }
+                    key="1"
+                >
+                    <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                </Panel>
+                <Panel
+                    header={
                         <CompleteHeader>
                             Complete
                             <CompleteBadge count={complete.length} />
                         </CompleteHeader>
                     }
-                    key="1"
+                    key="2"
                 >
                     <List dataSource={complete} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
@@ -121,20 +138,9 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                             <PendingBadge count={pending.length} />
                         </PendingHeader>
                     }
-                    key="2"
-                >
-                    <List dataSource={pending} renderItem={(item) => <List.Item>{item}</List.Item>} />
-                </Panel>
-                <Panel
-                    header={
-                        <FailureHeader>
-                            Failure
-                            <FailureBadge count={failure.length} />
-                        </FailureHeader>
-                    }
                     key="3"
                 >
-                    <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                    <List dataSource={pending} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
             </Collapse>
         </CollapseWrapper>

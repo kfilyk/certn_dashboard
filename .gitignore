@@ -19,6 +19,10 @@
 .env.production.local
 .vscode/settings.json
 
+.tsx.swo
+.tsx.swp
+.swp
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

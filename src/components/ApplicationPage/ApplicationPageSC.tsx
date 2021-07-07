@@ -2,6 +2,23 @@ import { certnTheme } from '../../Theme/certn-theme';
 import styled from 'styled-components';
 import { Badge, Button } from 'antd';
 
+export const APSpinWrapper = styled.div`
+    height: 100%;
+    .ant-spin-nested-loading,
+    .ant-spin-container {
+        height: 100%;
+    }
+`;
+export const ApplicationPageWrapper = styled.div`
+    background-color: ${(props) => props.theme.color.green[50]};
+    padding: 50px;
+    height: 100%;
+    min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+`;
+
 export const CompleteHeader = styled.span`
     color: ${(props) => props.theme.color.green[600]};
     font-weight: bold;
@@ -49,7 +66,7 @@ export const APErrorWrapper = styled.div`
     text-align: center;
     padding-top: 30vh;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 100%;
     background-color: ${(props) => props.theme.color.red[50]};
 `;
 
