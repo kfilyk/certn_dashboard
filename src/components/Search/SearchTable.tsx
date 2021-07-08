@@ -4,6 +4,7 @@ import { ColumnsType } from 'antd/es/table';
 import { certnTheme } from '../../Theme/certn-theme';
 import { useHistory } from 'react-router-dom';
 import { AdvApplicationInfo } from '../../interfaces';
+import { Spin } from 'antd';
 import './SearchTable.css';
 
 // Styled Components
@@ -19,15 +20,16 @@ const Dot = styled.span`
 
 const dotColor = [
     {
-        status: 'Completed',
+        status: 'COMPLETE',
         color: certnTheme.color.green.default,
     },
     {
-        status: 'Pending',
+        status: 'SENT',
         color: certnTheme.color.yellow.default,
     },
     {
-        status: 'Failed',
+        //Need to ask about this one, not too sure about it ("FAIL" might be wrong)
+        status: 'FAIL',
         color: certnTheme.color.red.default,
     },
 ];
@@ -83,58 +85,26 @@ const columns: ColumnsType<AdvApplicationInfo> = [
     },
 ];
 
-const today: string = new Date().toISOString().slice(0, 10);
-
-const data: AdvApplicationInfo[] = [];
-for (let i = 0; i < 100; i = i + 1) {
-    let stat = '';
-    let name = '';
-    const ran: number = Math.floor(Math.random() * 3);
-    switch (ran) {
-        case 0:
-            stat = 'Completed';
-            name = 'Jack';
-            break;
-        case 1:
-            stat = 'Pending';
-            name = 'Joe';
-            break;
-        case 2:
-            stat = 'Failed';
-            name = 'Jim';
-            break;
-    }
-    data.push({
-        application_id: '', // put actual data here
-        key: i.toString(),
-        email: 'jack@jack.com',
-        firstName: name + i,
-        lastName: 'Black',
-        phone: '123-456-7890',
-        created: today,
-        updated: today,
-        status: stat,
-        orderedBy: 'Jim Joe',
-        team: 'Uvic',
-    });
-}
-
-const SearchTable = (): JSX.Element => {
+const SearchTable = (Props: any): JSX.Element => {
     //history for linking to application page with applicaiton ID
     const history = useHistory();
 
+    const data: AdvApplicationInfo[] = Props.results;
+
     return (
-        <div style={{ width: '85%', margin: '5%' }}>
-            <Table<AdvApplicationInfo>
-                rowClassName="pointer"
-                columns={columns}
-                dataSource={data}
-                onRow={(record) => ({
-                    onClick: () => {
-                        history.push(`/application?id=${record.key}`);
-                    },
-                })}
-            />
+        <div style={{ width: '85%', margin: '5%', marginTop: '145px' }}>
+            <Spin spinning={Props.loading.search}>
+                <Table<AdvApplicationInfo>
+                    rowClassName="pointer"
+                    columns={columns}
+                    dataSource={data}
+                    onRow={(record) => ({
+                        onClick: () => {
+                            history.push(`/application?id=${record.key}`);
+                        },
+                    })}
+                />
+            </Spin>
         </div>
     );
 };

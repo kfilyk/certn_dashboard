@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { UserData } from './interfaces';
 import { useHistory } from 'react-router-dom';
 
@@ -45,6 +45,7 @@ const UserProvider = ({ children }: Props): JSX.Element => {
     const [token, setToken] = useState(getToken());
     const [user, setUser] = useState(getUser());
     const [expiry, setExpiry] = useState(getExpiry());
+
     const history = useHistory();
 
     const setUserData = (userData: UserData) => {
@@ -66,6 +67,24 @@ const UserProvider = ({ children }: Props): JSX.Element => {
         setToken('');
         history.push('/login');
     };
+
+    // during every page refresh, check if user logged in
+    if (expiry !== '') {
+        if (Date.parse(expiry) < Date.now()) {
+            userLogout();
+        }
+    }
+
+    useEffect(() => {
+        setInterval(() => {
+            // runs only if logged in
+            if (expiry !== '') {
+                if (Date.parse(expiry) < Date.now()) {
+                    userLogout();
+                }
+            }
+        }, 1800000); // checks every 30 minutes: 1000ms*60s*30m
+    });
 
     return (
         <UserContext.Provider value={{ token, user, expiry, setUserData, userLogout }}>{children}</UserContext.Provider>
