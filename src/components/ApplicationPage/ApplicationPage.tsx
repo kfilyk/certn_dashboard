@@ -9,8 +9,13 @@ import { CriticalChecks } from './CriticalChecks';
 import { ApplicationActions } from './ApplicationActions';
 
 // Interfaces & Defaults
-import { ChecksInfoDefault, TableInfoDefault, ApplicationPageDataDefault } from './ApplicationPageDefaults';
-import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
+import {
+    ChecksInfoDefault,
+    TableInfoDefault,
+    ApplicationPageDataDefault,
+    LinkInfoDefault,
+} from './ApplicationPageDefaults';
+import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
 
 // Styled Components
 import {
@@ -34,6 +39,7 @@ export const ApplicationPage = (): JSX.Element => {
     const [applicationPageData, setApplicationPageData] = useState<ApplicationPageData>(ApplicationPageDataDefault);
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
     const [criticalChecksInfo, setChecksInfo] = useState<CriticalChecksInfo>(ChecksInfoDefault);
+    const [linkInfo, setLinkInfo] = useState<LinkInfo>(LinkInfoDefault);
 
     const history = useHistory();
 
@@ -71,6 +77,7 @@ export const ApplicationPage = (): JSX.Element => {
                 setApplicationPageData(response);
                 setTableInfo(response.application_info);
                 setChecksInfo(response.critical_checks);
+                setLinkInfo(response.application_links);
                 setSuccess(true);
             } catch (e) {
                 notification.error({
@@ -109,7 +116,7 @@ export const ApplicationPage = (): JSX.Element => {
                     <ApplicationPageWrapper>
                         <ApplicationInfo info={tableInfo} />
                         <div style={{ display: 'flex', padding: '50px 0px 0px 0px' }}>
-                            <ApplicationActions />
+                            <ApplicationActions info={linkInfo} />
                             <CriticalChecks checks={criticalChecksInfo} />
                         </div>
                     </ApplicationPageWrapper>

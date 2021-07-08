@@ -1,4 +1,4 @@
-import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
+import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
 
 export const TableInfoDefault: AdvApplicationInfo = {
     application_id: '',
@@ -47,7 +47,12 @@ export const ChecksInfoDefault: CriticalChecksInfo = {
     },
 };
 
+export const LinkInfoDefault: LinkInfo = {
+    onboarding_link: '',
+};
+
 export const ApplicationPageDataDefault: ApplicationPageData = {
     critical_checks: ChecksInfoDefault,
     application_info: TableInfoDefault,
+    application_links: LinkInfoDefault,
 };

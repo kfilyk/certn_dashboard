@@ -7,11 +7,16 @@ import { certnTheme } from './Theme/certn-theme';
 import styled, { ThemeProvider } from 'styled-components';
 import 'antd/dist/antd.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 import NavBar from './components/NavBar/NavBar';
 
 notification.config({
     placement: 'topRight',
+    duration: 3,
+});
+
+message.config({
+    maxCount: 1,
     duration: 3,
 });
 
