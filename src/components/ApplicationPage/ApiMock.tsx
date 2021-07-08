@@ -4,6 +4,7 @@
  * interface ApplicationPageData {
  *   critical_checks: CriticalChecksInfo;
  *   application: AdvApplicationInfo;
+ *   links: LinkInfo;
  * }
  * see the ApplicationPageData interface in interfaces.tsx for more details
  */

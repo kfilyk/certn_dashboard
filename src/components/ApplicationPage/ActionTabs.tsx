@@ -32,6 +32,10 @@ export const ActionTabs = ({ action, email, links }: ActionTabProps): JSX.Elemen
     const textT = action == 'onboarding' ? actionVariables.onboarding.text : actionVariables.report.text;
     const linkT = action == 'onboarding' ? links.onboarding_link : actionVariables.report.link;
 
+    /* Copy function: https://stackoverflow.com/a/62958832
+     * Creates empty textarea element, assigns URL as the value, copies URL, destroys textarea element
+     * Displays AntD Message component for copy success
+     */
     const copyToClipboard = (content: string) => {
         const el = document.createElement('textarea');
         el.value = content;
