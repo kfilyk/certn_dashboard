@@ -3,7 +3,6 @@
 import { Base64 } from 'js-base64';
 import { UserData, AdvApplicationInfo } from '../../interfaces';
 import { MutipleApplicationSearchResults } from '../../ApplicationInterfaces';
-import { WithUser } from '../../userContext';
 
 const getToken = (): string => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
