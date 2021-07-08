@@ -77,6 +77,7 @@ const UserProvider = ({ children }: Props): JSX.Element => {
 
     useEffect(() => {
         setInterval(() => {
+            // runs only if logged in
             if (expiry !== '') {
                 if (Date.parse(expiry) < Date.now()) {
                     userLogout();
