@@ -21,9 +21,10 @@ describe('Test searchbar basic input', () => {
 });
 
 describe('Test searchbar advanced input firstname', () => {
-    it('Check advanced button exists and firstname input exists', () => {
+    it('Check advanced button exists, firstname input exists and the Basic button exists', () => {
         cy.contains('Advanced').should('exist');
         cy.contains('Advanced').click();
+        cy.contains('Basic').should('exist');
         cy.get('#search_firstname').should('exist');
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(400);
