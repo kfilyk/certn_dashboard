@@ -20,6 +20,7 @@ import {
     BasicSearchItem,
 } from './SearchBarSC';
 import { Form, Input } from 'antd';
+import { SearchSubmission } from './SearchTypes';
 
 const regExp = /[a-zA-Z]/g;
 
@@ -33,18 +34,14 @@ const validPhone = (rule: unknown, value: string) => {
     }
 };
 
-interface SearchFormProps {
-    onSubmit: (values: {
-        basic: string;
-        firstname: string;
-        lastname: string;
-        phone: string;
-        email: string;
-    }) => Promise<void>;
+interface SearchBarProps {
+    onSubmit: (values: SearchSubmission) => Promise<void>;
+    advanced: boolean;
+    setAdvanced: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Actual Searchbar element, contains basic search bar form, submit button and advanced search form
-const SearchBar = (Props: any): JSX.Element => {
+const SearchBar: React.FC<SearchBarProps> = (props) => {
     const AdvancedSearch = (): JSX.Element => (
         // Form for advanced Search, with form wrapper and items
         <>
@@ -72,7 +69,7 @@ const SearchBar = (Props: any): JSX.Element => {
             <Form
                 name="search"
                 initialValues={{ remember: true }}
-                onFinish={Props.onSubmit}
+                onFinish={props.onSubmit}
                 style={{ display: 'flex' }}
             >
                 <BasicSearchWrapper>
@@ -83,8 +80,8 @@ const SearchBar = (Props: any): JSX.Element => {
                         <BasicSearchItem name="basic">
                             <SearchForm prefix={<SearchOutlined />} placeholder="Search All Fields..." allowClear />
                         </BasicSearchItem>
-                        <AdvancedSwitch onClick={() => Props.setAdvanced(!Props.advanced)}>
-                            {Props.advanced ? (
+                        <AdvancedSwitch onClick={() => props.setAdvanced(!props.advanced)}>
+                            {props.advanced ? (
                                 <ToggleButtonWrapper>
                                     <MenuFoldOutlined /> <p>Basic</p>
                                 </ToggleButtonWrapper>
@@ -96,7 +93,7 @@ const SearchBar = (Props: any): JSX.Element => {
                         </AdvancedSwitch>
                     </InputWrapper>
                 </BasicSearchWrapper>
-                {Props.advanced && <AdvancedSearch />}
+                {props.advanced && <AdvancedSearch />}
                 <SearchButton type="primary" htmlType="submit">
                     Search
                 </SearchButton>
