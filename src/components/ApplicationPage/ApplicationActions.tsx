@@ -1,11 +1,17 @@
 import { Menu } from 'antd';
 import { ActionListWrapper, ActionWrapper } from './ApplicationActionsSC';
 import { useState } from 'react';
+import { LinkInfo } from '../../interfaces';
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import { ActionTabs } from './ActionTabs';
 
-export const ApplicationActions = (): JSX.Element => {
+// Interfaces
+type LinkProps = {
+    info: LinkInfo;
+};
+
+export const ApplicationActions = ({ info }: LinkProps): JSX.Element => {
     const [selectedAction, setSelectedAction] = useState<string>('onboarding');
 
     //currently shows dummy text corresponding to each of the 3 pages based on the selected action
@@ -21,7 +27,7 @@ export const ApplicationActions = (): JSX.Element => {
                     </Menu.ItemGroup>
                 </Menu>
             </ActionListWrapper>
-            <ActionTabs action={selectedAction} email="jane.cooper@certn.co" />
+            <ActionTabs action={selectedAction} email="jane.cooper@certn.co" links={info} />
         </ActionWrapper>
     );
 };
