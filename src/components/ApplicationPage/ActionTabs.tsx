@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Form } from 'antd';
 import {
     FormWrapper,
@@ -9,6 +10,7 @@ import {
     StyledParaNB,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
+import { Spin } from 'antd';
 
 const actionVariables = {
     onboarding: {
@@ -21,33 +23,30 @@ const actionVariables = {
     },
 };
 
-interface ActionTabProps {
-    action: string;
-    email: string;
-}
+export const ActionTabs = (Props: any): JSX.Element => {
+    const textT = Props.action == 'onboarding' ? actionVariables.onboarding.text : actionVariables.report.text;
 
-export const ActionTabs = ({ action, email }: ActionTabProps): JSX.Element => {
-    const textT = action == 'onboarding' ? actionVariables.onboarding.text : actionVariables.report.text;
-
-    const linkT = action == 'onboarding' ? actionVariables.onboarding.link : actionVariables.report.link;
+    const linkT = Props.action == 'onboarding' ? actionVariables.onboarding.link : actionVariables.report.link;
 
     return (
         <FormWrapper>
-            {action === 'documents' ? (
+            {Props.action === 'documents' ? (
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
-                    <InputWrapper value={email} />
+                    <InputWrapper value={Props.email} />
                     <ButtonWrapper type="primary">Send</ButtonWrapper>
                     <StyledParaNB> Documents to Send</StyledParaNB>
-                    <PDFViewer />
+                    <Spin spinning={Props.loading.search}>
+                        <PDFViewer docs={Props.docs} />
+                    </Spin>
                 </Form>
             ) : (
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email </StyledParaN>
                     <div>
-                        <InputWrapper value={email} />
+                        <InputWrapper value={Props.email} />
                         <ButtonWrapper type="primary">Send</ButtonWrapper>
                     </div>
                     <StyledParaNB> {textT} </StyledParaNB>

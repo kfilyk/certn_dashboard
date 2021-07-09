@@ -141,9 +141,9 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
  * Function designed to simulate a call to the api in search of a list of all documents associated to a given application
  * Will be turned into a proper call once endpoint is implemented
  */
-const getListOfPdfsMOCK = async (numberOfEntries: number): Promise<Array<Document>> => {
+const getListOfPdfsMOCK = async (): Promise<Array<Document>> => {
     const returnDocuments: Array<Document> = [];
-    for (let i = 0; i < numberOfEntries; i = i + 1) {
+    for (let i = 0; i < 5; i = i + 1) {
         const interationTitle = 'Mock Consent Doc ' + i; // random generation
         const iterationKey = 'MOCK KEY ' + i;
 
