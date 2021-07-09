@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { UserData } from './interfaces';
 import { useHistory } from 'react-router-dom';
 
@@ -57,14 +57,6 @@ const UserProvider = ({ children }: Props): JSX.Element => {
             expiry: userData.expiry,
             user: userData.user,
         };
-        const session_expiry = setInterval(() => {
-            if (expiry !== '') {
-                if (Date.parse(expiry) < Date.now()) {
-                    userLogout();
-                    clearInterval(session_expiry);
-                }
-            }
-        }, 300000); // On successful user login, start a new expiryTimer. // checks every 5 minutes: 1000ms*60s*5m
         localStorage.setItem('certn-auth', JSON.stringify(auth));
     };
 
@@ -75,13 +67,19 @@ const UserProvider = ({ children }: Props): JSX.Element => {
         setToken('');
         history.push('/login');
     };
-
     // during every page refresh, check if user logged in
-    if (expiry !== '') {
-        if (Date.parse(expiry) < Date.now()) {
-            userLogout();
+    const session_expiry = setInterval(() => {
+        const exp = getExpiry(); // get current expiry value
+        console.log('EXPIRY:', exp);
+        if (exp !== '') {
+            if (Date.parse(exp) < Date.now()) {
+                userLogout();
+                clearInterval(session_expiry);
+            }
+        } else {
+            clearInterval(session_expiry);
         }
-    }
+    }, 2000); // On successful user login, start a new expiryTimer. // checks every 5 minutes: 1000ms*60s*5m
 
     return (
         <UserContext.Provider value={{ token, user, expiry, setUserData, userLogout }}>{children}</UserContext.Provider>
