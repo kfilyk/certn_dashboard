@@ -58,17 +58,13 @@ describe('Test searchbar advanced input phone', () => {
     });
 });
 
-describe('Test searchbar advanced input phone', () => {
-    it('Check phone search input exists', () => {
+describe('Test searchbar advanced input email', () => {
+    it('Check email search input exists', () => {
         cy.viewport(1500, 1000);
-        cy.get(
-            ':nth-child(5) > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-input-affix-wrapper > .ant-input-suffix'
-        ).should('exist');
+        cy.get('#search_email').should('exist');
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(400);
-        cy.get(
-            ':nth-child(5) > .ant-form-item-control > .ant-form-item-control-input > .ant-form-item-control-input-content > .ant-input-affix-wrapper > .ant-input-suffix'
-        ).type('test@test.co');
+        cy.get('#search_email').type('test@test.co');
         cy.get('.ant-btn-primary').click();
     });
 });
@@ -79,6 +75,18 @@ describe('Check when invalid phone number', () => {
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(400);
         cy.get('#search_phone').clear().type('asd');
+        cy.get('.ant-form-item-explain > div').should('exist');
+        cy.get('#search_phone').clear();
+    });
+});
+
+describe('Check when invalid email number', () => {
+    it('Check to make sure red error pops up under email input when an incorrect email is put in', () => {
+        cy.viewport(1500, 1000);
+        cy.get('#search_email').should('exist');
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(400);
+        cy.get('#search_email').clear().type('asd');
         cy.get('.ant-form-item-explain > div').should('exist');
     });
 });
