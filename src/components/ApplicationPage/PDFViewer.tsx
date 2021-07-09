@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PreviewCheckbox, ButtonWrapper, ModalWrapper } from './ApplicationActionsSC';
+import { PreviewCheckbox, ModalWrapper } from './ApplicationActionsSC';
 import { List } from 'antd';
 import { ConsentDocument } from '../../interfaces';
 import './PDFViewer.css';
