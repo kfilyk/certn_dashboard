@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 export const NavBarWrapper = styled.div`
     width: 100%;
-    height: 80px;
+    min-height: 80px;
     background-color: ${(props) => props.theme.color.white};
     display: flex;
     padding-left: 5%;

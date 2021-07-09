@@ -9,6 +9,7 @@ import 'antd/dist/antd.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { notification, message } from 'antd';
 import NavBar from './components/NavBar/NavBar';
+import { NotFoundPage } from './components/NotFoundPage/NotFoundPage';
 
 notification.config({
     placement: 'topRight',
@@ -23,6 +24,8 @@ message.config({
 const AppDiv = styled.div`
     font-family: ${(props) => props.theme.fontFamily};
     height: 100%;
+    display: flex;
+    flex-direction: column;
 `;
 
 export function App(): JSX.Element {
@@ -49,7 +52,7 @@ const RouteWrapper = (): JSX.Element => {
         return <Login />;
     } else {
         return (
-            <div style={{ height: '100%' }}>
+            <>
                 <NavBar />
                 <Switch>
                     <Route exact path="/">
@@ -61,8 +64,9 @@ const RouteWrapper = (): JSX.Element => {
                     <Route path="/search" component={Search} />
                     <Route path="/application" component={ApplicationPage} />
                     <Route path="/dashboard" component={Dashboard} />
+                    <Route component={NotFoundPage} />
                 </Switch>
-            </div>
+            </>
         );
     }
 };
