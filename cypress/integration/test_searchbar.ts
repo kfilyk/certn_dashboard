@@ -15,6 +15,8 @@ describe('Test searchbar basic input', () => {
         cy.clearCookies();
         cy.get('#search_basic').should('exist');
         cy.get('#search_basic').type('test@test.co');
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(400);
         cy.get('.ant-btn-primary').should('exist');
         cy.get('.ant-btn-primary').click();
     });
@@ -25,6 +27,9 @@ describe('Test searchbar advanced input firstname', () => {
         cy.contains('Advanced').should('exist');
         cy.contains('Advanced').click();
         cy.contains('Basic').should('exist');
+        cy.contains('Basic').click();
+        cy.contains('Advanced').should('exist');
+        cy.contains('Advanced').click();
         cy.get('#search_firstname').should('exist');
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(400);
