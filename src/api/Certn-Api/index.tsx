@@ -3,6 +3,7 @@
 import { Base64 } from 'js-base64';
 import { UserData, AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
 import { MutipleApplicationSearchResults, Result } from '../../ApplicationInterfaces';
+const version = 'v1';
 
 const getToken = (): string => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
@@ -86,6 +87,12 @@ const Creditreport = async (): Promise<void> => {
     }
 };
 
+/**
+ * This is a helper function that builds the desired applicant information from Certn's API response.
+ *
+ * @param response
+ * @returns AdvApplicationInfo
+ */
 const buildAdvApplicationInfo = (response: Result): AdvApplicationInfo => {
     const applicant = response.application.applicant;
     const owner = response.application.owner;
@@ -100,11 +107,17 @@ const buildAdvApplicationInfo = (response: Result): AdvApplicationInfo => {
         updated: response.application.modified ? response.application.modified.toString() : '',
         status: response.report_status,
         orderedBy: owner.email,
-        team: owner.team.settings_config.org_name,
+        team: owner.team.name,
     };
     return application;
 };
-
+/**
+ * This is a helper function that iterates through an array of applicants in the desired format.
+ * This is helpful for the the search page where the search table needs to display many applicants.
+ *
+ * @param response_data
+ * @returns Array of AdvApplicationInfo
+ */
 const pruneApplicationsData = (response_data: MutipleApplicationSearchResults): Array<AdvApplicationInfo> => {
     const pruned_applications: Array<AdvApplicationInfo> = [];
     response_data.results.forEach((response) => {
@@ -115,11 +128,19 @@ const pruneApplicationsData = (response_data: MutipleApplicationSearchResults): 
 };
 
 /**
- * search parameters are searched with the logical operator AND
- * Note: prequesting different pages will require adding on to the search query
+ * The search string must be a string of words seperate by one whitesapce.
+ * Parameters are searched with the logical operator AND. The implications of this is that all the
+ * keywords in the search string must appear in an application for a result to be included.
+ * Searching with an empty string will return all applicants.
+ *
+ * Note: To add pagination a small refactor should be done.
+ * Note: This function should be renamed to getApplicants
+ *
+ * @param search
+ * @returns An array of AdvApplicationInfo
  */
 const getApplications = async (search: string): Promise<Array<AdvApplicationInfo>> => {
-    const base_url = 'https://demo-api.certn.co/hr/v1/applicants/?search=';
+    const base_url = `https://demo-api.certn.co/hr/${version}/applicants/?search=`;
     const search_url = base_url + search.split(' ').join('+');
     let pruned_applications: Array<AdvApplicationInfo> = [];
     try {
@@ -142,6 +163,12 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
     return pruned_applications;
 };
 
+/**
+ * This is a helper function used to build an object that represents the cirtical checks of an applicant.
+ *
+ * @param response_data
+ * @returns CriticalChecksInfo
+ */
 const buildCriticalChecks = (response_data: Result): CriticalChecksInfo => {
     const critical_checks: CriticalChecksInfo = {
         us_criminal_record_check_result: {
@@ -179,6 +206,12 @@ const buildCriticalChecks = (response_data: Result): CriticalChecksInfo => {
     return critical_checks;
 };
 
+/**
+ * This is a helper function which builds the applicant information for the Application Page
+ *
+ * @param response_data
+ * @returns ApplicationPageData
+ */
 const getApplicantData = (response_data: Result): ApplicationPageData => {
     const application_page_data: ApplicationPageData = {
         critical_checks: buildCriticalChecks(response_data),
@@ -187,9 +220,14 @@ const getApplicantData = (response_data: Result): ApplicationPageData => {
     return application_page_data;
 };
 
+/**
+ * This function retrieves the applicant information for a single applicant given and applicant id.
+ *
+ * @param applicant_id
+ * @returns ApplicationPageData
+ */
 const getApplicant = async (applicant_id: string): Promise<ApplicationPageData> => {
     // Note to get a signle applicant we need to pass in application.applicant.id and not application.id
-    const version = 'v1';
     const search_url = `https://demo-api.certn.co/hr/${version}/applicants/${applicant_id}`;
     let application_page_data: ApplicationPageData = {} as ApplicationPageData;
 
