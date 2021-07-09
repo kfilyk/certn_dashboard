@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { UserData, AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
+import { UserData, AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
 import { MutipleApplicationSearchResults, Result } from '../../ApplicationInterfaces';
 const version = 'v1';
 
@@ -206,16 +206,25 @@ const buildCriticalChecks = (response_data: Result): CriticalChecksInfo => {
     return critical_checks;
 };
 
+const buildLinkInfo = (response_data: Result): LinkInfo => {
+    const applicant = response_data.application.applicant;
+    return {
+        onboarding_link: applicant.application_url,
+    };
+};
+
 /**
  * This is a helper function which builds the applicant information for the Application Page
  *
  * @param response_data
  * @returns ApplicationPageData
  */
+
 const getApplicantData = (response_data: Result): ApplicationPageData => {
     const application_page_data: ApplicationPageData = {
         critical_checks: buildCriticalChecks(response_data),
         application_info: buildAdvApplicationInfo(response_data),
+        application_links: buildLinkInfo(response_data),
     };
     return application_page_data;
 };
