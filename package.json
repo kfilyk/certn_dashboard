@@ -25,14 +25,15 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test",
         "eject": "react-scripts eject",
         "prepare": "husky install",
         "lint": "eslint --ext .jsx,.js,.ts,.tsx src/ cypress/",
         "lint:fix": "eslint --ext .jsx,.js,.ts,.tsx src/ --fix",
         "prettier:check": "prettier --check .",
         "prettier:fix": "prettier --write .",
-        "cypress": "cypress open"
+        "test": "start-server-and-test 3000 'cypress run'",
+        "cy:run": "cypress run",
+        "cy:open": "cypress open"
     },
     "eslintConfig": {
         "extends": [
@@ -68,6 +69,7 @@
         "eslint-plugin-react-hooks": "^4.2.0",
         "express": "^4.17.1",
         "husky": "^6.0.0",
-        "prettier": "2.3.0"
+        "prettier": "2.3.0",
+        "start-server-and-test": "^1.12.6"
     }
 }
