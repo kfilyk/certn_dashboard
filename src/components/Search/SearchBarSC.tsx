@@ -85,8 +85,8 @@ export const AdvancedSearchItem = styled(Form.Item)`
     }
 `;
 
-export const AdvancedWapper = styled(Form)`
-    display: flex;
+export const BasicSearchItem = styled(Form.Item)`
+    flex-grow: 1;
 `;
 
 export const BasicSearchWrapper = styled.div`

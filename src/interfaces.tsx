@@ -45,6 +45,10 @@ interface CriticalChecksInfo {
     certn_verification: CertnVerification;
 }
 
+interface LinkInfo {
+    onboarding_link: string;
+}
+
 interface Applicant {
     report_summary: CriticalChecksInfo;
     application: Application;
@@ -53,9 +57,10 @@ interface Applicant {
 interface ApplicationPageData {
     critical_checks: CriticalChecksInfo;
     application_info: AdvApplicationInfo;
+    application_links: LinkInfo;
 }
 
-interface Document {
+interface ConsentDocument {
     title: string;
     key_string: string;
     url_mock: string;
@@ -72,6 +77,7 @@ interface Application {
         email: string;
         id: string;
         phone_number: string;
+        application_url: string;
     };
     owner: {
         id: string;
@@ -99,8 +105,9 @@ export type {
     CriticalChecksResult,
     CertnVerification,
     CriticalChecksInfo,
+    LinkInfo,
     ApplicationPageData,
     Application,
     Applicant,
-    Document,
+    ConsentDocument,
 };

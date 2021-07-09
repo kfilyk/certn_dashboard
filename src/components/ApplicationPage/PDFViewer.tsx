@@ -3,10 +3,13 @@ import { PreviewCheckbox, ButtonWrapper, ModalWrapper } from './ApplicationActio
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
-import logo from '../../logo.svg';
 import test from '../../deleteBeforeRelease/test.pdf';
+import { List } from 'antd';
+import { ConsentDocument } from '../../interfaces';
+import './PDFViewer.css';
 
-export const PDFViewer = (): JSX.Element => {
+export const PDFViewer = (Props: any): JSX.Element => {
+    const data: ConsentDocument[] = Props.docs;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [page, setPage] = useState(1);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -14,7 +17,7 @@ export const PDFViewer = (): JSX.Element => {
 
     const [showModal, setShowModal] = useState(false);
 
-    const [numPages, setNumPages] = useState<number | null>(null);
+    const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState(1);
 
     const displayModal = () => {
@@ -49,10 +52,18 @@ export const PDFViewer = (): JSX.Element => {
     //PDF will be implemented inside ModalWrapper above the <p>, which will be used to count the pages
     return (
         <div>
-            <PreviewCheckbox>Consent Document 1</PreviewCheckbox>
-            <ButtonWrapper type="primary" onClick={displayModal}>
-                Preview
-            </ButtonWrapper>
+            <List
+                dataSource={data}
+                renderItem={(item: ConsentDocument) => (
+                    <List.Item onClick={displayModal}>
+                        <PreviewCheckbox> </PreviewCheckbox>
+                        <List.Item.Meta
+                            title={<a href={item.url_mock}>{item.title}</a>}
+                            description={item.key_string}
+                        />
+                    </List.Item>
+                )}
+            />
             <ModalWrapper title="Preview" visible={showModal} onOk={handleOk} onCancel={handleCancel}>
                 <Document file={test} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page pageNumber={pageNumber} />

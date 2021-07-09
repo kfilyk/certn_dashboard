@@ -4,11 +4,19 @@
  * interface ApplicationPageData {
  *   critical_checks: CriticalChecksInfo;
  *   application: AdvApplicationInfo;
+ *   links: LinkInfo;
  * }
  * see the ApplicationPageData interface in interfaces.tsx for more details
  */
 
-import { AdvApplicationInfo, Applicant, Application, ApplicationPageData, CriticalChecksInfo } from '../../interfaces';
+import {
+    AdvApplicationInfo,
+    Applicant,
+    Application,
+    ApplicationPageData,
+    CriticalChecksInfo,
+    LinkInfo,
+} from '../../interfaces';
 
 // Extracts the info needed for the application info table from the api response
 const buildTableInfo = (resp: Application): AdvApplicationInfo => ({
@@ -58,6 +66,10 @@ const buildChecksInfo = (resp: CriticalChecksInfo): CriticalChecksInfo => ({
     },
 });
 
+const buildLinkInfo = (resp: Application): LinkInfo => ({
+    onboarding_link: resp.applicant.application_url,
+});
+
 const mockApplication: Application = {
     created: '2021-06-14T00:00:00Z',
     modified: '2021-06-14T00:00:00Z',
@@ -69,6 +81,8 @@ const mockApplication: Application = {
         last_name: 'Judy',
         phone_number: '250-555-5555',
         email: 'test@certn.co',
+        application_url:
+            'https://demo-app.certn.co/welcome/email?session=3d4c1bd6-4a5a-466c-ac42-5b16cbb306ce&token=cc6869ef-8e10-4a20-8acc-774060e5fd52&onboardingType=HR&inviteRoute=email',
     },
     owner: {
         id: '24e840ba-ad59-479c-b28e-425a12e1af57',
@@ -134,6 +148,7 @@ const mockApplicant: Applicant = {
 const mockApplicationPageData: ApplicationPageData = {
     critical_checks: buildChecksInfo(mockApplicant.report_summary),
     application_info: buildTableInfo(mockApplicant.application),
+    application_links: buildLinkInfo(mockApplicant.application),
 };
 
 export const fakeApi = async (id: string): Promise<ApplicationPageData> => {

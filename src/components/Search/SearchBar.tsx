@@ -12,98 +12,92 @@ import {
     SearchWrapper,
     SearchButton,
     AdvancedSearchItem,
-    AdvancedWapper,
     AdvancedSwitch,
     ToggleButtonWrapper,
     BasicSearchWrapper,
     InputWrapper,
     TextWrapper,
+    BasicSearchItem,
 } from './SearchBarSC';
-import { Input } from 'antd';
-import { useState } from 'react';
+import { Form, Input } from 'antd';
+import { SearchSubmission } from './SearchTypes';
 
 const regExp = /[a-zA-Z]/g;
 
 // Validator to check if it contains any letters, expand to include special non-dash chars later?
-const validPhone = (rule: any, value: any) => {
-    if (regExp.test(value)) {
+//AntD forces the "rule" variable and we need to check what type it is
+const validPhone = (rule: unknown, value: string) => {
+    if (regExp.test(value) && value !== '' && value !== undefined) {
         return Promise.reject('Must be a valid number');
     } else {
         return Promise.resolve();
     }
 };
 
-interface SearchProps {
-    onSubmit: (values: {
-        basic: string;
-        firstname: string;
-        lastname: string;
-        phone: string;
-        email: string;
-    }) => Promise<void>;
+interface SearchBarProps {
+    onSubmit: (values: SearchSubmission) => Promise<void>;
+    advanced: boolean;
+    setAdvanced: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AdvancedSearch = (): JSX.Element => (
-    // Form for advanced Search, with form wrapper and items
-    <AdvancedWapper name="Advanced Search">
-        <AdvancedSearchItem name="firstname" label="First Name" rules={[{ type: 'string' }]}>
-            <Input prefix={<UserOutlined />} placeholder="Candidate First Name" type="firstname" allowClear />
-        </AdvancedSearchItem>
-        <AdvancedSearchItem name="lastname" label="Last Name" rules={[{ type: 'string' }]}>
-            <Input prefix={<UserOutlined />} placeholder="Candidate Last Name" type="lastname" allowClear />
-        </AdvancedSearchItem>
-        <AdvancedSearchItem name="phone" label="Phone Number" rules={[{ validator: validPhone }]}>
-            <Input prefix={<PhoneOutlined />} placeholder="Candidate Phone #" type="phone" allowClear />
-        </AdvancedSearchItem>
-        <AdvancedSearchItem
-            name="email"
-            label="Email"
-            rules={[{ type: 'email', message: 'Please enter a valid email' }]}
-        >
-            <Input prefix={<MailOutlined />} placeholder="Candidate Email" type="email" allowClear />
-        </AdvancedSearchItem>
-    </AdvancedWapper>
-);
-
-// button for sending search
-const SearchCommit = (): JSX.Element => (
-    <SearchButton type="primary" htmlType="submit">
-        Search
-    </SearchButton>
-);
-
 // Actual Searchbar element, contains basic search bar form, submit button and advanced search form
-const SearchBar = (): JSX.Element => {
-    const [advanced, setAdvanced] = useState(false);
+const SearchBar: React.FC<SearchBarProps> = (props) => {
+    const AdvancedSearch = (): JSX.Element => (
+        // Form for advanced Search, with form wrapper and items
+        <>
+            <AdvancedSearchItem name="firstname" label="First Name" rules={[{ type: 'string' }]}>
+                <Input prefix={<UserOutlined />} placeholder="Candidate First Name" type="firstname" allowClear />
+            </AdvancedSearchItem>
+            <AdvancedSearchItem name="lastname" label="Last Name" rules={[{ type: 'string' }]}>
+                <Input prefix={<UserOutlined />} placeholder="Candidate Last Name" type="lastname" allowClear />
+            </AdvancedSearchItem>
+            <AdvancedSearchItem name="phone" label="Phone Number" rules={[{ validator: validPhone }]}>
+                <Input prefix={<PhoneOutlined />} placeholder="Candidate Phone #" type="phone" allowClear />
+            </AdvancedSearchItem>
+            <AdvancedSearchItem
+                name="email"
+                label="Email"
+                rules={[{ type: 'email', message: 'Please enter a valid email' }]}
+            >
+                <Input prefix={<MailOutlined />} placeholder="Candidate Email" type="email" allowClear />
+            </AdvancedSearchItem>
+        </>
+    );
 
     return (
         <SearchWrapper>
-            <BasicSearchWrapper>
-                <TextWrapper>
-                    <p>Search Applications</p>
-                </TextWrapper>
-                <InputWrapper>
-                    <SearchForm
-                        name="basic"
-                        prefix={<SearchOutlined />}
-                        placeholder="Search All Fields..."
-                        allowClear
-                    />
-                    <AdvancedSwitch onClick={() => setAdvanced(!advanced)}>
-                        {advanced ? (
-                            <ToggleButtonWrapper>
-                                <MenuFoldOutlined /> <p>Basic</p>
-                            </ToggleButtonWrapper>
-                        ) : (
-                            <ToggleButtonWrapper>
-                                <MenuUnfoldOutlined /> <p>Advanced</p>
-                            </ToggleButtonWrapper>
-                        )}
-                    </AdvancedSwitch>
-                </InputWrapper>
-            </BasicSearchWrapper>
-            {advanced && <AdvancedSearch />}
-            <SearchCommit />
+            <Form
+                name="search"
+                initialValues={{ remember: true }}
+                onFinish={props.onSubmit}
+                style={{ display: 'flex' }}
+            >
+                <BasicSearchWrapper>
+                    <TextWrapper>
+                        <p>Search Applications</p>
+                    </TextWrapper>
+                    <InputWrapper>
+                        <BasicSearchItem name="basic">
+                            <SearchForm prefix={<SearchOutlined />} placeholder="Search All Fields..." allowClear />
+                        </BasicSearchItem>
+                        <AdvancedSwitch onClick={() => props.setAdvanced(!props.advanced)}>
+                            {props.advanced ? (
+                                <ToggleButtonWrapper>
+                                    <MenuFoldOutlined /> <p>Basic</p>
+                                </ToggleButtonWrapper>
+                            ) : (
+                                <ToggleButtonWrapper>
+                                    <MenuUnfoldOutlined /> <p>Advanced</p>
+                                </ToggleButtonWrapper>
+                            )}
+                        </AdvancedSwitch>
+                    </InputWrapper>
+                </BasicSearchWrapper>
+                {props.advanced && <AdvancedSearch />}
+                <SearchButton type="primary" htmlType="submit">
+                    Search
+                </SearchButton>
+            </Form>
         </SearchWrapper>
     );
 };

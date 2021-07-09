@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { UserData } from './interfaces';
 import { useHistory } from 'react-router-dom';
+import { notification } from 'antd';
 
 type Props = {
     children: React.ReactNode;
@@ -66,6 +67,22 @@ const UserProvider = ({ children }: Props): JSX.Element => {
         setToken('');
         history.push('/login');
     };
+    // during every page refresh, check if user logged in
+    const session_expiry = setInterval(() => {
+        const exp = getExpiry(); // get current expiry value
+        if (exp !== '') {
+            if (Date.parse(exp) < Date.now()) {
+                userLogout();
+                clearInterval(session_expiry);
+                notification.error({
+                    message: 'Session Timeout',
+                    description: 'Please relogin in order to access Certn support.',
+                });
+            }
+        } else {
+            clearInterval(session_expiry);
+        }
+    }, 300000); // On successful user login, start a new expiryTimer. // checks every 5 minutes: 1000ms*60s*5m
 
     return (
         <UserContext.Provider value={{ token, user, expiry, setUserData, userLogout }}>{children}</UserContext.Provider>
