@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { ModalWrapper } from './ApplicationActionsSC';
+import { ButtonWrapper, ModalWrapper } from './ApplicationActionsSC';
+import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+
+import test from '../../deleteBeforeRelease/test.pdf';
 import { List, Checkbox } from 'antd';
 import { ConsentDocument } from '../../interfaces';
 import './PDFViewer.css';
@@ -17,6 +21,9 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
 
     const [showModal, setShowModal] = useState(false);
 
+    const [numPages, setNumPages] = useState<number>(0);
+    const [pageNumber, setPageNumber] = useState(1);
+
     const displayModal = () => {
         setShowModal(true);
     };
@@ -27,6 +34,23 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
 
     const handleCancel = () => {
         setShowModal(false);
+    };
+
+    const changePage = (offset: number) => {
+        setPageNumber((prevPageNumber) => prevPageNumber + offset);
+    };
+    const previousPage = () => {
+        changePage(-1);
+    };
+
+    const nextPage = () => {
+        changePage(1);
+    };
+
+    // eslint-disable-next-line no-shadow
+    const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
+        setNumPages(numPages);
+        setPageNumber(1);
     };
 
     //PDF will be implemented inside ModalWrapper above the <p>, which will be used to count the pages
@@ -47,9 +71,18 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
                 )}
             />
             <ModalWrapper title="Preview" visible={showModal} onOk={handleOk} onCancel={handleCancel}>
+                <Document file={test} onLoadSuccess={onDocumentLoadSuccess}>
+                    <Page pageNumber={pageNumber} />
+                </Document>
                 <p>
-                    Page {page} of {pages}
+                    Page {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}
                 </p>
+                <ButtonWrapper type="primary" disabled={pageNumber <= 1} onClick={previousPage}>
+                    Previous
+                </ButtonWrapper>
+                <ButtonWrapper type="primary" disabled={pageNumber >= numPages!} onClick={nextPage}>
+                    Next
+                </ButtonWrapper>
             </ModalWrapper>
         </div>
     );
