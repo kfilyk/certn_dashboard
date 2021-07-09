@@ -5,7 +5,7 @@ import { useState } from 'react';
 // Ant Design Imports
 import 'antd/dist/antd.css';
 import { ActionTabs } from './ActionTabs';
-import { getListOfPdfsMOCK } from '../../api/Certn-Api';
+import { getListOfPdfs } from '../../api/Certn-Api-Mock/index-mock';
 import { ConsentDocument } from '../../interfaces';
 import { AdvApplicationInfo, LinkInfo } from '../../interfaces';
 
@@ -21,7 +21,7 @@ export const ApplicationActions = ({ advAppInfo, linkInfo }: ApplicationActionsP
     const getDocs = async (): Promise<void> => {
         let apiResults: ConsentDocument[];
         try {
-            apiResults = await getListOfPdfsMOCK();
+            apiResults = await getListOfPdfs();
         } catch (e) {
             apiResults = [];
         }
