@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import { PreviewCheckbox, ModalWrapper } from './ApplicationActionsSC';
-import { List } from 'antd';
+import { ModalWrapper } from './ApplicationActionsSC';
+import { List, Checkbox } from 'antd';
 import { ConsentDocument } from '../../interfaces';
 import './PDFViewer.css';
 
-export const PDFViewer = (Props: any): JSX.Element => {
-    const data: ConsentDocument[] = Props.docs;
+interface PDFViewerProps {
+    docs: ConsentDocument[];
+}
+
+export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
+    const data: ConsentDocument[] = docs;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [page, setPage] = useState(1);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,13 +35,15 @@ export const PDFViewer = (Props: any): JSX.Element => {
             <List
                 dataSource={data}
                 renderItem={(item: ConsentDocument) => (
-                    <List.Item onClick={displayModal}>
-                        <PreviewCheckbox> </PreviewCheckbox>
-                        <List.Item.Meta
-                            title={<a href={item.url_mock}>{item.title}</a>}
-                            description={item.key_string}
-                        />
-                    </List.Item>
+                    <div className="list-container">
+                        <Checkbox></Checkbox>
+                        <List.Item onClick={displayModal}>
+                            <List.Item.Meta
+                                title={<a href={item.url_mock}>{item.title}</a>}
+                                description={item.key_string}
+                            />
+                        </List.Item>
+                    </div>
                 )}
             />
             <ModalWrapper title="Preview" visible={showModal} onOk={handleOk} onCancel={handleCancel}>

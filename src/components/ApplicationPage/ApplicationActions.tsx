@@ -7,8 +7,14 @@ import 'antd/dist/antd.css';
 import { ActionTabs } from './ActionTabs';
 import { getListOfPdfsMOCK } from '../../api/Certn-Api';
 import { ConsentDocument } from '../../interfaces';
+import { AdvApplicationInfo, LinkInfo } from '../../interfaces';
 
-export const ApplicationActions = (props: any): JSX.Element => {
+interface ApplicationActionsProps {
+    advAppInfo: AdvApplicationInfo;
+    linkInfo: LinkInfo;
+}
+
+export const ApplicationActions = ({ advAppInfo, linkInfo }: ApplicationActionsProps): JSX.Element => {
     const [selectedAction, setSelectedAction] = useState<string>('onboarding');
     const [docs, setDocs] = useState<ConsentDocument[]>([]);
 
@@ -38,7 +44,7 @@ export const ApplicationActions = (props: any): JSX.Element => {
                     </Menu.ItemGroup>
                 </Menu>
             </ActionListWrapper>
-            <ActionTabs action={selectedAction} email={props.advAppInfo.email} links={props.linkInfo} docs={docs} />
+            <ActionTabs action={selectedAction} email={advAppInfo.email} links={linkInfo} docs={docs} />
         </ActionWrapper>
     );
 };
