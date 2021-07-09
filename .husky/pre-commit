@@ -3,3 +3,4 @@
 
 npm run lint
 npm run prettier:check
+echo "\e[4;35mDid you check if tests pass?\e[0m"

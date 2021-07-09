@@ -15,6 +15,23 @@ Support Tool built for Certn by UVic Seng 499 students.
 
 -   A full list of the npm scripts which can be run on this project can be found in the `package.json` file of the project.
 
+## How to Test
+
+This project uses [Cypress](https://www.cypress.io/) to test the front end operations.
+
+If you want to just test the service, and _don't_ have a instance runing locally use:
+
+`npm test`
+
+This will start the local service, run all tests against it, and then shut the local service down. The results of the tests will be placed on the cli.
+
+If you already have the service running (e.g. you have run `npm start` beforehand):
+
+1. `cy:run` - Runs tests without the Cypress ui, returns results to the cli.
+2. `cy:start` - Runs the Cypress app itself, which will allow you to see the tests visually in action.
+
+If you're just doing tests before commiting, `cy:run` should be enough to ensure you haven't broken anything. If you want to find what's breaking, or are making new tests for new features, `cy:start` will be the better option. Either option will require multiple terminal instances.
+
 ## Git Standards
 
 ### Branch standards
@@ -59,12 +76,20 @@ Support Tool built for Certn by UVic Seng 499 students.
 
     "Token (SESSION KEY)"
 
+    except for the purpose of testing, please avoid using the API token "Bearer 47914591cbc760b9897070f8221af66176296352". This is a non-secure implementation of API access that only works for our 499 demo API.
+
     _Our major API GET endpoints are:_
-    *https://demo-api.certn.co/hr/v1/applications/?adjudication_status!=ARCHIVED&ordering=created*
+
+    #https://demo-api.certn.co/hr/v1/applicants/?adjudication_status!=ARCHIVED&ordering=created#
     Gets the entire list of archived applicants currently in the database.
 
-    *https://demo-api.certn.co/hr/v1/applicants/{applicant_id}/*
+    #https://demo-api.certn.co/hr/v1/applicants/{applicant_id}/#
     Gets an applicant's information given their ID.
+
+    #DELETE https://demo-api.certn.co/hr/v1/applicants/<applicant_id>/#
+    Treat DELETE like a GET request: deletes this applicant from database.
+
+    Note that all API requests should be written in src/Certn-Api/index.tsx. Relevant components for submitting requests should be included in src/components/SearchApp.
 
 ## Notable Packages
 

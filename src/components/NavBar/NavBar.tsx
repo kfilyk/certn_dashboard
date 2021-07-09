@@ -29,7 +29,7 @@ const NavBar = (): JSX.Element => {
     const history = useHistory();
 
     return (
-        <NavBarWrapper>
+        <NavBarWrapper id="navbar">
             <FlexWrapper>
                 <NavBarLink to="/search" activeClassName="selected" onClick={() => history.push('/search')}>
                     Find Application

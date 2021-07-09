@@ -111,12 +111,23 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
             <Collapse defaultActiveKey={['1', '2', '3']}>
                 <Panel
                     header={
+                        <FailureHeader>
+                            Failure
+                            <FailureBadge count={failure.length} />
+                        </FailureHeader>
+                    }
+                    key="1"
+                >
+                    <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                </Panel>
+                <Panel
+                    header={
                         <CompleteHeader>
                             Complete
                             <CompleteBadge count={complete.length} />
                         </CompleteHeader>
                     }
-                    key="1"
+                    key="2"
                 >
                     <List dataSource={complete} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
@@ -127,20 +138,9 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                             <PendingBadge count={pending.length} />
                         </PendingHeader>
                     }
-                    key="2"
-                >
-                    <List dataSource={pending} renderItem={(item) => <List.Item>{item}</List.Item>} />
-                </Panel>
-                <Panel
-                    header={
-                        <FailureHeader>
-                            Failure
-                            <FailureBadge count={failure.length} />
-                        </FailureHeader>
-                    }
                     key="3"
                 >
-                    <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                    <List dataSource={pending} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
             </Collapse>
         </CollapseWrapper>
