@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { PreviewCheckbox, ButtonWrapper, ModalWrapper } from './ApplicationActionsSC';
 import { List } from 'antd';
-import { Document } from '../../interfaces';
+import { ConsentDocument } from '../../interfaces';
+import './PDFViewer.css';
 
 export const PDFViewer = (Props: any): JSX.Element => {
-    const data: Document[] = Props.docs;
+    const data: ConsentDocument[] = Props.docs;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [page, setPage] = useState(1);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -28,21 +29,17 @@ export const PDFViewer = (Props: any): JSX.Element => {
     return (
         <div>
             <List
-                bordered={true}
                 dataSource={data}
-                renderItem={(item: Document) => (
-                    <List.Item>
+                renderItem={(item: ConsentDocument) => (
+                    <List.Item onClick={displayModal}>
+                        <PreviewCheckbox> </PreviewCheckbox>
                         <List.Item.Meta
-                            title={<a href="https://ant.design">{item.title}</a>}
-                            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                            title={<a href={item.url_mock}>{item.title}</a>}
+                            description={item.key_string}
                         />
                     </List.Item>
                 )}
             />
-            <ButtonWrapper type="primary" onClick={displayModal}>
-                {' '}
-                Preview{' '}
-            </ButtonWrapper>
             <ModalWrapper title="Preview" visible={showModal} onOk={handleOk} onCancel={handleCancel}>
                 <p>
                     Page {page} of {pages}

@@ -6,26 +6,25 @@ import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { ActionTabs } from './ActionTabs';
 import { getListOfPdfsMOCK } from '../../api/Certn-Api';
-import { Document } from '../../interfaces';
+import { ConsentDocument } from '../../interfaces';
 
-interface Loading {
-    search: boolean;
-}
-
-export const ApplicationActions = (): JSX.Element => {
+export const ApplicationActions = (props: any): JSX.Element => {
     const [selectedAction, setSelectedAction] = useState<string>('onboarding');
-    const [docs, setDocs] = useState<Document[]>();
-    const [loading, setLoading] = useState<Loading>({ search: false });
+    const [docs, setDocs] = useState<ConsentDocument[]>([]);
 
     const getDocs = async (): Promise<void> => {
-        setLoading({ search: true });
-        const apiResults = await getListOfPdfsMOCK();
-        setLoading({ search: false });
+        let apiResults: ConsentDocument[];
+        try {
+            apiResults = await getListOfPdfsMOCK();
+        } catch (e) {
+            apiResults = [];
+        }
         setDocs(apiResults);
     };
 
     //currently shows dummy text corresponding to each of the 3 pages based on the selected action
     //Each should be replaced with their relevant page when complete.
+
     return (
         <ActionWrapper>
             <ActionListWrapper>
@@ -39,7 +38,7 @@ export const ApplicationActions = (): JSX.Element => {
                     </Menu.ItemGroup>
                 </Menu>
             </ActionListWrapper>
-            <ActionTabs action={selectedAction} email="jane.cooper@certn.co" docs={docs} loading={loading} />
+            <ActionTabs action={selectedAction} email={props.advAppInfo.email} links={props.linkInfo} docs={docs} />
         </ActionWrapper>
     );
 };

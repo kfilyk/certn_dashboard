@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { UserData, AdvApplicationInfo, Document } from '../../interfaces';
+import { UserData, AdvApplicationInfo, ConsentDocument } from '../../interfaces';
 import { MutipleApplicationSearchResults } from '../../ApplicationInterfaces';
 
 const getToken = (): string => {
@@ -141,13 +141,13 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
  * Function designed to simulate a call to the api in search of a list of all documents associated to a given application
  * Will be turned into a proper call once endpoint is implemented
  */
-const getListOfPdfsMOCK = async (): Promise<Array<Document>> => {
-    const returnDocuments: Array<Document> = [];
-    for (let i = 0; i < 5; i = i + 1) {
+const getListOfPdfsMOCK = async (): Promise<Array<ConsentDocument>> => {
+    const returnDocuments: Array<ConsentDocument> = [];
+    for (let i = 0; i < 20; i = i + 1) {
         const interationTitle = 'Mock Consent Doc ' + i; // random generation
         const iterationKey = 'MOCK KEY ' + i;
 
-        const sudoConsentDoc: Document = {
+        const sudoConsentDoc: ConsentDocument = {
             title: interationTitle,
             key_string: iterationKey,
             url_mock: 'http://example.com/sample.pdf',

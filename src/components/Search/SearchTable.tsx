@@ -85,15 +85,22 @@ const columns: ColumnsType<AdvApplicationInfo> = [
     },
 ];
 
-const SearchTable = (Props: any): JSX.Element => {
+interface SearchTableProps {
+    loading: {
+        search: boolean;
+    };
+    results: AdvApplicationInfo[] | undefined;
+}
+
+const SearchTable: React.FC<SearchTableProps> = (props) => {
     //history for linking to application page with applicaiton ID
     const history = useHistory();
 
-    const data: AdvApplicationInfo[] = Props.results;
+    const data: AdvApplicationInfo[] | undefined = props.results;
 
     return (
         <div style={{ width: '85%', margin: '5%', marginTop: '145px' }}>
-            <Spin spinning={Props.loading.search}>
+            <Spin spinning={props.loading.search}>
                 <Table<AdvApplicationInfo>
                     rowClassName="pointer"
                     columns={columns}

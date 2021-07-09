@@ -8,23 +8,15 @@ import SearchTable from './SearchTable';
 // Styled Components
 
 // Interfaces
+import { SearchSubmission } from './SearchTypes';
 import { AdvApplicationInfo } from '../../interfaces';
-interface Loading {
-    search: boolean;
-}
 
 const Search = (): JSX.Element => {
     const [advanced, setAdvanced] = useState(false);
     const [results, setResults] = useState<AdvApplicationInfo[]>();
-    const [loading, setLoading] = useState<Loading>({ search: false });
+    const [loading, setLoading] = useState({ search: false });
 
-    const submit = async (values: {
-        basic: string;
-        firstname: string;
-        lastname: string;
-        phone: string;
-        email: string;
-    }): Promise<void> => {
+    const submit = async (values: SearchSubmission): Promise<void> => {
         values.basic === undefined && (values.basic = '');
         values.firstname === undefined && (values.firstname = '');
         values.lastname === undefined && (values.lastname = '');

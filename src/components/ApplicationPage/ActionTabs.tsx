@@ -1,5 +1,6 @@
-/* eslint-disable no-console */
-import { Form } from 'antd';
+import { Form, message } from 'antd';
+import { FileTextOutlined } from '@ant-design/icons';
+import { LinkInfo } from '../../interfaces';
 import {
     FormWrapper,
     InputWrapper,
@@ -10,12 +11,11 @@ import {
     StyledParaNB,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
-import { Spin } from 'antd';
+import { ConsentDocument } from '../../interfaces';
 
 const actionVariables = {
     onboarding: {
         text: 'Onboarding Link',
-        link: 'www.onboardinglink.com',
     },
     report: {
         text: 'Report Link',
@@ -23,34 +23,71 @@ const actionVariables = {
     },
 };
 
-export const ActionTabs = (Props: any): JSX.Element => {
-    const textT = Props.action == 'onboarding' ? actionVariables.onboarding.text : actionVariables.report.text;
+interface ActionTabProps {
+    action: string;
+    email: string;
+    links: LinkInfo;
+    docs: ConsentDocument[];
+}
 
-    const linkT = Props.action == 'onboarding' ? actionVariables.onboarding.link : actionVariables.report.link;
+export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.Element => {
+    const textT = action == 'onboarding' ? actionVariables.onboarding.text : actionVariables.report.text;
+    const linkT = action == 'onboarding' ? links.onboarding_link : actionVariables.report.link;
+
+    /* Copy function: https://stackoverflow.com/a/62958832
+     * Creates empty textarea element, assigns URL as the value, copies URL, destroys textarea element
+     * Displays AntD Message component for copy success
+     */
+    const copyToClipboard = (content: string) => {
+        const el = document.createElement('textarea');
+        el.value = content;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+
+        message.success({
+            content: 'Copied to clipboard!',
+        });
+    };
 
     return (
         <FormWrapper>
-            {Props.action === 'documents' ? (
+            {action === 'documents' ? (
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
-                    <StyledParaN> Send documents to the following email</StyledParaN>
-                    <InputWrapper value={Props.email} />
-                    <ButtonWrapper type="primary">Send</ButtonWrapper>
-                    <StyledParaNB> Documents to Send</StyledParaNB>
-                    <Spin spinning={Props.loading.search}>
-                        <PDFViewer docs={Props.docs} />
-                    </Spin>
+                    <StyledParaN>
+                        {' '}
+                        Send documents to <InputWrapper value={email} />
+                        <ButtonWrapper type="primary">Send</ButtonWrapper>
+                    </StyledParaN>
+
+                    <PDFViewer docs={docs} />
                 </Form>
             ) : (
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email </StyledParaN>
                     <div>
-                        <InputWrapper value={Props.email} />
+                        <InputWrapper value={email} />
                         <ButtonWrapper type="primary">Send</ButtonWrapper>
                     </div>
                     <StyledParaNB> {textT} </StyledParaNB>
-                    <InputLinkWrapper addonBefore="http://" defaultValue={linkT} disabled />
+                    <InputLinkWrapper
+                        prefix={
+                            <FileTextOutlined
+                                onClick={() => {
+                                    copyToClipboard(linkT);
+                                }}
+                            />
+                        }
+                        value={linkT}
+                        onChange={() => {
+                            message.error({
+                                content: 'URL cannot be edited!',
+                            });
+                        }}
+                    />
                 </Form>
             )}
         </FormWrapper>

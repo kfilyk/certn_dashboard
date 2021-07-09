@@ -1,0 +1,10 @@
+.ant-list-item:hover {
+    background-color: #f0f9f5;
+    transition-duration: 0.5s;
+}
+
+.ant-form .ant-list {
+    margin-top: 25px;
+    height: 450px;
+    overflow: auto;
+}
