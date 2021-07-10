@@ -1,4 +1,4 @@
-import { Form, message } from 'antd';
+import { Alert, Form, message } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
@@ -66,7 +66,9 @@ export const ActionTabs = ({ action, email, links }: ActionTabProps): JSX.Elemen
                     <StyledParaN> Send {textT} to the following email </StyledParaN>
                     <div>
                         <InputWrapper value={email} />
-                        <ButtonWrapper type="primary">Send</ButtonWrapper>
+                        <ButtonWrapper type="primary" disabled={linkT === null}>
+                            Send
+                        </ButtonWrapper>
                     </div>
                     <StyledParaNB> {textT} </StyledParaNB>
                     <InputLinkWrapper
@@ -77,6 +79,7 @@ export const ActionTabs = ({ action, email, links }: ActionTabProps): JSX.Elemen
                                 }}
                             />
                         }
+                        disabled={linkT === null}
                         value={linkT}
                         onChange={() => {
                             message.error({
@@ -84,6 +87,7 @@ export const ActionTabs = ({ action, email, links }: ActionTabProps): JSX.Elemen
                             });
                         }}
                     />
+                    {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
                 </Form>
             )}
         </FormWrapper>
