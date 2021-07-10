@@ -106,14 +106,24 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
         failure: [],
     });
 
+    // Close panels that are empty
+    const setActivePanels = (checkArrays: string[][]): string[] => {
+        // eslint-disable-next-line prefer-const
+        let initialActivePanels: string[] = [];
+        for (let i = 0; i < checkArrays.length; i = i + 1) {
+            if (checkArrays[i].length > 0) initialActivePanels.push((i + 1).toString());
+        }
+        return initialActivePanels;
+    };
+
     return (
         <CollapseWrapper>
-            <Collapse defaultActiveKey={['1', '2', '3']}>
+            <Collapse defaultActiveKey={setActivePanels([failure, complete, pending])}>
                 <Panel
                     header={
                         <FailureHeader>
                             Failure
-                            <FailureBadge count={failure.length} />
+                            <FailureBadge showZero count={failure.length} />
                         </FailureHeader>
                     }
                     key="1"
@@ -124,7 +134,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     header={
                         <CompleteHeader>
                             Complete
-                            <CompleteBadge count={complete.length} />
+                            <CompleteBadge showZero count={complete.length} />
                         </CompleteHeader>
                     }
                     key="2"
@@ -135,7 +145,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     header={
                         <PendingHeader>
                             In Progress
-                            <PendingBadge count={pending.length} />
+                            <PendingBadge showZero count={pending.length} />
                         </PendingHeader>
                     }
                     key="3"
