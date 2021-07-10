@@ -116,7 +116,7 @@ export const ApplicationPage = (): JSX.Element => {
                     <ApplicationPageWrapper>
                         <ApplicationInfo info={tableInfo} />
                         <div style={{ display: 'flex', padding: '50px 0px 0px 0px' }}>
-                            <ApplicationActions info={linkInfo} />
+                            <ApplicationActions data={tableInfo} links={linkInfo} />
                             <CriticalChecks checks={criticalChecksInfo} />
                         </div>
                     </ApplicationPageWrapper>
