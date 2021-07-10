@@ -110,9 +110,9 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
     const setActivePanels = (checkArrays: string[][]): string[] => {
         // eslint-disable-next-line prefer-const
         let initialActivePanels: string[] = [];
-        for (let i = 0; i < checkArrays.length; i = i + 1) {
-            if (checkArrays[i].length > 0) initialActivePanels.push((i + 1).toString());
-        }
+        checkArrays.forEach((check, i) => {
+            if (check.length > 0) initialActivePanels.push((i + 1).toString());
+        });
         return initialActivePanels;
     };
 
@@ -120,6 +120,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
         <CollapseWrapper>
             <Collapse defaultActiveKey={setActivePanels([failure, complete, pending])}>
                 <Panel
+                    collapsible={failure.length > 0 ? 'header' : 'disabled'}
                     header={
                         <FailureHeader>
                             Failure
@@ -131,6 +132,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
                 <Panel
+                    collapsible={complete.length > 0 ? 'header' : 'disabled'}
                     header={
                         <CompleteHeader>
                             Complete
@@ -142,6 +144,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     <List dataSource={complete} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
                 <Panel
+                    collapsible={pending.length > 0 ? 'header' : 'disabled'}
                     header={
                         <PendingHeader>
                             In Progress
