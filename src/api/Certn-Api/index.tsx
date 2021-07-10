@@ -99,12 +99,12 @@ const buildAdvApplicationInfo = (response: Result): AdvApplicationInfo => {
     const application: AdvApplicationInfo = {
         application_id: response.application.id,
         key: applicant.id,
-        email: applicant.email,
-        firstName: applicant.first_name,
-        lastName: applicant.last_name,
-        phone: applicant.phone_number ? applicant.phone_number.toString() : '',
-        created: response.application.created ? response.application.created.toString() : '',
-        updated: response.application.modified ? response.application.modified.toString() : '',
+        email: applicant.email ? applicant.email : '-',
+        firstName: applicant.first_name ? applicant.first_name : '-',
+        lastName: applicant.last_name ? applicant.last_name : '-',
+        phone: applicant.phone_number ? applicant.phone_number.toString() : '-',
+        created: response.application.created ? response.application.created.toString() : '-',
+        updated: response.application.modified ? response.application.modified.toString() : '-',
         status: response.report_status,
         orderedBy: owner.email,
         team: owner.team.name,
@@ -239,25 +239,20 @@ const getApplicant = async (applicant_id: string): Promise<ApplicationPageData> 
     // Note to get a signle applicant we need to pass in application.applicant.id and not application.id
     const search_url = `https://demo-api.certn.co/hr/${version}/applicants/${applicant_id}`;
     let application_page_data: ApplicationPageData = {} as ApplicationPageData;
+    const response = await fetch(search_url, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: getToken(),
+        },
+    });
 
-    try {
-        const response = await fetch(search_url, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: getToken(),
-            },
-        });
-
-        const response_data = await response.json();
-        if (!response.ok) {
-            throw new Error(response_data.message);
-        }
-        const result: Result = response_data;
-        application_page_data = getApplicantData(result);
-    } catch (err) {
-        console.log('something went wrong: ' + err);
+    const response_data = await response.json();
+    if (!response.ok) {
+        throw new Error(response_data.message);
     }
+    const result: Result = response_data;
+    application_page_data = getApplicantData(result);
     return application_page_data;
 };
 
