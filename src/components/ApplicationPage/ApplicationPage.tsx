@@ -29,7 +29,7 @@ import {
 import { useHistory } from 'react-router-dom';
 
 // Temp
-import { fakeApi } from './ApiMock';
+import { getApplicant } from '../../api/Certn-Api';
 
 export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
@@ -73,7 +73,7 @@ export const ApplicationPage = (): JSX.Element => {
                 // Make api call
                 // https://demo-api.certn.co/hr/v1/applications/<application_id>
                 setLoadingApplication(true);
-                const response = await fakeApi(id);
+                const response = await getApplicant(id);
                 setApplicationPageData(response);
                 setTableInfo(response.application_info);
                 setChecksInfo(response.critical_checks);
@@ -116,7 +116,7 @@ export const ApplicationPage = (): JSX.Element => {
                     <ApplicationPageWrapper>
                         <ApplicationInfo info={tableInfo} />
                         <div style={{ display: 'flex', padding: '50px 0px 0px 0px' }}>
-                            <ApplicationActions advAppInfo={tableInfo} linkInfo={linkInfo} />
+                            <ApplicationActions data={tableInfo} links={linkInfo} />
                             <CriticalChecks checks={criticalChecksInfo} />
                         </div>
                     </ApplicationPageWrapper>
