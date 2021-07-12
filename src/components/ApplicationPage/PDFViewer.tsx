@@ -62,7 +62,7 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
                     <div className="list-container">
                         <Checkbox></Checkbox>
                         <List.Item onClick={displayModal}>
-                            <List.Item.Meta title={<a href={item.document_url}>{item.title}</a>} />
+                            <List.Item.Meta title={item.title} />
                         </List.Item>
                     </div>
                 )}
