@@ -7,10 +7,43 @@ import test from '../../deleteBeforeRelease/test.pdf';
 import { List, Checkbox } from 'antd';
 import { ConsentDocument } from '../../interfaces';
 import './PDFViewer.css';
+import { ListItemTypeProps } from 'antd/lib/list/Item';
 
 interface PDFViewerProps {
     docs: ConsentDocument[];
 }
+
+interface cachedDocumentsBuffer {
+    maxedNumberOfPDFs: number;
+    nextWriteLocation: number;
+    sessionStoredPDFS: ConsentDocument[];
+}
+
+const storePDF = async (storgeBuffer: cachedDocumentsBuffer, targetPDF: ConsentDocument): Promise<boolean> => {
+    let returnBoolean = false;
+    if (targetPDF.isCached) {
+        returnBoolean = true;
+    } else {
+        try {
+            if (storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation] != null) {
+                const removeDoc: ConsentDocument = storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation];
+                removeDoc.cacheIndexLocation = -1;
+                removeDoc.isCached = false;
+                sessionStorage.removeItem(removeDoc.document_url);
+            }
+
+            sessionStorage.setItem(targetPDF.document_url);
+            storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation] = targetPDF;
+            targetPDF.isCached = true;
+            targetPDF.cacheIndexLocation = storgeBuffer.nextWriteLocation;
+            storgeBuffer.nextWriteLocation = (storgeBuffer.nextWriteLocation + 1) % storgeBuffer.maxedNumberOfPDFs;
+            returnBoolean = true;
+        } catch {
+            returnBoolean = false;
+        }
+    }
+    return returnBoolean;
+};
 
 export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
     const data: ConsentDocument[] = docs;

@@ -29,6 +29,8 @@ const getListOfPdfs = async (): Promise<Array<ConsentDocument>> => {
             const ConsentDocumentEntry: ConsentDocument = {
                 title: agent_document.file_name,
                 document_url: agent_document.url,
+                isCached: false,
+                cacheIndexLocation: -1,
             };
             returnDocuments.push(ConsentDocumentEntry);
         }
