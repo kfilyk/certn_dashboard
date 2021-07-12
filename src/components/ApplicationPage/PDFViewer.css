@@ -1,6 +1,7 @@
 .list-container:hover {
     background-color: #f0f9f5;
-    transition-duration: 0.5s;
+    transition-duration: 0.2s;
+    cursor: pointer;
 }
 
 .ant-form .ant-list {
@@ -38,4 +39,9 @@
 
 .list-container .ant-checkbox-wrapper hover {
     pointer-events: none;
+}
+
+.ant-modal {
+    margin-top: 200px;
+    margin-bottom: 200px;
 }
