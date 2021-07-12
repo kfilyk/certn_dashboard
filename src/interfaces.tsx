@@ -62,8 +62,7 @@ interface ApplicationPageData {
 
 interface ConsentDocument {
     title: string;
-    key_string: string;
-    url_mock: string;
+    document_url: string;
 }
 
 interface Application {
