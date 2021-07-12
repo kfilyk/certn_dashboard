@@ -1,4 +1,4 @@
-import { Form, message } from 'antd';
+import { Alert, Form, message } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
@@ -56,12 +56,14 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
             {action === 'documents' ? (
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
-                    <StyledParaN>
-                        {' '}
-                        Send documents to <InputWrapper value={email} />
-                        <ButtonWrapper type="primary">Send</ButtonWrapper>
-                    </StyledParaN>
-
+                    <StyledParaN> Send documents to the following email</StyledParaN>
+                    <InputWrapper value={email} disabled={email === '-'} />
+                    <ButtonWrapper type="primary" disabled={email === '-'}>
+                        Send
+                    </ButtonWrapper>
+                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
+                    <br />
+                    <StyledParaNB> Documents to Send</StyledParaNB>
                     <PDFViewer docs={docs} />
                 </Form>
             ) : (
@@ -69,9 +71,13 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email </StyledParaN>
                     <div>
-                        <InputWrapper value={email} />
-                        <ButtonWrapper type="primary">Send</ButtonWrapper>
+                        <InputWrapper value={email} disabled={email === '-'} />
+                        <ButtonWrapper type="primary" disabled={linkT === null || email === '-'}>
+                            Send
+                        </ButtonWrapper>
                     </div>
+                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
+                    <br />
                     <StyledParaNB> {textT} </StyledParaNB>
                     <InputLinkWrapper
                         prefix={
@@ -81,6 +87,7 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
                                 }}
                             />
                         }
+                        disabled={linkT === null}
                         value={linkT}
                         onChange={() => {
                             message.error({
@@ -88,6 +95,7 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
                             });
                         }}
                     />
+                    {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
                 </Form>
             )}
         </FormWrapper>

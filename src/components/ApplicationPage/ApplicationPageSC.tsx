@@ -108,15 +108,15 @@ export const Dot = styled.span`
 
 export const dotColor = [
     {
-        status: 'Completed',
+        status: 'COMPLETE',
         color: certnTheme.color.green.default,
     },
     {
-        status: 'Pending',
+        status: 'SENT',
         color: certnTheme.color.yellow.default,
     },
     {
-        status: 'Failed',
+        status: 'FAIL',
         color: certnTheme.color.red.default,
     },
 ];

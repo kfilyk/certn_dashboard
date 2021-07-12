@@ -15,6 +15,23 @@ Support Tool built for Certn by UVic Seng 499 students.
 
 -   A full list of the npm scripts which can be run on this project can be found in the `package.json` file of the project.
 
+## How to Test
+
+This project uses [Cypress](https://www.cypress.io/) to test the front end operations.
+
+If you want to just test the service, and _don't_ have a instance runing locally use:
+
+`npm test`
+
+This will start the local service, run all tests against it, and then shut the local service down. The results of the tests will be placed on the cli.
+
+If you already have the service running (e.g. you have run `npm start` beforehand):
+
+1. `npm run cy:run` - Runs tests without the Cypress ui, returns results to the cli.
+2. `npm run cy:open` - Runs the Cypress app itself, which will allow you to see the tests visually in action.
+
+If you're just doing tests before commiting, `npm run cy:run` should be enough to ensure you haven't broken anything. If you want to find what's breaking, or are making new tests for new features, `npm run cy:open` will be the better option. Either option will require multiple terminal instances.
+
 ## Git Standards
 
 ### Branch standards
