@@ -106,14 +106,25 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
         failure: [],
     });
 
+    // Close panels that are empty
+    const setActivePanels = (checkArrays: string[][]): string[] => {
+        // eslint-disable-next-line prefer-const
+        let initialActivePanels: string[] = [];
+        checkArrays.forEach((check, i) => {
+            if (check.length > 0) initialActivePanels.push((i + 1).toString());
+        });
+        return initialActivePanels;
+    };
+
     return (
         <CollapseWrapper>
-            <Collapse defaultActiveKey={['1', '2', '3']}>
+            <Collapse defaultActiveKey={setActivePanels([failure, complete, pending])}>
                 <Panel
+                    collapsible={failure.length > 0 ? 'header' : 'disabled'}
                     header={
                         <FailureHeader>
                             Failure
-                            <FailureBadge count={failure.length} />
+                            <FailureBadge showZero count={failure.length} />
                         </FailureHeader>
                     }
                     key="1"
@@ -121,10 +132,11 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
                 <Panel
+                    collapsible={complete.length > 0 ? 'header' : 'disabled'}
                     header={
                         <CompleteHeader>
                             Complete
-                            <CompleteBadge count={complete.length} />
+                            <CompleteBadge showZero count={complete.length} />
                         </CompleteHeader>
                     }
                     key="2"
@@ -132,10 +144,11 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     <List dataSource={complete} renderItem={(item) => <List.Item>{item}</List.Item>} />
                 </Panel>
                 <Panel
+                    collapsible={pending.length > 0 ? 'header' : 'disabled'}
                     header={
                         <PendingHeader>
                             In Progress
-                            <PendingBadge count={pending.length} />
+                            <PendingBadge showZero count={pending.length} />
                         </PendingHeader>
                     }
                     key="3"
