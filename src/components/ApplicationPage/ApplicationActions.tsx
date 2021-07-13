@@ -6,15 +6,17 @@ import { useState } from 'react';
 import 'antd/dist/antd.css';
 import { ActionTabs } from './ActionTabs';
 import { getListOfPdfs } from '../../api/Certn-Api-Mock/index-mock';
+// Interface Imports
 import { ConsentDocument } from '../../interfaces';
 import { AdvApplicationInfo, LinkInfo } from '../../interfaces';
 
-interface ApplicationActionsProps {
-    advAppInfo: AdvApplicationInfo;
-    linkInfo: LinkInfo;
-}
+// Interfaces
+type LinkProps = {
+    links: LinkInfo;
+    data: AdvApplicationInfo;
+};
 
-export const ApplicationActions = ({ advAppInfo, linkInfo }: ApplicationActionsProps): JSX.Element => {
+export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
     const [selectedAction, setSelectedAction] = useState<string>('onboarding');
     const [docs, setDocs] = useState<ConsentDocument[]>([]);
 
@@ -44,7 +46,7 @@ export const ApplicationActions = ({ advAppInfo, linkInfo }: ApplicationActionsP
                     </Menu.ItemGroup>
                 </Menu>
             </ActionListWrapper>
-            <ActionTabs action={selectedAction} email={advAppInfo.email} links={linkInfo} docs={docs} />
+            <ActionTabs action={selectedAction} email={data.email} links={links} docs={docs} />
         </ActionWrapper>
     );
 };
