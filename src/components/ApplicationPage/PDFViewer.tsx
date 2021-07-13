@@ -61,13 +61,16 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
                 renderItem={(item: ConsentDocument) => (
                     <div className="list-container">
                         <Checkbox></Checkbox>
-                        <List.Item onClick={displayModal}>
+                        <List.Item>
                             <List.Item.Meta title={item.title} />
                         </List.Item>
+                        <ButtonWrapper type="primary" onClick={displayModal}>
+                            Preview
+                        </ButtonWrapper>
                     </div>
                 )}
             />
-            <ModalWrapper title="Preview" visible={showModal} onOk={handleOk} onCancel={handleCancel}>
+            <ModalWrapper title="Preview" visible={showModal} footer={null} onCancel={handleCancel}>
                 <Document file={test} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page pageNumber={pageNumber} />
                 </Document>
