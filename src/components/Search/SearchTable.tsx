@@ -99,7 +99,7 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
     const data: AdvApplicationInfo[] | undefined = props.results;
 
     return (
-        <div style={{ width: '85%', margin: '5%', marginTop: '145px' }}>
+        <div style={{ width: '85%', margin: '5%' }}>
             <Spin spinning={props.loading.search}>
                 <Table<AdvApplicationInfo>
                     rowClassName="pointer"

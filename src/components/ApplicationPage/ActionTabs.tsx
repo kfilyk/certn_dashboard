@@ -11,14 +11,16 @@ import {
     StyledParaNB,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
+import { ConsentDocument } from '../../interfaces';
 
 interface ActionTabProps {
     action: string;
     email: string;
     links: LinkInfo;
+    docs: ConsentDocument[];
 }
 
-export const ActionTabs = ({ action, email, links }: ActionTabProps): JSX.Element => {
+export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.Element => {
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
 
@@ -52,7 +54,7 @@ export const ActionTabs = ({ action, email, links }: ActionTabProps): JSX.Elemen
                     {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
                     <br />
                     <StyledParaNB> Documents to Send</StyledParaNB>
-                    <PDFViewer />
+                    <PDFViewer docs={docs} />
                 </Form>
             ) : (
                 <Form>

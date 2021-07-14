@@ -64,7 +64,10 @@ const RouteWrapper = (): JSX.Element => {
                     <Route path="/search" component={Search} />
                     <Route path="/application" component={ApplicationPage} />
                     <Route path="/dashboard" component={Dashboard} />
-                    <Route component={NotFoundPage} />
+                    <Route path="/oops" component={NotFoundPage} />
+                    <Route>
+                        <Redirect to="/oops" />
+                    </Route>
                 </Switch>
             </>
         );

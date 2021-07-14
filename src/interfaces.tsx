@@ -61,6 +61,12 @@ interface ApplicationPageData {
     application_links: LinkInfo;
 }
 
+interface ConsentDocument {
+    title: string;
+    key_string: string;
+    url_mock: string;
+}
+
 interface Application {
     created: string;
     modified: string;
@@ -105,4 +111,5 @@ export type {
     ApplicationPageData,
     Application,
     Applicant,
+    ConsentDocument,
 };
