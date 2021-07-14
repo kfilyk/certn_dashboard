@@ -1,20 +1,25 @@
 import styled from 'styled-components';
 import { Input, Button, Form } from 'antd';
 
-export const SearchWrapper = styled.div`
+export const SearchWrapper = styled.div<{ disabled: boolean }>`
     margin: 50px 5% 0 5%;
     height: 95px;
     display: flex;
-    .ant-input-affix-wrapper:focus,
-    .ant-input-affix-wrapper-focused,
-    .ant-input-affix-wrapper:hover {
-        border-color: ${(props) => props.theme.color.green[400]} !important;
-        box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
-    }
+
+    ${(props) =>
+        props.disabled
+            ? `.ant-input-affix-wrapper-disabled:hover {
+        border: 1px solid #d9d9d9;
+    }`
+            : `.ant-input-affix-wrapper:focus,
+            .ant-input-affix-wrapper-focused,
+            .ant-input-affix-wrapper:hover {
+                border-color: ${props.theme.color.green[400]} !important;
+                box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
+            }`}
 `;
 
 export const SearchForm = styled(Input)`
-    color: ${(props) => props.theme.color.green[400]};
     right-border: none;
     border-radius: 4px 0 0 4px;
 `;
