@@ -49,6 +49,7 @@ export const ChecksInfoDefault: CriticalChecksInfo = {
 
 export const LinkInfoDefault: LinkInfo = {
     onboarding_link: '',
+    report_link: '',
 };
 
 export const ApplicationPageDataDefault: ApplicationPageData = {
