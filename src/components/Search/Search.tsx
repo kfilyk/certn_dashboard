@@ -15,8 +15,8 @@ const Search = (): JSX.Element => {
     const [advanced, setAdvanced] = useState(false);
     const [results, setResults] = useState<AdvApplicationInfo[]>();
     const [loading, setLoading] = useState({ search: false });
-    const [page, setPage] = useState<number>(1);
     const [searchString, setSearchString] = useState<string>('');
+    const [count, setCount] = useState<number>(0);
 
     const submit = async (values: SearchSubmission): Promise<void> => {
         values.basic === undefined && (values.basic = '');
@@ -29,26 +29,18 @@ const Search = (): JSX.Element => {
             ? (fullString = values.firstname + ' ' + values.lastname + ' ' + values.phone + ' ' + values.email)
             : (fullString = values.basic);
         setLoading({ search: true });
-        const apiResults = await getApplications(fullString, page);
+        const apiResults = await getApplications(fullString);
         setLoading({ search: false });
         setResults(apiResults.applications);
+        // eslint-disable-next-line no-console
+        console.log(apiResults.applications);
+        setCount(apiResults.count);
         setSearchString(fullString);
     };
 
-    const onSubmitPageChangeNext = async (): Promise<void> => {
-        const newPage: number = page + 1;
-        setPage(newPage);
+    const onSubmitPageChange = async (current: number): Promise<void> => {
         setLoading({ search: true });
-        const apiResultsPage = await getApplications(searchString, newPage);
-        setLoading({ search: false });
-        setResults(apiResultsPage.applications);
-    };
-
-    const onSubmitPageChangeBack = async (): Promise<void> => {
-        const newPage: number = page - 1;
-        setPage(newPage);
-        setLoading({ search: true });
-        const apiResultsPage = await getApplications(searchString, newPage);
+        const apiResultsPage = await getApplications(searchString, current);
         setLoading({ search: false });
         setResults(apiResultsPage.applications);
     };
@@ -56,14 +48,7 @@ const Search = (): JSX.Element => {
     return (
         <div>
             <SearchBar onSubmit={submit} advanced={advanced} setAdvanced={setAdvanced} loading={loading.search} />
-            <SearchTable
-                results={results}
-                loading={loading}
-                page={page}
-                setPage={setPage}
-                onSubmitPageChangeNext={onSubmitPageChangeNext}
-                onSubmitPageChangeBack={onSubmitPageChangeBack}
-            />
+            <SearchTable results={results} loading={loading} onSubmitPageChange={onSubmitPageChange} count={count} />
         </div>
     );
 };
