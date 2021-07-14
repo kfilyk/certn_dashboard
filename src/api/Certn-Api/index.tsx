@@ -8,6 +8,7 @@ import {
     CriticalChecksInfo,
     LinkInfo,
     ConsentDocument,
+    Applications,
 } from '../../interfaces';
 import { MutipleApplicationSearchResults, Result } from '../../ApplicationInterfaces';
 const version = 'v1';
@@ -144,15 +145,10 @@ const pruneApplicationsData = (response_data: MutipleApplicationSearchResults): 
  * @param search
  * @returns An array of AdvApplicationInfo
  */
-const getApplications = async (
-    search = '',
-    page = 1,
-    page_size = 10,
-    modified = 'modified'
-): Promise<Array<AdvApplicationInfo>> => {
+const getApplications = async (search = '', page = 1, page_size = 10, modified = 'modified'): Promise<Applications> => {
     const base_url = `https://demo-api.certn.co/hr/${version}/applicants/?page=${page}&page_size=${page_size}&ordering=${modified}&search=`;
     const search_url = base_url + search.split(' ').join('+');
-    let pruned_applications: Array<AdvApplicationInfo> = [];
+    const applications: Applications = {} as Applications;
     try {
         const response = await fetch(search_url, {
             method: 'GET',
@@ -166,11 +162,13 @@ const getApplications = async (
         if (!response.ok) {
             throw new Error(response_data.message);
         }
-        pruned_applications = pruneApplicationsData(response_data);
+        applications.count = response_data.count;
+        applications.applications = pruneApplicationsData(response_data);
     } catch (err) {
         console.log('something went wrong: ' + err);
     }
-    return pruned_applications;
+
+    return applications;
 };
 
 /*
