@@ -65,6 +65,7 @@ interface ConsentDocument {
     document_url: string;
     isCached: boolean;
     cacheIndexLocation: number;
+    size: number;
 }
 
 interface Application {

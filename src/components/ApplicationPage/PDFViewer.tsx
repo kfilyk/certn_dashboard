@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
+/* eslint-disable prettier/prettier */
 import { useState } from 'react';
 import { ButtonWrapper, ModalWrapper } from './ApplicationActionsSC';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
@@ -14,31 +19,60 @@ interface PDFViewerProps {
 }
 
 interface cachedDocumentsBuffer {
-    maxedNumberOfPDFs: number;
+    maxNumberOfCachedPDFs: number;
     nextWriteLocation: number;
     sessionStoredPDFS: ConsentDocument[];
 }
 
-const storePDF = async (storgeBuffer: cachedDocumentsBuffer, targetPDF: ConsentDocument): Promise<boolean> => {
+const cachedPDFs: ConsentDocument[] = [];
+const pdfBuffer: cachedDocumentsBuffer = {
+    maxNumberOfCachedPDFs: 3,
+    nextWriteLocation: 0,
+    sessionStoredPDFS: cachedPDFs,
+};
+
+const downloadPDF = async (title: string, targetUrl: string): Promise<string> => {
+    targetUrl = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+    console.log('Attempting to download file at ' + targetUrl);
+    const returnString: Promise<string> = fetch(targetUrl, {
+        method: 'GET',
+    })
+        .then(function (resp) {
+            const returnBlob: Promise<Blob> = resp.blob();
+            console.log('Return File String (in loop): ' + returnBlob);
+            return returnBlob;
+        })
+        .then(function (blob) {
+            const returnFile: string = window.URL.createObjectURL(blob);
+            console.log('Return File String (in loop): ' + returnFile);
+            return returnFile;
+        });
+    console.log('Return File String (out of loop): ' + returnString);
+    return returnString;
+};
+
+// store a requested pdf into session storage given the rolling array buffer and a ConsentDocument object
+const storePDF = async (storgeBuffer: cachedDocumentsBuffer, targetConsentDoc: ConsentDocument): Promise<boolean> => {
     let returnBoolean = false;
-    if (targetPDF.isCached) {
+    if (targetConsentDoc.isCached) {
         returnBoolean = true;
     } else {
         try {
             if (storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation] != null) {
+                // removes consent doc from session storage when number of stored PDFs exceeds set limit
                 const removeDoc: ConsentDocument = storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation];
                 removeDoc.cacheIndexLocation = -1;
                 removeDoc.isCached = false;
-                sessionStorage.removeItem(removeDoc.document_url);
+                //sessionStorage.removeItem(removeDoc.document_url);
             }
-
-            sessionStorage.setItem(targetPDF.document_url);
-            storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation] = targetPDF;
-            targetPDF.isCached = true;
-            targetPDF.cacheIndexLocation = storgeBuffer.nextWriteLocation;
-            storgeBuffer.nextWriteLocation = (storgeBuffer.nextWriteLocation + 1) % storgeBuffer.maxedNumberOfPDFs;
+            const pdfReference: Promise<string> = downloadPDF(targetConsentDoc.title, targetConsentDoc.document_url);
+            //sessionStorage.setItem(targetConsentDoc.document_url, pdfReference);
+            storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation] = targetConsentDoc;
+            targetConsentDoc.isCached = true;
+            targetConsentDoc.cacheIndexLocation = storgeBuffer.nextWriteLocation;
+            storgeBuffer.nextWriteLocation = (storgeBuffer.nextWriteLocation + 1) % storgeBuffer.maxNumberOfCachedPDFs;
             returnBoolean = true;
-        } catch {
+        } catch (e) {
             returnBoolean = false;
         }
     }
@@ -57,7 +91,8 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
     const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState(1);
 
-    const displayModal = () => {
+    const displayModal = (targetDoc: ConsentDocument) => {
+        storePDF(pdfBuffer, targetDoc);
         setShowModal(true);
     };
 
@@ -94,7 +129,7 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
                 renderItem={(item: ConsentDocument) => (
                     <div className="list-container">
                         <Checkbox></Checkbox>
-                        <List.Item onClick={displayModal}>
+                        <List.Item onClick={() => displayModal(item)}>
                             <List.Item.Meta title={item.title} />
                         </List.Item>
                     </div>
