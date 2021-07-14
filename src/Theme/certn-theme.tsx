@@ -39,11 +39,11 @@ const certnTheme: DefaultTheme = {
     },
     breakPoints: {
         xs: 0,
-        sm: '376px',
-        md: '640px',
-        lg: '768px',
-        xl: '1024px',
-        xxl: '1280px',
+        sm: '377px',
+        md: '641px',
+        lg: '769px',
+        xl: '1025px',
+        xxl: '1281px',
     },
 };
 
