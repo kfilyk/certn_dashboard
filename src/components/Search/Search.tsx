@@ -55,7 +55,7 @@ const Search = (): JSX.Element => {
 
     return (
         <div>
-            <SearchBar onSubmit={submit} advanced={advanced} setAdvanced={setAdvanced} />
+            <SearchBar onSubmit={submit} advanced={advanced} setAdvanced={setAdvanced} loading={loading.search} />
             <SearchTable
                 results={results}
                 loading={loading}
