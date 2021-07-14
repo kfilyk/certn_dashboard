@@ -31,7 +31,7 @@ const Search = (): JSX.Element => {
         setLoading({ search: true });
         const apiResults = await getApplications(fullString, page);
         setLoading({ search: false });
-        setResults(apiResults);
+        setResults(apiResults.applications);
         setSearchString(fullString);
     };
 
@@ -41,7 +41,7 @@ const Search = (): JSX.Element => {
         setLoading({ search: true });
         const apiResultsPage = await getApplications(searchString, newPage);
         setLoading({ search: false });
-        setResults(apiResultsPage);
+        setResults(apiResultsPage.applications);
     };
 
     const onSubmitPageChangeBack = async (): Promise<void> => {
@@ -50,7 +50,7 @@ const Search = (): JSX.Element => {
         setLoading({ search: true });
         const apiResultsPage = await getApplications(searchString, newPage);
         setLoading({ search: false });
-        setResults(apiResultsPage);
+        setResults(apiResultsPage.applications);
     };
 
     return (
