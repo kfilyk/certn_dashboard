@@ -13,16 +13,6 @@ import {
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
 
-const actionVariables = {
-    onboarding: {
-        text: 'Onboarding Link',
-    },
-    report: {
-        text: 'Report Link',
-        link: 'www.reportlink.com',
-    },
-};
-
 interface ActionTabProps {
     action: string;
     email: string;
@@ -31,8 +21,8 @@ interface ActionTabProps {
 }
 
 export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.Element => {
-    const textT = action == 'onboarding' ? actionVariables.onboarding.text : actionVariables.report.text;
-    const linkT = action == 'onboarding' ? links.onboarding_link : actionVariables.report.link;
+    const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
+    const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
 
     /* Copy function: https://stackoverflow.com/a/62958832
      * Creates empty textarea element, assigns URL as the value, copies URL, destroys textarea element

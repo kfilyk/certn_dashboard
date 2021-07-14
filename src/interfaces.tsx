@@ -47,6 +47,7 @@ interface CriticalChecksInfo {
 
 interface LinkInfo {
     onboarding_link: string;
+    report_link: string;
 }
 
 interface Applicant {
@@ -78,6 +79,7 @@ interface Application {
         id: string;
         phone_number: string;
         application_url: string;
+        report_url: string;
     };
     owner: {
         id: string;
