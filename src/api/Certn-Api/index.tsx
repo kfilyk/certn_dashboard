@@ -144,8 +144,13 @@ const pruneApplicationsData = (response_data: MutipleApplicationSearchResults): 
  * @param search
  * @returns An array of AdvApplicationInfo
  */
-const getApplications = async (search: string): Promise<Array<AdvApplicationInfo>> => {
-    const base_url = `https://demo-api.certn.co/hr/${version}/applicants/?search=`;
+const getApplications = async (
+    search = '',
+    page = 1,
+    page_size = 10,
+    modified = 'modified'
+): Promise<Array<AdvApplicationInfo>> => {
+    const base_url = `https://demo-api.certn.co/hr/${version}/applicants/?page=${page}&page_size=${page_size}&ordering=${modified}&search=`;
     const search_url = base_url + search.split(' ').join('+');
     let pruned_applications: Array<AdvApplicationInfo> = [];
     try {
