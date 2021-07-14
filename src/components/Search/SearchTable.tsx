@@ -90,6 +90,10 @@ interface SearchTableProps {
         search: boolean;
     };
     results: AdvApplicationInfo[] | undefined;
+    setPage: React.Dispatch<React.SetStateAction<number>>;
+    page: number;
+    onSubmitPageChangeNext: () => Promise<void>;
+    onSubmitPageChangeBack: () => Promise<void>;
 }
 
 const SearchTable: React.FC<SearchTableProps> = (props) => {
@@ -112,6 +116,8 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                     })}
                 />
             </Spin>
+            {props.results && props.page > 1 && <button onClick={props.onSubmitPageChangeBack}>Previous Page</button>}
+            {props.results && <button onClick={props.onSubmitPageChangeNext}>Next Page</button>}
         </div>
     );
 };

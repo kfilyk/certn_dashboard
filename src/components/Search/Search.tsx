@@ -15,6 +15,8 @@ const Search = (): JSX.Element => {
     const [advanced, setAdvanced] = useState(false);
     const [results, setResults] = useState<AdvApplicationInfo[]>();
     const [loading, setLoading] = useState({ search: false });
+    const [page, setPage] = useState<number>(1);
+    const [searchString, setSearchString] = useState<string>('');
 
     const submit = async (values: SearchSubmission): Promise<void> => {
         values.basic === undefined && (values.basic = '');
@@ -27,15 +29,41 @@ const Search = (): JSX.Element => {
             ? (fullString = values.firstname + ' ' + values.lastname + ' ' + values.phone + ' ' + values.email)
             : (fullString = values.basic);
         setLoading({ search: true });
-        const apiResults = await getApplications(fullString);
+        const apiResults = await getApplications(fullString, page);
         setLoading({ search: false });
         setResults(apiResults);
+        setSearchString(fullString);
+    };
+
+    const onSubmitPageChangeNext = async (): Promise<void> => {
+        const newPage: number = page + 1;
+        setPage(newPage);
+        setLoading({ search: true });
+        const apiResultsPage = await getApplications(searchString, newPage);
+        setLoading({ search: false });
+        setResults(apiResultsPage);
+    };
+
+    const onSubmitPageChangeBack = async (): Promise<void> => {
+        const newPage: number = page - 1;
+        setPage(newPage);
+        setLoading({ search: true });
+        const apiResultsPage = await getApplications(searchString, newPage);
+        setLoading({ search: false });
+        setResults(apiResultsPage);
     };
 
     return (
         <div>
             <SearchBar onSubmit={submit} advanced={advanced} setAdvanced={setAdvanced} />
-            <SearchTable results={results} loading={loading} />
+            <SearchTable
+                results={results}
+                loading={loading}
+                page={page}
+                setPage={setPage}
+                onSubmitPageChangeNext={onSubmitPageChangeNext}
+                onSubmitPageChangeBack={onSubmitPageChangeBack}
+            />
         </div>
     );
 };
