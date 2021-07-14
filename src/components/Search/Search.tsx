@@ -13,10 +13,12 @@ import { AdvApplicationInfo } from '../../interfaces';
 
 const Search = (): JSX.Element => {
     const [advanced, setAdvanced] = useState(false);
-    const [results, setResults] = useState<AdvApplicationInfo[]>();
+    const [results, setResults] = useState<AdvApplicationInfo[]>([]);
     const [loading, setLoading] = useState({ search: false });
     const [searchString, setSearchString] = useState<string>('');
     const [count, setCount] = useState<number>(0);
+
+    // const storeResults: AdvApplicationInfo[] = () => (results ? results : []);
 
     const submit = async (values: SearchSubmission): Promise<void> => {
         values.basic === undefined && (values.basic = '');
@@ -32,8 +34,6 @@ const Search = (): JSX.Element => {
         const apiResults = await getApplications(fullString);
         setLoading({ search: false });
         setResults(apiResults.applications);
-        // eslint-disable-next-line no-console
-        console.log(apiResults.applications);
         setCount(apiResults.count);
         setSearchString(fullString);
     };
