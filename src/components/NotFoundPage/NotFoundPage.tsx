@@ -2,7 +2,7 @@ import { Image, HeadHomeButton, NotFoundWrapper, NotFoundText } from './NotFound
 import logo from '../../logo.svg';
 
 export const NotFoundPage = (): JSX.Element => (
-    <NotFoundWrapper>
+    <NotFoundWrapper id="404body">
         <Image src={logo} alt="logo" />
         <NotFoundText>
             Oops! We're pretty <i>Certn</i> that page does not exist
