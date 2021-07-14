@@ -38,6 +38,7 @@ interface SearchBarProps {
     onSubmit: (values: SearchSubmission) => Promise<void>;
     advanced: boolean;
     setAdvanced: React.Dispatch<React.SetStateAction<boolean>>;
+    loading: boolean;
 }
 
 // Actual Searchbar element, contains basic search bar form, submit button and advanced search form
@@ -94,7 +95,7 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
                     </InputWrapper>
                 </BasicSearchWrapper>
                 {props.advanced && <AdvancedSearch />}
-                <SearchButton type="primary" htmlType="submit">
+                <SearchButton type="primary" htmlType="submit" disabled={props.loading}>
                     Search
                 </SearchButton>
             </Form>
