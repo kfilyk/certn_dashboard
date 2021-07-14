@@ -37,6 +37,14 @@ const certnTheme: DefaultTheme = {
         purple: certnPurple,
         pink: certnPink,
     },
+    breakPoints: {
+        xs: 0,
+        sm: '376px',
+        md: '640px',
+        lg: '768px',
+        xl: '1024px',
+        xxl: '1280px',
+    },
 };
 
 export { certnTheme };
