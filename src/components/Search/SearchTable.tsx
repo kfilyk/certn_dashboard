@@ -104,24 +104,6 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
     const history = useHistory();
 
     const data: AdvApplicationInfo[] | undefined = props.results;
-    // const data: Array<AdvApplicationInfo> = [];
-
-    // for (let i = 0; i < 1000; i += 1) {
-    //     const user = {
-    //         application_id: i.toString(),
-    //         key: i.toString(),
-    //         email: 'joe@live.com',
-    //         firstName: 'Joe',
-    //         lastName: 'Joe',
-    //         phone: '123-456-7890',
-    //         created: 'Jun 27 2021',
-    //         updated: 'July 10 2021',
-    //         status: 'COMPLETE',
-    //         orderedBy: 'Joe@live.com',
-    //         team: 'Uvic',
-    //     };
-    //     data.push(user);
-    // }
 
     return (
         <div style={{ width: '85%', margin: '5%' }}>
@@ -139,7 +121,9 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                 />
             </Spin>
             <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
-                {props.count > 0 && <CustomPagination total={props.count} onChange={props.onSubmitPageChange} />}
+                {props.count > 0 && (
+                    <CustomPagination showSizeChanger={false} total={props.count} onChange={props.onSubmitPageChange} />
+                )}
             </div>
         </div>
     );
