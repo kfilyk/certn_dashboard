@@ -64,6 +64,9 @@ interface ApplicationPageData {
 interface ConsentDocument {
     title: string;
     document_url: string;
+    isCached: boolean;
+    cacheIndexLocation: number;
+    size: number;
 }
 
 interface Application {
