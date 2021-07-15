@@ -36,16 +36,16 @@ const getListOfPdfs = async (): Promise<Array<ConsentDocument>> => {
             returnDocuments.push(ConsentDocumentEntry);
         }
     });
-    for (let i = 1; i <= 10; i += 1) {
-        const ConsentDocumentEntry: ConsentDocument = {
-            title: 'File ' + i,
-            document_url: 'URL ' + i,
-            isCached: false,
-            cacheIndexLocation: -1,
-            size: 0,
-        };
-        returnDocuments.push(ConsentDocumentEntry);
-    }
+    // for (let i = 1; i <= 10; i += 1) {
+    //     const ConsentDocumentEntry: ConsentDocument = {
+    //         title: 'File ' + i,
+    //         document_url: 'URL ' + i,
+    //         isCached: false,
+    //         cacheIndexLocation: -1,
+    //         size: 0,
+    //     };
+    //     returnDocuments.push(ConsentDocumentEntry);
+    // }
     return new Promise((resolve, reject) => {
         if (returnDocuments.toString() != '') {
             resolve(returnDocuments);
