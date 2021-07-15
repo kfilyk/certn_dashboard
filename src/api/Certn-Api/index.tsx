@@ -1,14 +1,7 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import {
-    UserData,
-    AdvApplicationInfo,
-    ApplicationPageData,
-    CriticalChecksInfo,
-    LinkInfo,
-    ConsentDocument,
-} from '../../interfaces';
+import { UserData, AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
 import { MutipleApplicationSearchResults, Result } from '../../ApplicationInterfaces';
 const version = 'v1';
 const getToken = (): string => {
@@ -170,25 +163,6 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
     return pruned_applications;
 };
 
-/*
- * Function designed to simulate a call to the api in search of a list of all documents associated to a given application
- * Will be turned into a proper call once endpoint is implemented
- */
-const getListOfPdfsMOCK = async (): Promise<Array<ConsentDocument>> => {
-    const returnDocuments: Array<ConsentDocument> = [];
-    for (let i = 0; i < 20; i = i + 1) {
-        const interationTitle = 'Mock Consent Doc ' + i; // random generation
-
-        const sudoConsentDoc: ConsentDocument = {
-            title: interationTitle,
-            document_url: 'http://example.com/sample.pdf',
-        };
-        returnDocuments.push(sudoConsentDoc);
-    }
-
-    return returnDocuments;
-};
-
 /**
  * This is a helper function used to build an object that represents the cirtical checks of an applicant.
  *
@@ -283,4 +257,4 @@ const getApplicant = async (applicant_id: string): Promise<ApplicationPageData> 
     return application_page_data;
 };
 
-export { userLogin, Softcheck, Creditreport, getToken, getApplications, getApplicant, getListOfPdfsMOCK };
+export { userLogin, Softcheck, Creditreport, getToken, getApplications, getApplicant };
