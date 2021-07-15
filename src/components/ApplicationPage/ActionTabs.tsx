@@ -54,7 +54,7 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
                     <InputWrapper value={email} disabled={email === '-'} />
-                    <ButtonWrapper type="primary" htmlType="submit">
+                    <ButtonWrapper type="primary" htmlType="submit" disabled={email === '-'}>
                         Send
                     </ButtonWrapper>
                     {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
