@@ -51,14 +51,20 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
         });
     };
 
+    /* Temporary consent doc form specifier */
+    const sendConsent = (values: FormData) => {
+        // eslint-disable-next-line no-console
+        console.log('Send the following forms to ' + email + ': ', values);
+    };
+
     return (
         <FormWrapper>
             {action === 'documents' ? (
-                <Form>
+                <Form onFinish={sendConsent}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
                     <InputWrapper value={email} disabled={email === '-'} />
-                    <ButtonWrapper type="primary" disabled={email === '-'}>
+                    <ButtonWrapper type="primary" htmlType="submit">
                         Send
                     </ButtonWrapper>
                     {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}

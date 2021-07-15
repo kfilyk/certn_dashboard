@@ -4,7 +4,7 @@ import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
 import test from '../../deleteBeforeRelease/test.pdf';
-import { List, Checkbox } from 'antd';
+import { List, Checkbox, Form } from 'antd';
 import { ConsentDocument } from '../../interfaces';
 import './PDFViewer.css';
 
@@ -60,11 +60,13 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
                 dataSource={data}
                 renderItem={(item: ConsentDocument) => (
                     <div className="list-container">
-                        <Checkbox></Checkbox>
+                        <Form.Item name={item.title} initialValue={false} valuePropName="checked" noStyle>
+                            <Checkbox></Checkbox>
+                        </Form.Item>
                         <List.Item>
                             <List.Item.Meta title={item.title} />
                         </List.Item>
-                        <ButtonWrapper className="list-button" type="primary" onClick={displayModal}>
+                        <ButtonWrapper type="primary" onClick={displayModal}>
                             Preview
                         </ButtonWrapper>
                     </div>
