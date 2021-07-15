@@ -1,46 +1,30 @@
 .list-container:hover {
     background-color: #f0f9f5;
     transition-duration: 0.2s;
-    cursor: pointer;
 }
 
 .ant-form .ant-list {
     margin-top: 25px;
     height: 450px;
-    overflow: auto;
-    width: 100%;
 }
 
 .list-container {
+    display: flex;
+    align-items: center;
     padding: 20px;
-    position: relative;
-    border-width: 0px;
-    border-top: #eeeeee;
-    border-top-width: 1px;
-    border-style: solid;
+    border-top: 1px solid #f0f0f0;
 }
 
-.ant-list-item {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0px;
-    margin: 0px;
-    width: 80%;
-}
-
-.list-container .ant-checkbox-wrapper {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0px;
+.ant-form .ant-list-item {
+    flex-grow: inherit;
+    width: 100%;
+    overflow: auto;
+    margin-left: 20px;
     margin-right: 20px;
-    height: 20px;
-    font-size: 0px;
+    white-space: nowrap;
+    border-bottom: none;
 }
-
-.list-container .ant-checkbox-wrapper hover {
-    pointer-events: none;
-}
-
+/* when pdf doc is visible: position lower so it doesn't clip with top of window */
 .ant-modal {
     margin-top: 200px;
     margin-bottom: 200px;

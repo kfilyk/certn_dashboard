@@ -64,7 +64,7 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
                         <List.Item>
                             <List.Item.Meta title={item.title} />
                         </List.Item>
-                        <ButtonWrapper type="primary" onClick={displayModal}>
+                        <ButtonWrapper className="list-button" type="primary" onClick={displayModal}>
                             Preview
                         </ButtonWrapper>
                     </div>
