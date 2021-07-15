@@ -1,14 +1,6 @@
-function login() {
-    cy.clearCookies();
-    cy.visit('/');
-    cy.get('#login_email').type('certn.test.bot@gmail.com');
-    cy.get('#login_password').type('Seng499!!!');
-    cy.contains('', 'Log in').click();
-}
-
 describe('Header Bar Navigation', () => {
     before(() => {
-        login();
+        cy.login();
     });
 
     it('Is on the search page after login', () => {

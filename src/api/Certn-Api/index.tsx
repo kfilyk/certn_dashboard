@@ -236,6 +236,7 @@ const buildLinkInfo = (response_data: Result): LinkInfo => {
     const applicant = response_data.application.applicant;
     return {
         onboarding_link: applicant.application_url,
+        report_link: applicant.report_url,
     };
 };
 

@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 
+export const NavBarLogo = styled.img``;
+
 export const NavBarWrapper = styled.div`
     width: 100%;
     min-height: 80px;
     background-color: ${(props) => props.theme.color.white};
     display: flex;
     padding-left: 5%;
-    justify-content: space-between;
-    text-align: center;
+    align-items: center;
 `;
 
 export const NavBarLink = styled(NavLink)`
@@ -22,9 +23,8 @@ export const NavBarLink = styled(NavLink)`
     text-decoration: none;
     height: 100%;
     cursor: pointer;
-    padding: 0 20px 0 0;
-    // text-align: center;
     letter-spacing: 0.75px;
+    margin-left: 40px;
 
     &.selected {
         color: ${(props) => props.theme.color.green.default};
@@ -69,9 +69,10 @@ export const NavBarLogout = styled(Button)`
 export const NavBarLogoutWrapper = styled.div`
     display: flex;
     align-items: center;
-    margin: 0 40px 0 20px;
+    margin: 0 5% 0 40px;
 `;
 
-export const FlexWrapper = styled.div`
-    display: flex;
+export const NavBarFiller = styled.div`
+    flex-grow: 10;
+    flex-shrink: 10;
 `;

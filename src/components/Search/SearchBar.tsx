@@ -38,6 +38,7 @@ interface SearchBarProps {
     onSubmit: (values: SearchSubmission) => Promise<void>;
     advanced: boolean;
     setAdvanced: React.Dispatch<React.SetStateAction<boolean>>;
+    loading: boolean;
 }
 
 // Actual Searchbar element, contains basic search bar form, submit button and advanced search form
@@ -65,7 +66,7 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
     );
 
     return (
-        <SearchWrapper>
+        <SearchWrapper disabled={props.advanced}>
             <Form
                 name="search"
                 initialValues={{ remember: true }}
@@ -78,7 +79,12 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
                     </TextWrapper>
                     <InputWrapper>
                         <BasicSearchItem name="basic">
-                            <SearchForm prefix={<SearchOutlined />} placeholder="Search All Fields..." allowClear />
+                            <SearchForm
+                                prefix={<SearchOutlined />}
+                                placeholder="Search All Fields..."
+                                allowClear
+                                disabled={props.advanced}
+                            />
                         </BasicSearchItem>
                         <AdvancedSwitch onClick={() => props.setAdvanced(!props.advanced)}>
                             {props.advanced ? (
@@ -94,7 +100,7 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
                     </InputWrapper>
                 </BasicSearchWrapper>
                 {props.advanced && <AdvancedSearch />}
-                <SearchButton type="primary" htmlType="submit">
+                <SearchButton type="primary" htmlType="submit" disabled={props.loading}>
                     Search
                 </SearchButton>
             </Form>
