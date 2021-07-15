@@ -12,6 +12,7 @@ import {
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
+import { sendEmail } from '../../api/Certn-Api-Mock/index-mock';
 
 interface ActionTabProps {
     action: string;
@@ -40,6 +41,22 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
             content: 'Copied to clipboard!',
         });
     };
+    const handleEmailSending = async () => {
+        let sendResult: string;
+        try {
+            sendResult = await sendEmail({
+                email_type: action,
+                to: email,
+                url: action == 'onboarding' || action == 'report' ? linkT : '',
+                consent_docs: docs, //should limit to docs with checkmark once that functionality is complete
+            });
+        } catch (e) {
+            sendResult = 'Email failed to send.';
+        }
+        message.success({
+            content: sendResult,
+        });
+    };
 
     return (
         <FormWrapper>
@@ -48,7 +65,13 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
                     <InputWrapper value={email} disabled={email === '-'} />
-                    <ButtonWrapper type="primary" disabled={email === '-'}>
+                    <ButtonWrapper
+                        type="primary"
+                        disabled={email === '-'}
+                        onClick={() => {
+                            handleEmailSending();
+                        }}
+                    >
                         Send
                     </ButtonWrapper>
                     {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
@@ -62,7 +85,13 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
                     <StyledParaN> Send {textT} to the following email </StyledParaN>
                     <div>
                         <InputWrapper value={email} disabled={email === '-'} />
-                        <ButtonWrapper type="primary" disabled={linkT === null || email === '-'}>
+                        <ButtonWrapper
+                            type="primary"
+                            disabled={linkT === null || email === '-'}
+                            onClick={() => {
+                                handleEmailSending();
+                            }}
+                        >
                             Send
                         </ButtonWrapper>
                     </div>

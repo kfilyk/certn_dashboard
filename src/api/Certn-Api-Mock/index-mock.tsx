@@ -1,4 +1,4 @@
-import { ConsentDocument } from '../../interfaces';
+import { ConsentDocument, EmailInfo } from '../../interfaces';
 
 /*
  * Function designed to simulate a call to the api in search of a list of all documents associated to a given application
@@ -41,9 +41,29 @@ const getConsentDocURL = async (consentDoc_keyString: string): Promise<string> =
     });
 };
 
+/*
+ * Function designed to simulate a call to the api when sending out an email (done by each of the application actions)
+ * Should be turned into a proper call once endpoint is implemented. Currently returns dummy response string
+ */
+const sendEmail = async (email: EmailInfo): Promise<string> => {
+    await sleep(1000);
+    const response = email.email_type + ', ' + email.to + ', ' + email.consent_docs.length + ', ' + email.url;
+
+    //send to API when email endpoint exists
+    //const raw = JSON.stringify(email);
+
+    return new Promise((resolve, reject) => {
+        if (response) {
+            resolve('Sent: ' + response);
+        } else {
+            reject(new Error('Not Sent:' + response));
+        }
+    });
+};
+
 // Mimics a delay for an api call
 async function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export { getConsentDocURL, getListOfPdfs };
+export { getConsentDocURL, getListOfPdfs, sendEmail };
