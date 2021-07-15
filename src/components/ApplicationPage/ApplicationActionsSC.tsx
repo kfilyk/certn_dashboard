@@ -60,7 +60,7 @@ export const InputLinkWrapper = styled(Input)`
 `;
 
 export const ButtonWrapper = styled(Button)`
-    width: 20%;
+    width: 165px;
     background: ${(props) => props.theme.color.green.default};
     border-color: ${(props) => props.theme.color.green.default};
     :hover {
