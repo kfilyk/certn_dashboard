@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-console */
-/* eslint-disable prettier/prettier */
 import { useState } from 'react';
 import { ButtonWrapper, ModalWrapper } from './ApplicationActionsSC';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
@@ -12,7 +7,6 @@ import test from '../../deleteBeforeRelease/test.pdf';
 import { List, Checkbox } from 'antd';
 import { ConsentDocument } from '../../interfaces';
 import './PDFViewer.css';
-import { ListItemTypeProps } from 'antd/lib/list/Item';
 
 interface PDFViewerProps {
     docs: ConsentDocument[];
@@ -31,24 +25,25 @@ const pdfBuffer: cachedDocumentsBuffer = {
     sessionStoredPDFS: cachedPDFs,
 };
 
+// Aquires remote PDF via get request and stores reference location to a string to be cached in session storage.
+// Currently un-imlpementable due to CORS errors caused by server side constraints
 const downloadPDF = async (title: string, targetUrl: string): Promise<string> => {
-    targetUrl = 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
-    console.log('Attempting to download file at ' + targetUrl);
-    const returnString: Promise<string> = fetch(targetUrl, {
+    return targetUrl; // disable get request by returning the target url for testing and compilation purposes
+    const response: string = await fetch(targetUrl, {
         method: 'GET',
+        headers: {
+            'Content-type': 'application/pdf',
+        },
     })
         .then(function (resp) {
             const returnBlob: Promise<Blob> = resp.blob();
-            console.log('Return File String (in loop): ' + returnBlob);
             return returnBlob;
         })
         .then(function (blob) {
             const returnFile: string = window.URL.createObjectURL(blob);
-            console.log('Return File String (in loop): ' + returnFile);
             return returnFile;
         });
-    console.log('Return File String (out of loop): ' + returnString);
-    return returnString;
+    return response;
 };
 
 // store a requested pdf into session storage given the rolling array buffer and a ConsentDocument object
@@ -59,14 +54,14 @@ const storePDF = async (storgeBuffer: cachedDocumentsBuffer, targetConsentDoc: C
     } else {
         try {
             if (storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation] != null) {
-                // removes consent doc from session storage when number of stored PDFs exceeds set limit
+                // if next write location is occupied, remote it from session storage and update the consent document meta data
                 const removeDoc: ConsentDocument = storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation];
                 removeDoc.cacheIndexLocation = -1;
                 removeDoc.isCached = false;
-                //sessionStorage.removeItem(removeDoc.document_url);
+                sessionStorage.removeItem(removeDoc.document_url);
             }
-            const pdfReference: Promise<string> = downloadPDF(targetConsentDoc.title, targetConsentDoc.document_url);
-            //sessionStorage.setItem(targetConsentDoc.document_url, pdfReference);
+            const pdfReference: string = await downloadPDF(targetConsentDoc.title, targetConsentDoc.document_url);
+            sessionStorage.setItem(targetConsentDoc.document_url, pdfReference);
             storgeBuffer.sessionStoredPDFS[storgeBuffer.nextWriteLocation] = targetConsentDoc;
             targetConsentDoc.isCached = true;
             targetConsentDoc.cacheIndexLocation = storgeBuffer.nextWriteLocation;
