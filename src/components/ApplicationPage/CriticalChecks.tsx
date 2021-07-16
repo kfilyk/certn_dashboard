@@ -58,16 +58,25 @@ const sortChecks = (
     _arr: Array<SimplifiedChecks>
 ): Record<string, Array<string>> => {
     switch (curr.result) {
-        case 'CLEARED':
+        case 'ERROR':
+        case 'RETURNED':
+        case 'VERIFIED':
+        case 'SYSTEM UNABLE TO VERIFY':
+        case 'PARTIALLY VERIFIED':
+        case 'UNVERIFIED':
             acc.complete.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
             return acc;
-        case 'NONE':
+        case 'ANALYZING':
+        case 'PARTIAL':
+        case 'PENDING':
+        case 'VERIFICATION PENDING':
             acc.pending.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
             return acc;
-        case 'UNVERIFIED':
-            acc.failure.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
+        case 'NONE':
+        case 'UPGRADE TO VERIFY':
             return acc;
         default:
+            acc.failure.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
             return acc;
     }
 };
