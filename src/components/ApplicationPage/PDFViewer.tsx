@@ -1,7 +1,15 @@
 import { useState } from 'react';
-import { PreviewCheckbox, ButtonWrapper, ModalWrapper } from './ApplicationActionsSC';
+import { ModalWrapper } from './ApplicationActionsSC';
+import { List, Checkbox } from 'antd';
+import { ConsentDocument } from '../../interfaces';
+import './PDFViewer.css';
 
-export const PDFViewer = (): JSX.Element => {
+interface PDFViewerProps {
+    docs: ConsentDocument[];
+}
+
+export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
+    const data: ConsentDocument[] = docs;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [page, setPage] = useState(1);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,10 +32,20 @@ export const PDFViewer = (): JSX.Element => {
     //PDF will be implemented inside ModalWrapper above the <p>, which will be used to count the pages
     return (
         <div>
-            <PreviewCheckbox>Consent Document 1</PreviewCheckbox>
-            <ButtonWrapper type="primary" onClick={displayModal}>
-                Preview
-            </ButtonWrapper>
+            <List
+                dataSource={data}
+                renderItem={(item: ConsentDocument) => (
+                    <div className="list-container">
+                        <Checkbox></Checkbox>
+                        <List.Item onClick={displayModal}>
+                            <List.Item.Meta
+                                title={<a href={item.url_mock}>{item.title}</a>}
+                                description={item.key_string}
+                            />
+                        </List.Item>
+                    </div>
+                )}
+            />
             <ModalWrapper title="Preview" visible={showModal} onOk={handleOk} onCancel={handleCancel}>
                 <p>
                     Page {page} of {pages}

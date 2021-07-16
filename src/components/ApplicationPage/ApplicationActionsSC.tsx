@@ -1,4 +1,4 @@
-import { Input, Button, Checkbox, Modal } from 'antd';
+import { Input, Button, Modal } from 'antd';
 import styled from 'styled-components';
 
 //likely temporary styling
@@ -73,11 +73,6 @@ export const ButtonWrapper = styled(Button)`
         background: ${(props) => props.theme.color.green.default};
         border-color: ${(props) => props.theme.color.green.default};
     }
-`;
-
-export const PreviewCheckbox = styled(Checkbox)`
-    margin-left: 25px;
-    margin-right: 5px;
 `;
 
 export const ModalWrapper = styled(Modal)`

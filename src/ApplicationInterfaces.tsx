@@ -747,7 +747,7 @@ export interface Applicant {
     phone_number: PhoneNumber;
     certn_score?: unknown;
     application_url: string;
-    report_url: Url;
+    report_url: string;
     hr_onboarding_session: HrOnboardingSession;
 }
 

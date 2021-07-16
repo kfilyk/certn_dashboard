@@ -1,10 +1,16 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { UserData, AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
+import {
+    UserData,
+    AdvApplicationInfo,
+    ApplicationPageData,
+    CriticalChecksInfo,
+    LinkInfo,
+    ConsentDocument,
+} from '../../interfaces';
 import { MutipleApplicationSearchResults, Result } from '../../ApplicationInterfaces';
 const version = 'v1';
-
 const getToken = (): string => {
     const authObj = JSON.parse(localStorage.getItem('certn-auth') || '""');
     return authObj === '' ? '' : 'Token ' + authObj.token;
@@ -40,7 +46,6 @@ const Softcheck = async (): Promise<void> => {
             body: raw,
         });
         const responseData = await response.json();
-        console.log('data: ', responseData);
         if (!response.ok) {
             throw new Error(responseData.message);
         }
@@ -99,12 +104,12 @@ const buildAdvApplicationInfo = (response: Result): AdvApplicationInfo => {
     const application: AdvApplicationInfo = {
         application_id: response.application.id,
         key: applicant.id,
-        email: applicant.email,
-        firstName: applicant.first_name,
-        lastName: applicant.last_name,
-        phone: applicant.phone_number ? applicant.phone_number.toString() : '',
-        created: response.application.created ? response.application.created.toString() : '',
-        updated: response.application.modified ? response.application.modified.toString() : '',
+        email: applicant.email ? applicant.email : '-',
+        firstName: applicant.first_name ? applicant.first_name : '-',
+        lastName: applicant.last_name ? applicant.last_name : '-',
+        phone: applicant.phone_number ? applicant.phone_number.toString() : '-',
+        created: response.application.created ? response.application.created.toString() : '-',
+        updated: response.application.modified ? response.application.modified.toString() : '-',
         status: response.report_status,
         orderedBy: owner.email,
         team: owner.team.name,
@@ -163,6 +168,27 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
     return pruned_applications;
 };
 
+/*
+ * Function designed to simulate a call to the api in search of a list of all documents associated to a given application
+ * Will be turned into a proper call once endpoint is implemented
+ */
+const getListOfPdfsMOCK = async (): Promise<Array<ConsentDocument>> => {
+    const returnDocuments: Array<ConsentDocument> = [];
+    for (let i = 0; i < 20; i = i + 1) {
+        const interationTitle = 'Mock Consent Doc ' + i; // random generation
+        const iterationKey = 'MOCK KEY ' + i;
+
+        const sudoConsentDoc: ConsentDocument = {
+            title: interationTitle,
+            key_string: iterationKey,
+            url_mock: 'http://example.com/sample.pdf',
+        };
+        returnDocuments.push(sudoConsentDoc);
+    }
+
+    return returnDocuments;
+};
+
 /**
  * This is a helper function used to build an object that represents the cirtical checks of an applicant.
  *
@@ -210,6 +236,7 @@ const buildLinkInfo = (response_data: Result): LinkInfo => {
     const applicant = response_data.application.applicant;
     return {
         onboarding_link: applicant.application_url,
+        report_link: applicant.report_url,
     };
 };
 
@@ -239,26 +266,21 @@ const getApplicant = async (applicant_id: string): Promise<ApplicationPageData> 
     // Note to get a signle applicant we need to pass in application.applicant.id and not application.id
     const search_url = `https://demo-api.certn.co/hr/${version}/applicants/${applicant_id}`;
     let application_page_data: ApplicationPageData = {} as ApplicationPageData;
+    const response = await fetch(search_url, {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json',
+            Authorization: getToken(),
+        },
+    });
 
-    try {
-        const response = await fetch(search_url, {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: getToken(),
-            },
-        });
-
-        const response_data = await response.json();
-        if (!response.ok) {
-            throw new Error(response_data.message);
-        }
-        const result: Result = response_data;
-        application_page_data = getApplicantData(result);
-    } catch (err) {
-        console.log('something went wrong: ' + err);
+    const response_data = await response.json();
+    if (!response.ok) {
+        throw new Error(response_data.message);
     }
+    const result: Result = response_data;
+    application_page_data = getApplicantData(result);
     return application_page_data;
 };
 
-export { userLogin, Softcheck, Creditreport, getToken, getApplications, getApplicant };
+export { userLogin, Softcheck, Creditreport, getToken, getApplications, getApplicant, getListOfPdfsMOCK };

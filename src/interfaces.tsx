@@ -47,6 +47,7 @@ interface CriticalChecksInfo {
 
 interface LinkInfo {
     onboarding_link: string;
+    report_link: string;
 }
 
 interface Applicant {
@@ -58,6 +59,12 @@ interface ApplicationPageData {
     critical_checks: CriticalChecksInfo;
     application_info: AdvApplicationInfo;
     application_links: LinkInfo;
+}
+
+interface ConsentDocument {
+    title: string;
+    key_string: string;
+    url_mock: string;
 }
 
 interface Application {
@@ -72,6 +79,7 @@ interface Application {
         id: string;
         phone_number: string;
         application_url: string;
+        report_url: string;
     };
     owner: {
         id: string;
@@ -103,4 +111,5 @@ export type {
     ApplicationPageData,
     Application,
     Applicant,
+    ConsentDocument,
 };

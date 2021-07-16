@@ -7,16 +7,18 @@ import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 // Components
+import logo from '../../logo.svg';
 
 // Styled Components
 import {
     NavBarWrapper,
     NavBarLink,
+    NavBarFiller,
     ProfileButtonWrapper,
     EmailWrapper,
     NavBarLogout,
     NavBarLogoutWrapper,
-    FlexWrapper,
+    NavBarLogo,
 } from './NavBarSC';
 
 //Interfaces
@@ -30,22 +32,20 @@ const NavBar = (): JSX.Element => {
 
     return (
         <NavBarWrapper id="navbar">
-            <FlexWrapper>
-                <NavBarLink to="/search" activeClassName="selected" onClick={() => history.push('/search')}>
-                    Find Application
-                </NavBarLink>
-            </FlexWrapper>
-            <FlexWrapper>
-                <NavBarLink to="/dashboard" activeClassName="selected" onClick={() => history.push('/dashboard')}>
-                    <ProfileButtonWrapper>
-                        <Avatar icon={<UserOutlined />} />
-                        <EmailWrapper>{email}</EmailWrapper>
-                    </ProfileButtonWrapper>
-                </NavBarLink>
-                <NavBarLogoutWrapper>
-                    <NavBarLogout onClick={() => userLogout()}>Log Out</NavBarLogout>
-                </NavBarLogoutWrapper>
-            </FlexWrapper>
+            <NavBarLogo src={logo} alt="logo" />
+            <NavBarLink to="/search" activeClassName="selected" onClick={() => history.push('/search')}>
+                Find Application
+            </NavBarLink>
+            <NavBarFiller />
+            <NavBarLink to="/dashboard" activeClassName="selected" onClick={() => history.push('/dashboard')}>
+                <ProfileButtonWrapper>
+                    <Avatar icon={<UserOutlined />} />
+                    <EmailWrapper>{email}</EmailWrapper>
+                </ProfileButtonWrapper>
+            </NavBarLink>
+            <NavBarLogoutWrapper>
+                <NavBarLogout onClick={() => userLogout()}>Log Out</NavBarLogout>
+            </NavBarLogoutWrapper>
         </NavBarWrapper>
     );
 };
