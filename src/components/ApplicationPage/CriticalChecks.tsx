@@ -73,6 +73,7 @@ const sortChecks = (
             acc.pending.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
             return acc;
         case 'NONE':
+        case 'UPGRADE':
         case 'UPGRADE TO VERIFY':
             return acc;
         default:
@@ -102,7 +103,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
             // ...while the remaining 6 checks follow the same {name : {result: string, status: string}} format
         } else {
             formattedChecks.push({
-                result: (checks as unknown as Record<string, CriticalChecksResult>)[key].result,
+                result: (checks as unknown as Record<string, CriticalChecksResult>)[key].status, // pull the status instead of the result because it is more granular
                 name: key,
             });
         }
