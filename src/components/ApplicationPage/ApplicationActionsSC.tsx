@@ -48,19 +48,21 @@ export const FormWrapper = styled.div`
 `;
 
 export const InputWrapper = styled(Input)`
-    margin: 25px;
+    margin-right: 25px;
     border: 1px solid gray;
     width: 60%;
+    flex-grow: 2;
 `;
 
 export const InputLinkWrapper = styled(Input)`
-    margin: 5px 25px 25px 25px;
     border: 1px solid gray;
-    width: 80%;
+    width: 82.5%;
+    align-items: right;
+    flex-grow: 2;
 `;
 
 export const ButtonWrapper = styled(Button)`
-    width: 165px;
+    align-items: right;
     background: ${(props) => props.theme.color.green.default};
     border-color: ${(props) => props.theme.color.green.default};
     :hover {
@@ -102,6 +104,6 @@ export const StyledParaN = styled.p`
 
 export const StyledParaNB = styled.p`
     margin-left: 25px;
-    margin-bottom: 1px;
+    margin-bottom: 5px;
     font-weight: bold;
 `;
