@@ -47,12 +47,13 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
-                    <InputWrapper value={email} disabled={email === '-'} />
-                    <ButtonWrapper type="primary" disabled={email === '-'}>
-                        Send
-                    </ButtonWrapper>
-                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
-                    <br />
+                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                        <InputWrapper value={email} disabled={email === '-'} />
+                        <ButtonWrapper type="primary" disabled={email === '-'}>
+                            Send
+                        </ButtonWrapper>
+                        {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
+                    </div>
                     <StyledParaNB> Documents to Send</StyledParaNB>
                     <PDFViewer docs={docs} />
                 </Form>
@@ -60,32 +61,33 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email </StyledParaN>
-                    <div>
+                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
                         <InputWrapper value={email} disabled={email === '-'} />
                         <ButtonWrapper type="primary" disabled={linkT === null || email === '-'}>
                             Send
                         </ButtonWrapper>
                     </div>
                     {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
-                    <br />
                     <StyledParaNB> {textT} </StyledParaNB>
-                    <InputLinkWrapper
-                        prefix={
-                            <FileTextOutlined
-                                onClick={() => {
-                                    copyToClipboard(linkT);
-                                }}
-                            />
-                        }
-                        disabled={linkT === null}
-                        value={linkT}
-                        onChange={() => {
-                            message.error({
-                                content: 'URL cannot be edited!',
-                            });
-                        }}
-                    />
-                    {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
+                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                        <InputLinkWrapper
+                            prefix={
+                                <FileTextOutlined
+                                    onClick={() => {
+                                        copyToClipboard(linkT);
+                                    }}
+                                />
+                            }
+                            disabled={linkT === null}
+                            value={linkT}
+                            onChange={() => {
+                                message.error({
+                                    content: 'URL cannot be edited!',
+                                });
+                            }}
+                        />
+                        {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
+                    </div>
                 </Form>
             )}
         </FormWrapper>
