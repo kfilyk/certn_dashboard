@@ -93,6 +93,7 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
 
     const handleCancel = () => {
         setShowModal(false);
+        setPageNumber(1);
     };
 
     const changePage = (offset: number) => {

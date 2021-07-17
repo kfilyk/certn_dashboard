@@ -19,6 +19,7 @@ type LinkProps = {
 export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
     const [selectedAction, setSelectedAction] = useState<string>('onboarding');
     const [docs, setDocs] = useState<ConsentDocument[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const getDocs = async (): Promise<void> => {
         let apiResults: ConsentDocument[];
@@ -28,6 +29,7 @@ export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
             apiResults = [];
         }
         setDocs(apiResults);
+        setLoading(false);
     };
 
     //currently shows dummy text corresponding to each of the 3 pages based on the selected action
@@ -46,7 +48,7 @@ export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
                     </Menu.ItemGroup>
                 </Menu>
             </ActionListWrapper>
-            <ActionTabs action={selectedAction} email={data.email} links={links} docs={docs} />
+            <ActionTabs action={selectedAction} email={data.email} links={links} docs={docs} loading={loading} />
         </ActionWrapper>
     );
 };
