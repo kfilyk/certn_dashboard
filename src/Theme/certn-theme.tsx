@@ -38,12 +38,20 @@ const certnTheme: DefaultTheme = {
         pink: certnPink,
     },
     breakPoints: {
-        xs: 0,
-        sm: '377px',
-        md: '641px',
-        lg: '769px',
-        xl: '1025px',
-        xxl: '1281px',
+        xs: '376px',
+        sm: '641px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        xxl: '1536px',
+    },
+    device: {
+        mobile: '(min-width: 376px)',
+        mobileLarge: '(min-width: 641px)',
+        tablet: '(min-width: 768px)',
+        tabletLarge: '(min-width: 1024px)',
+        desktop: '(min-width: 1280px)',
+        desktopLarge: '(min-width: 1536px)',
     },
 };
 
