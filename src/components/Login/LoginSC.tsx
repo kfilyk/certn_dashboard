@@ -21,6 +21,12 @@ export const LoginDiv = styled.div`
     font-size: ${(props) => props.theme.fontSize.xl.size};
     line-height: ${(props) => props.theme.fontSize.xl.lineHeight};
     color: white;
+    .ant-input-affix-wrapper:focus,
+    .ant-input-affix-wrapper-focused,
+    .ant-input-affix-wrapper:hover {
+        border-color: ${(props) => props.theme.color.green[400]} !important;
+        box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
+    }
 `;
 
 export const LoginButton = styled(Button)`
@@ -38,7 +44,10 @@ export const FormWrapper = styled.div`
 `;
 
 export const StyledLink = styled.a`
-    color: ${(props) => props.theme.color.green.default};
     font-size: ${(props) => props.theme.fontSize.base.size};
     line-height: ${(props) => props.theme.fontSize.base.lineHeight};
+    color: ${(props) => props.theme.color.green.default};
+    :hover {
+        color: ${(props) => props.theme.color.green.default};
+    }
 `;
