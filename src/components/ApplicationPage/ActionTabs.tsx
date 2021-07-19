@@ -1,4 +1,4 @@
-import { Alert, Form, message } from 'antd';
+import { Alert, Form, message, Spin } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
@@ -18,12 +18,13 @@ interface ActionTabProps {
     email: string;
     links: LinkInfo;
     docs: ConsentDocument[];
+    loading: boolean;
 }
 
-export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.Element => {
+export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabProps): JSX.Element => {
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
-
+    // eslint-disable-next-line no-param-reassign
     /* Copy function: https://stackoverflow.com/a/62958832
      * Creates empty textarea element, assigns URL as the value, copies URL, destroys textarea element
      * Displays AntD Message component for copy success
@@ -41,21 +42,30 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
         });
     };
 
+    /* Temporary consent doc form specifier */
+    const sendConsent = (values: FormData) => {
+        // eslint-disable-next-line no-console
+        console.log('Send the following forms to ' + email + ': ', values);
+    };
+
     return (
         <FormWrapper>
             {action === 'documents' ? (
-                <Form>
+                <Form onFinish={sendConsent}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
+
                     <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
                         <InputWrapper value={email} disabled={email === '-'} />
-                        <ButtonWrapper type="primary" disabled={email === '-'}>
+                        <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
                             Send
                         </ButtonWrapper>
                         {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
                     </div>
                     <StyledParaNB> Documents to Send</StyledParaNB>
-                    <PDFViewer docs={docs} />
+                    <Spin spinning={loading}>
+                        <PDFViewer docs={docs} />
+                    </Spin>
                 </Form>
             ) : (
                 <Form>
