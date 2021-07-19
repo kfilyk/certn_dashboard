@@ -5,7 +5,6 @@ import { certnTheme } from '../../Theme/certn-theme';
 import { useHistory } from 'react-router-dom';
 import { AdvApplicationInfo } from '../../interfaces';
 import { Spinner, Dot, TableWrapper } from './SearchTableSC';
-//import './SearchTable.css';
 
 const dotColor = [
     {
