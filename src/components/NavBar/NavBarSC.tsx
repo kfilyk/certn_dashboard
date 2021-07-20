@@ -12,8 +12,12 @@ export const NavBarWrapper = styled.div`
     min-height: 80px;
     background-color: ${(props) => props.theme.color.white};
     display: flex;
-    padding-left: 5%;
     align-items: center;
+    padding: 0 2%;
+
+    @media ${(props) => props.theme.device.desktopLarge} {
+        padding: 0 5%;
+    }
 `;
 
 export const NavBarLink = styled(NavLink)`
@@ -80,7 +84,7 @@ export const NavBarLogout = styled(Button)`
 export const NavBarLogoutWrapper = styled.div`
     display: flex;
     align-items: center;
-    margin: 0 5% 0 40px;
+    margin-left: 40px;
 `;
 
 export const NavBarFiller = styled.div`
