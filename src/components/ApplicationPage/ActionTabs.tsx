@@ -42,39 +42,46 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
             content: 'Copied to clipboard!',
         });
     };
-    const handleEmailSending = async () => {
-        let sendResult: string;
+
+    // Handles calling of sendEmail function whenever the "send" buttons are clicked. "values" contains consent doc info in the form: {URL : selected (true/false)}
+    const handleEmailSending = async (values: any) => {
+        let response = '';
+        const selectedDocs: ConsentDocument[] = [];
+        for (let i = 0; i < docs.length; i += 1) {
+            // check if each consent document is in 'values', and if its selected, if so, add to array
+            if (values[docs[i].document_url]) {
+                selectedDocs.push(docs[i]);
+            }
+        }
+
         try {
-            sendResult = await sendEmail({
+            //sendEmail should return some sort of status, but until the actual API is hooked up it only returns debug text
+            response = await sendEmail({
                 email_type: action,
                 to: email,
                 url: action == 'onboarding' || action == 'report' ? linkT : '',
-                consent_docs: docs, //should limit to docs with checkmark once that functionality is complete
+                consent_docs: selectedDocs,
             });
         } catch (e) {
-            sendResult = 'Email failed to send.';
+            message.error({
+                content: response,
+            });
         }
         message.success({
-            content: sendResult,
+            content: response,
         });
-    };
-
-    /* Temporary consent doc form specifier */
-    const sendConsent = (values: FormData) => {
-        // eslint-disable-next-line no-console
-        console.log('Send the following forms to ' + email + ': ', values);
     };
 
     return (
         <FormWrapper>
             {action === 'documents' ? (
-                <Form onFinish={sendConsent}>
+                <Form onFinish={handleEmailSending}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
 
                     <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
                         <InputWrapper value={email} disabled={email === '-'} />
-                        <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
+                        <ButtonWrapper type="primary" htmlType="submit" disabled={email === '-' || docs.length === 0}>
                             Send
                         </ButtonWrapper>
                         {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
@@ -85,18 +92,12 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                     </Spin>
                 </Form>
             ) : (
-                <Form>
+                <Form onFinish={handleEmailSending}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email </StyledParaN>
                     <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
                         <InputWrapper value={email} disabled={email === '-'} />
-                        <ButtonWrapper
-                            type="primary"
-                            disabled={linkT === null || email === '-'}
-                            onClick={() => {
-                                handleEmailSending();
-                            }}
-                        >
+                        <ButtonWrapper type="primary" htmlType="submit" disabled={linkT === null || email === '-'}>
                             Send
                         </ButtonWrapper>
                     </div>
