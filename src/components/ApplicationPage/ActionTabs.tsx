@@ -43,14 +43,20 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
         });
     };
 
-    // Handles calling of sendEmail function whenever the "send" buttons are clicked. "values" contains consent doc info in the form: {URL : selected (true/false)}
+    /**
+     * Handles calling of sendEmail function with a constructed EmailInfo object whenever the "send" buttons are clicked.
+     * Due to the passed in "values" having arbitrary keys, "any" must be used (but this should be changed later if possible)
+     *
+     * @param "values" contains consent doc info in the form: {URL : selected (true/false)}
+     */
     const handleEmailSending = async (values: any) => {
         let response = '';
         const selectedDocs: ConsentDocument[] = [];
-        for (let i = 0; i < docs.length; i += 1) {
-            // check if each consent document is in 'values', and if its selected, if so, add to array
-            if (values[docs[i].document_url]) {
-                selectedDocs.push(docs[i]);
+
+        for (const doc of docs) {
+            // check if each consent document is in 'values' and if its selected, if so, add to array
+            if (values[doc.document_url]) {
+                selectedDocs.push(doc);
             }
         }
 

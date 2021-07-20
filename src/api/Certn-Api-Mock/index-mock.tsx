@@ -66,9 +66,12 @@ const getConsentDocURL = async (consentDoc_keyString: string): Promise<string> =
     });
 };
 
-/*
+/**
  * Function designed to simulate a call to the api when sending out an email (done by each of the application actions)
  * Should be turned into a proper call once endpoint is implemented. Currently returns debug response string
+ *
+ * @param EmailInfo object
+ * @returns API response (simple string given this is a Mock function)
  */
 const sendEmail = async (email: EmailInfo): Promise<string> => {
     await sleep(1000);
