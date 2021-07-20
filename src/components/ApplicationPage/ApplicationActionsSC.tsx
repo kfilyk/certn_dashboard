@@ -88,7 +88,7 @@ export const StyledParaB = styled.p`
     color: ${(props) => props.theme.color.black};
     margin-left: 25px;
     font-weight: ${(props) => props.theme.fontWeights.bold};
-    font-size: 30px;
+    font-size: ${(props) => props.theme.fontSize.xl3.size};
     padding-top: 20px;
     margin-bottom: 10px;
 `;
@@ -111,4 +111,7 @@ export const InputButtonWrapper = styled.div`
     justify-content: right;
     flex: 2;
     margin: 5px 25px 25px 25px;
+    margin-left: 25px;
+    margin-bottom: 5px;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
 `;

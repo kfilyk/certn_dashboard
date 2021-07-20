@@ -29,8 +29,13 @@ export const SearchButton = styled(Button)`
     background-color: ${(props) => props.theme.color.green[400]};
     color: ${(props) => props.theme.color.white};
     border-color: ${(props) => props.theme.color.green[400]};
-    border-radius: 4px;
+    border-radius: 6px;
     margin-left: 20px;
+    font-size: ${(props) => props.theme.fontSize.base.size};
+    font-weight: ${(props) => props.theme.fontWeights.semiBold};
+    height: 38px;
+    width: 112px;
+
     :hover,
     :focus {
         background-color: ${(props) => props.theme.color.green[400]};
@@ -71,6 +76,8 @@ export const ToggleButtonWrapper = styled.div`
         text-align: center;
         margin: 0;
         margin-left: 5px;
+        font-size: ${(props) => props.theme.fontSize.sm.size};
+        line-height: ${(props) => props.theme.fontSize.sm.lineHeight};
     }
 `;
 
@@ -86,7 +93,9 @@ export const AdvancedSearchItem = styled(Form.Item)`
     }
 
     label {
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
+        font-size: ${(props) => props.theme.fontSize.sm.size};
+        line-height: ${(props) => props.theme.fontSize.sm.lineHeight};
     }
 `;
 
@@ -111,6 +120,8 @@ export const TextWrapper = styled.div`
     p {
         align-self: center;
         margin: 0;
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
+        font-size: ${(props) => props.theme.fontSize.sm.size};
+        line-height: ${(props) => props.theme.fontSize.sm.lineHeight};
     }
 `;

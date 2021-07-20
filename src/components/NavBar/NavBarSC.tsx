@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 import { NavLink } from 'react-router-dom';
 
-export const NavBarLogo = styled.img``;
+export const NavBarLogo = styled.img`
+    height: 42px;
+`;
 
 export const NavBarWrapper = styled.div`
     width: 100%;
@@ -18,6 +20,8 @@ export const NavBarLink = styled(NavLink)`
     color: ${(props) => props.theme.color.gray[400]};
     font-family: ${(props) => props.theme.fontFamily};
     font-weight: ${(props) => props.theme.fontWeights.semiBold};
+    font-size: ${(props) => props.theme.fontSize.base.size};
+    line-height: ${(props) => props.theme.fontSize.base.lineHeight};
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -52,12 +56,19 @@ export const EmailWrapper = styled.p`
 `;
 
 export const NavBarLogout = styled(Button)`
-    display: flex;
-    align-items: center;
+    height: 38px;
+    width: 112px;
     color: ${(props) => props.theme.color.white};
     background-color: ${(props) => props.theme.color.green.default};
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: ${(props) => props.theme.fontSize.base.size};
+    line-height: ${(props) => props.theme.fontSize.base.lineHeight};
+    font-weight: ${(props) => props.theme.fontWeights.semiBold};
+
+    span {
+        margin: auto;
+    }
 
     :hover {
         color: ${(props) => props.theme.color.white};
