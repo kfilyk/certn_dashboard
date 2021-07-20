@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import { Input, Button, Form } from 'antd';
 
 export const SearchWrapper = styled.div<{ disabled: boolean }>`
-    margin: 50px 5% 0 5%;
-
     //needed to ensure the forms and search button line up
     height: 104px;
+    margin-top: 50px;
     display: flex;
 
     ${(props) =>
