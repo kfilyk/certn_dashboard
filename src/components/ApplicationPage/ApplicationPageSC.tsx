@@ -19,6 +19,18 @@ export const ApplicationPageWrapper = styled.div`
     flex-grow: 2;
 `;
 
+export const CollapseWrapper = styled.div`
+    margin-left: 25px;
+    min-width: 220px;
+    max-width: 300px;
+    border-radius: 10px;
+
+    .ant-collapse {
+        border: 1px solid ${(props) => props.theme.color.gray[100]};
+        border-radius: 10px;
+    }
+`;
+
 export const CompleteHeader = styled.span`
     color: ${(props) => props.theme.color.green[600]};
     font-weight: bold;

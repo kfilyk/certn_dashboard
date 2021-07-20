@@ -1,8 +1,11 @@
+/**
+ * @file Defines the Critical Checks dropdown on the right-hand side of the Application page
+ */
 import { CriticalChecksInfo, CriticalChecksResult, CertnVerification } from '../../interfaces';
-// Ant Design Imports
 import 'antd/dist/antd.css';
 import { Collapse, List } from 'antd';
 import {
+    CollapseWrapper,
     CompleteHeader,
     CompleteBadge,
     PendingHeader,
@@ -10,26 +13,23 @@ import {
     FailureHeader,
     FailureBadge,
 } from './ApplicationPageSC';
-import styled from 'styled-components';
 
-// Temp until all components for application page are completed
-const CollapseWrapper = styled.div`
-    margin-left: 25px;
-    min-width: 220px;
-    max-width: 300px;
-    border-radius: 10px;
-
-    .ant-collapse {
-        border: 1px solid ${(props) => props.theme.color.gray[100]};
-        border-radius: 10px;
-    }
-`;
-
-// Interfaces
+/**
+ * Interface for props passed to CriticalChecks.tsx
+ *
+ * @interface
+ */
 type ChecksProps = {
     checks: CriticalChecksInfo;
 };
 
+/**
+ * Interface for taking only the status and name of a critical check
+ *
+ * Note: Though the name is "result", the code actually pulls the critical check's "status"
+ *
+ * @interface
+ */
 type SimplifiedChecks = {
     result: string | undefined;
     name: string;
@@ -48,7 +48,14 @@ const criticalCheckTitles = {
     credential_verification: 'Credential Verification',
 } as Record<string, string>;
 
-// Assign critical check to correct status panel (complete, pending, or failure)
+/**
+ * Assigns each critical check to the correct status panel (complete, pending, or failure)
+ *
+ * @param {Record<string, Array<string>} acc - Accumulator; holds the critical checks in one of 3 buckets
+ * @param {SimplifiedChecks} curr - Current element being processed
+ * @param {number} _index - Index of current element (unused in this function)
+ * @param {Array<SimplifiedChecks} _arr - Array reduce() was called on (unused in this function)
+ */
 const sortChecks = (
     acc: Record<string, Array<string>>,
     curr: SimplifiedChecks,
@@ -75,7 +82,7 @@ const sortChecks = (
         case 'NONE':
         case 'UPGRADE':
         case 'UPGRADE TO VERIFY':
-            return acc;
+            return acc; // Unrequested critical checks should not be displayed in any of the panels
         default:
             acc.failure.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
             return acc;
