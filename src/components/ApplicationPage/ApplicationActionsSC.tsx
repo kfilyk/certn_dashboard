@@ -38,6 +38,10 @@ export const ActionWrapper = styled.div`
     flex-grow: 2;
 `;
 
+/**
+ * Used in ActionTabs.tsx for the form that outputs the three different tabs
+ */
+
 export const FormWrapper = styled.div`
     background-color: #fff;
     margin: 0px 25px 0px 25px;
@@ -47,6 +51,10 @@ export const FormWrapper = styled.div`
     flex-grow: 2;
 `;
 
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ */
+
 export const InputWrapper = styled(Input)`
     margin-right: 25px;
     border: 1px solid gray;
@@ -54,12 +62,21 @@ export const InputWrapper = styled(Input)`
     flex-grow: 2;
 `;
 
+/**
+ * Used in ActionTabs.tsx for the Onboarding and Report Link tabs
+ */
+
 export const InputLinkWrapper = styled(Input)`
     border: 1px solid gray;
     width: 82.5%;
     align-items: right;
     flex-grow: 2;
 `;
+
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ * Used in PDFViewer.tsx for the buttons implemented on it
+ */
 
 export const ButtonWrapper = styled(Button)`
     align-items: right;
@@ -75,6 +92,10 @@ export const ButtonWrapper = styled(Button)`
     }
 `;
 
+/**
+ * Used in PDFViewer.tsx to create the modal to present the PDF Viewer on
+ */
+
 export const ModalWrapper = styled(Modal)`
     width: 100%;
     height: 500px;
@@ -82,6 +103,10 @@ export const ModalWrapper = styled(Modal)`
     align-items: center;
     justify-content: center;
 `;
+
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ */
 
 export const StyledParaB = styled.p`
     color: ${(props) => props.theme.color.black};
@@ -92,10 +117,18 @@ export const StyledParaB = styled.p`
     margin-bottom: 10px;
 `;
 
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ */
+
 export const StyledParaN = styled.p`
     margin-left: 25px;
     margin-bottom: 1px;
 `;
+
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ */
 
 export const StyledParaNB = styled.p`
     margin-left: 25px;
