@@ -90,8 +90,8 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                         <ButtonWrapper type="primary" htmlType="submit" disabled={email === '-' || docs.length === 0}>
                             Send
                         </ButtonWrapper>
-                        {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
                     </div>
+                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
                     <StyledParaNB> Documents to Send</StyledParaNB>
                     <Spin spinning={loading}>
                         <PDFViewer docs={docs} />
@@ -126,8 +126,8 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                                 });
                             }}
                         />
-                        {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
                     </div>
+                    {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
                 </Form>
             )}
         </FormWrapper>
