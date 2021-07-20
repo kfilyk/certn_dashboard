@@ -13,6 +13,19 @@ import {
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
 
+/**
+ * This is an interface that specifies the variables that will be used for the three action tabs
+ *
+ * Action is used to define whether the onboarding link, report link or consent document tab will show
+ *
+ * Email is used to give the current email value of the application
+ *
+ * links is used to give the current onboarding link or report link of the application
+ *
+ * docs is used to give the current documents associated with the application
+ *
+ * loading is used for the PDF Viewer
+ */
 interface ActionTabProps {
     action: string;
     email: string;
@@ -21,6 +34,12 @@ interface ActionTabProps {
     loading: boolean;
 }
 
+/**
+ * This exports the form that conditionally builds the three action tabs on the application
+ * The two primary conditionals are for judging if it is a Link tab or the Consent Documents tab
+ * This is determined by the use of the value of the action parameter
+ * The parameter values for the Link tab will change between the Onboarding to Report Link tabs
+ */
 export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabProps): JSX.Element => {
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
