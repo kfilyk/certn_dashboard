@@ -16,6 +16,10 @@ type LinkProps = {
     data: AdvApplicationInfo;
 };
 
+/**
+ * This allows for the selection of one out of the three tabs that are present on the application page
+ * The choice here defines the values assigned to variables in ActionTabs.tsx
+ */
 export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
     const [selectedAction, setSelectedAction] = useState<string>('onboarding');
     const [docs, setDocs] = useState<ConsentDocument[]>([]);
@@ -31,9 +35,6 @@ export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
         setDocs(apiResults);
         setLoading(false);
     };
-
-    //currently shows dummy text corresponding to each of the 3 pages based on the selected action
-    //Each should be replaced with their relevant page when complete.
 
     return (
         <ActionWrapper>
