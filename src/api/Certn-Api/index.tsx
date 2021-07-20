@@ -164,7 +164,7 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
 };
 
 /**
- * This is a helper function used to build an object that represents the cirtical checks of an applicant.
+ * This is a helper function used to build an object that represents the critical checks of an applicant.
  *
  * @param response_data
  * @returns CriticalChecksInfo
