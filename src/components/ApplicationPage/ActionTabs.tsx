@@ -9,10 +9,13 @@ import {
     StyledParaB,
     StyledParaN,
     StyledParaNB,
+    ATErrorWrapper,
+    InputButtonWrapper,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
 import { sendEmail } from '../../api/Certn-Api-Mock/index-mock';
+import { useState } from 'react';
 
 interface ActionTabProps {
     action: string;
@@ -25,6 +28,8 @@ interface ActionTabProps {
 export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabProps): JSX.Element => {
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
+    const [checked, setChecked] = useState<number>(0);
+
     // eslint-disable-next-line no-param-reassign
     /* Copy function: https://stackoverflow.com/a/62958832
      * Creates empty textarea element, assigns URL as the value, copies URL, destroys textarea element
@@ -41,6 +46,16 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
         message.success({
             content: 'Copied to clipboard!',
         });
+    };
+
+    const handleChange = async (values: any) => {
+        for (const v in values) {
+            if (values[v] == true) {
+                setChecked(checked + 1);
+            } else if (values[v] == false) {
+                setChecked(checked - 1);
+            }
+        }
     };
 
     /**
@@ -81,17 +96,22 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
     return (
         <FormWrapper>
             {action === 'documents' ? (
-                <Form onFinish={handleEmailSending}>
+                <Form onFinish={handleEmailSending} onValuesChange={handleChange}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
-
-                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                    <InputButtonWrapper>
                         <InputWrapper value={email} disabled={email === '-'} />
-                        <ButtonWrapper type="primary" htmlType="submit" disabled={email === '-' || docs.length === 0}>
+                        <ButtonWrapper type="primary" htmlType="submit" disabled={email === '-' || checked === 0}>
                             Send
                         </ButtonWrapper>
-                    </div>
-                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
+                    </InputButtonWrapper>
+                    {email === '-' ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No email found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
                     <StyledParaNB> Documents to Send</StyledParaNB>
                     <Spin spinning={loading}>
                         <PDFViewer docs={docs} />
@@ -100,16 +120,22 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
             ) : (
                 <Form onFinish={handleEmailSending}>
                     <StyledParaB>Recipient</StyledParaB>
-                    <StyledParaN> Send {textT} to the following email </StyledParaN>
-                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                    <StyledParaN> Send {textT} to the following email: </StyledParaN>
+                    <InputButtonWrapper>
                         <InputWrapper value={email} disabled={email === '-'} />
                         <ButtonWrapper type="primary" htmlType="submit" disabled={linkT === null || email === '-'}>
                             Send
                         </ButtonWrapper>
-                    </div>
-                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
+                    </InputButtonWrapper>
+                    {email === '-' ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No email found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
                     <StyledParaNB> {textT} </StyledParaNB>
-                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                    <InputButtonWrapper>
                         <InputLinkWrapper
                             prefix={
                                 <FileTextOutlined
@@ -125,9 +151,15 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                                     content: 'URL cannot be edited!',
                                 });
                             }}
-                        />
-                    </div>
-                    {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
+                        />{' '}
+                    </InputButtonWrapper>
+                    {linkT === null ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No ${textT} found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
                 </Form>
             )}
         </FormWrapper>
