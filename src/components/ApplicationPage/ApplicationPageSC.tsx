@@ -13,15 +13,40 @@ export const ApplicationPageWrapper = styled.div`
     background-color: ${(props) => props.theme.color.green[50]};
     padding: 50px;
     height: 100%;
-    min-width: 800px;
+    min-width: 850px;
     display: flex;
     flex-direction: column;
     flex-grow: 2;
 `;
+export const CollapseWrapper = styled.div`
+    margin-left: 25px;
+    min-width: 245px;
+    max-width: 300px;
+    border-radius: 10px;
+
+    .ant-collapse {
+        border: 1px solid ${(props) => props.theme.color.gray[100]};
+        border-radius: 10px;
+    }
+`;
+
+export const MiddleCriticalItem = styled.div`
+    padding: 16px 0px 16px 0px;
+    border-bottom: 1px solid ${(props) => props.theme.color.gray[200]};
+`;
+
+export const FirstCriticalItem = styled.div`
+    padding: 0px 0px 16px 0px;
+    border-bottom: 1px solid ${(props) => props.theme.color.gray[200]};
+`;
+
+export const FinalCriticalItem = styled.div`
+    padding-top: 16px;
+`;
 
 export const CompleteHeader = styled.span`
     color: ${(props) => props.theme.color.green[600]};
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
 export const CompleteBadge = styled(Badge)`
@@ -29,13 +54,13 @@ export const CompleteBadge = styled(Badge)`
     .ant-badge-count {
         background-color: ${(props) => props.theme.color.green[100]};
         color: ${(props) => props.theme.color.green[600]};
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
     }
 `;
 
 export const PendingHeader = styled.span`
     color: ${(props) => props.theme.color.yellow[600]};
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
 export const PendingBadge = styled(Badge)`
@@ -43,13 +68,13 @@ export const PendingBadge = styled(Badge)`
     .ant-badge-count {
         background-color: ${(props) => props.theme.color.yellow[100]};
         color: ${(props) => props.theme.color.yellow[600]};
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
     }
 `;
 
 export const FailureHeader = styled.span`
     color: ${(props) => props.theme.color.red[600]};
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
 export const FailureBadge = styled(Badge)`
@@ -57,7 +82,7 @@ export const FailureBadge = styled(Badge)`
     .ant-badge-count {
         background-color: ${(props) => props.theme.color.red[100]};
         color: ${(props) => props.theme.color.red[600]};
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
     }
 `;
 
@@ -71,7 +96,8 @@ export const APErrorWrapper = styled.div`
 `;
 
 export const APMessageWrapper = styled.p`
-    font-size: 30px;
+    font-size: ${(props) => props.theme.fontSize.xl3.size};
+    line-height: ${(props) => props.theme.fontSize.xl3.lineHeight};
     font-weight: ${(props) => props.theme.fontWeights.regular};
 `;
 
