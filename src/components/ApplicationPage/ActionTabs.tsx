@@ -61,8 +61,15 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                         <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
                             Send
                         </ButtonWrapper>
-                        {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
                     </div>
+                    {email === '-' ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No email found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
+
                     <StyledParaNB> Documents to Send</StyledParaNB>
                     <Spin spinning={loading}>
                         <PDFViewer docs={docs} />
