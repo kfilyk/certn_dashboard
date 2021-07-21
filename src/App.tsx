@@ -41,7 +41,7 @@ export function App(): JSX.Element {
         </Router>
     );
 }
-
+// <Route path="/international" component={InternationalDetails} />
 const RouteWrapper = (): JSX.Element => {
     const validAuth = () => {
         const { token } = WithUser();
@@ -63,7 +63,6 @@ const RouteWrapper = (): JSX.Element => {
                     </Route>
                     <Route path="/search" component={Search} />
                     <Route path="/application" component={ApplicationPage} />
-                    <Route path="/international" component={InternationalDetails} />
                     <Route path="/oops" component={NotFoundPage} />
                     <Route>
                         <Redirect to="/oops" />
