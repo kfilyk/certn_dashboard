@@ -12,7 +12,7 @@ export const Image = styled.img`
 `;
 
 export const LoginDiv = styled.div`
-    background-color: #e4fbf5;
+    background-color: ${(props) => props.theme.color.green[50]};
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@ export const LoginDiv = styled.div`
     justify-content: center;
     font-size: ${(props) => props.theme.fontSize.xl.size};
     line-height: ${(props) => props.theme.fontSize.xl.lineHeight};
-    color: white;
+    color: ${(props) => props.theme.color.white};
     .ant-input-affix-wrapper:focus,
     .ant-input-affix-wrapper-focused,
     .ant-input-affix-wrapper:hover {

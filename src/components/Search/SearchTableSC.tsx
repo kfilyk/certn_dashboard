@@ -11,7 +11,7 @@ export const Spinner = styled(Spin)`
 export const Dot = styled.span`
     height: 25px;
     width: 25px;
-    background-color: #bbb;
+    background-color: ${(props) => props.theme.color.gray};
     border-radius: 50%;
     display: block;
 `;
