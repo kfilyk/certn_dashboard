@@ -1,0 +1,191 @@
+{
+    "id": "7dc2fe0b-889b-43c8-8d34-d005dc1fd58a",
+    "internal_notes": null,
+    "agent_status": "WAITING_ON_SOURCE",
+    "agent_status_label": "Waiting on source",
+    "applicant_account": {
+        "id": "3d8abfcf-5ce7-49b1-8e8e-ceb34ce64afd",
+        "email": "qa1+escandidate1@certn.co",
+        "email_verified": false,
+        "phone_number": null
+    },
+    "information": {
+        "id": "27e0e025-7fae-4599-99e2-12ccdbbf5165",
+        "status": "Completed",
+        "status_label": "Completed",
+        "first_name": "Will",
+        "middle_name": null,
+        "last_name": "Nettke",
+        "last_name_at_birth": null,
+        "former_names": null,
+        "alias": null,
+        "date_of_birth": "2000-01-01",
+        "sin_ssn": null,
+        "phone_number": "+372 5663 2522",
+        "gender": "M",
+        "birth_city": "Harju",
+        "birth_province_state": "OT",
+        "birth_country": "EE",
+        "birth_other_province_state": "OT",
+        "addresses": [
+            {
+                "id": "c31daa2f-842c-4dfd-ac4a-909e0c4db98f",
+                "created": "2021-06-17T14:25:57.512047Z",
+                "address": "33 Lesley Street",
+                "unit": "134",
+                "city": "Harju",
+                "province_state": "OT",
+                "other_province_state": "Harju County",
+                "country": "EE",
+                "country_label": "Estonia",
+                "postal_code": "M5V2V9",
+                "rent_or_own": "R",
+                "cost": null,
+                "start_date": "2014-02-03",
+                "end_date": null,
+                "reason_for_leaving": "N",
+                "landlords_first_name": null,
+                "landlords_last_name": null,
+                "landlords_phone": null,
+                "landlords_email": null,
+                "reference": null,
+                "full_address": "134 33 Lesley Street Harju Harju County Estonia M5V2V9",
+                "information": {
+                    "first_name": "Will",
+                    "last_name": "Nettke"
+                },
+                "address_reference": null,
+                "other_reason_for_leaving": null,
+                "auto_address": null,
+                "place_id": null,
+                "verification": null,
+                "consistency": null,
+                "rent_or_own_label": "Rent",
+                "reference_verified": false,
+                "county": null,
+                "current": true
+            }
+        ],
+        "documents": [
+            {
+                "id": "407e5fc1-3e8d-4586-8e5d-3b8c4317e1bf",
+                "created": "2021-06-17T14:26:07.648733Z",
+                "modified": "2021-06-17T14:28:02.695077Z",
+                "file_name": "Screen Shot 2021-06-09 at 3.50.42 PM.png",
+                "file_type": "image/png",
+                "document_type": "PASSPORT",
+                "url": "https://certn-document-uploads.s3.amazonaws.com/27e0e025-7fae-4599-99e2-12ccdbbf5165/PASSPORT/Screen%20Shot%202021-06-09%20at%203.50.42%20PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAY7T2VC5TDZMNHSNR%2F20210709%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210709T185120Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=514a7d6f618b7c6c08a35c54ec26c3c641e9fb49be32c8c29109037e28a7f807",
+                "document_expiration": "2026-06-26",
+                "document_issuing_country": "EE",
+                "document_issuing_province_state": "Harju County",
+                "document_number": "78478742"
+            }
+        ]
+    },
+    "document_types": [
+        {
+            "value": "COVER_LETTER",
+            "label": "Cover Letter"
+        },
+        {
+            "value": "GOVERNMENT_ID",
+            "label": "Government Issued ID"
+        },
+        {
+            "value": "OTHER",
+            "label": "Other"
+        },
+        {
+            "value": "PROOF_OF_INCOME",
+            "label": "Proof of Income"
+        },
+        {
+            "value": "PROOF_OF_ADDRESS",
+            "label": "Proof of Address"
+        },
+        {
+            "value": "RESUME",
+            "label": "Resume"
+        },
+        {
+            "value": "PASSPORT",
+            "label": "Passport"
+        },
+        {
+            "value": "VISA",
+            "label": "Visa"
+        },
+        {
+            "value": "SECONDARY_ID",
+            "label": "Secondary ID"
+        }
+    ],
+    "agent_documents": [
+        {
+            "id": "407e5fc1-3e8d-4586-8e5d-3b8c4317e1bf",
+            "created": "2021-06-17T14:26:07.648733Z",
+            "modified": "2021-06-17T14:28:02.695077Z",
+            "file_name": "Screen Shot 2021-06-09 at 3.50.42 PM.png",
+            "file_type": "image/png",
+            "document_type": "PASSPORT",
+            "url": "https://certn-document-uploads.s3.amazonaws.com/27e0e025-7fae-4599-99e2-12ccdbbf5165/PASSPORT/Screen%20Shot%202021-06-09%20at%203.50.42%20PM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAY7T2VC5TDZMNHSNR%2F20210709%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210709T185120Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=514a7d6f618b7c6c08a35c54ec26c3c641e9fb49be32c8c29109037e28a7f807",
+            "document_expiration": "2026-06-26",
+            "document_issuing_country": "EE",
+            "document_issuing_province_state": "Harju County",
+            "document_number": "78478742",
+            "can_delete": true
+        },
+        {
+            "id": "estonia_specific_criminal_consent",
+            "file_name": "estonia_agent_fulfilled_specific_consent_form_d1831a85-a475-4b3c-b31f-b3de5b1d36cc.pdf",
+            "file_type": "application/pdf",
+            "document_type": "CONSENT",
+            "url": "https://certn-intl-criminal-consents.s3.amazonaws.com/estonia_agent_fulfilled_specific_consent_form_d1831a85-a475-4b3c-b31f-b3de5b1d36cc.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAY7T2VC5TDZMNHSNR%2F20210709%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210709T185120Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1b306a33e490d3de749880d03a9c259942d0e0b9aa0fca50fad319ed364a7f79",
+            "can_delete": false
+        },
+        {
+            "id": "OneID_front",
+            "file_name": "front.jpg",
+            "file_type": "image/jpg",
+            "document_type": "IDENTITY",
+            "url": "https://jumio-images.s3.amazonaws.com/nv_6b375553-aacc-461e-8205-7bd2a0088c8d_front.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAY7T2VC5TDZMNHSNR%2F20210709%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210709T185120Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=f94cf3eb7049b23f66951a700678c8339dabafcd03962507419c9e18b477a4ce",
+            "can_delete": false
+        },
+        {
+            "id": "OneID_back",
+            "file_name": "back.jpg",
+            "file_type": "image/jpg",
+            "document_type": "IDENTITY",
+            "url": "https://jumio-images.s3.amazonaws.com/nv_6b375553-aacc-461e-8205-7bd2a0088c8d_back.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAY7T2VC5TDZMNHSNR%2F20210709%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Date=20210709T185120Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=1f44f387448e1223988b15c7aed8ff0a7ac57e177af2ad3cbde49fc78d24c3b9",
+            "can_delete": false
+        }
+    ],
+    "agent_status_options": [
+        {
+            "value": "ADDITIONAL_INFORMATION",
+            "label": "Additional information"
+        },
+        {
+            "value": "WAITING_ON_SOURCE",
+            "label": "Waiting on source"
+        },
+        {
+            "value": "COMPLETE",
+            "label": "Complete"
+        }
+    ],
+    "report_clearance_options": [
+        {
+            "value": "CLEAR",
+            "label": "Clear"
+        },
+        {
+            "value": "REVIEW",
+            "label": "Review"
+        },
+        {
+            "value": "UNVERIFIABLE",
+            "label": "Unverifiable"
+        }
+    ]
+}

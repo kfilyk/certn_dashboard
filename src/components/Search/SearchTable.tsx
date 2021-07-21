@@ -95,7 +95,6 @@ interface SearchTableProps {
 const SearchTable: React.FC<SearchTableProps> = (props) => {
     //history for linking to application page with applicaiton ID
     const history = useHistory();
-
     const data: AdvApplicationInfo[] | undefined = props.results;
 
     return (

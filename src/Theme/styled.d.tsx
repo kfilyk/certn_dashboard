@@ -10,6 +10,22 @@ declare module 'styled-components' {
             bold: string;
             extraBold: number;
         };
+        breakPoints: {
+            xs: string;
+            sm: string;
+            md: string;
+            lg: string;
+            xl: string;
+            xxl: string;
+        };
+        device: {
+            mobile: string;
+            mobileLarge: string;
+            tablet: string;
+            tabletLarge: string;
+            desktop: string;
+            desktopLarge: string;
+        };
         color: {
             black: string;
             white: string;

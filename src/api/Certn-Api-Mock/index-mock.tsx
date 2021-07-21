@@ -1,4 +1,20 @@
 import { ConsentDocument } from '../../interfaces';
+import AgentDocs from './GetAgentDocs_MOCKDATA.json';
+
+interface AgentDocument {
+    id?: string;
+    created?: string;
+    modified?: string;
+    file_name: string;
+    file_type?: string;
+    document_type: string;
+    url: string;
+    document_expiration?: string;
+    document_issuing_country?: string;
+    document_issuing_province_state?: string;
+    document_number?: string;
+    can_delete?: string;
+}
 
 /*
  * Function designed to simulate a call to the api in search of a list of all documents associated to a given application
@@ -7,19 +23,29 @@ import { ConsentDocument } from '../../interfaces';
 const getListOfPdfs = async (): Promise<Array<ConsentDocument>> => {
     await sleep(1000);
     const returnDocuments: Array<ConsentDocument> = [];
-    for (let i = 1; i <= 20; i = i + 1) {
-        const interationTitle = 'Mock Consent Doc ' + i; // random generation
-        const iterationKey = 'MOCK KEY ' + i;
-        const consentDocURL = 'MOCK URL ' + i;
-
-        const sudoConsentDoc: ConsentDocument = {
-            title: interationTitle,
-            key_string: iterationKey,
-            url_mock: consentDocURL,
-        };
-        returnDocuments.push(sudoConsentDoc);
-    }
-
+    const mockReturnData_AgentDocs = JSON.parse(JSON.stringify(AgentDocs));
+    mockReturnData_AgentDocs.agent_documents.forEach((agent_document: AgentDocument) => {
+        if (agent_document.document_type == 'CONSENT') {
+            const ConsentDocumentEntry: ConsentDocument = {
+                title: agent_document.file_name,
+                document_url: agent_document.url,
+                isCached: false,
+                cacheIndexLocation: -1,
+                size: 0,
+            };
+            returnDocuments.push(ConsentDocumentEntry);
+        }
+    });
+    // for (let i = 1; i <= 10; i += 1) {
+    //     const ConsentDocumentEntry: ConsentDocument = {
+    //         title: 'File ' + i,
+    //         document_url: 'URL ' + i,
+    //         isCached: false,
+    //         cacheIndexLocation: -1,
+    //         size: 0,
+    //     };
+    //     returnDocuments.push(ConsentDocumentEntry);
+    // }
     return new Promise((resolve, reject) => {
         if (returnDocuments.toString() != '') {
             resolve(returnDocuments);
