@@ -45,7 +45,17 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
     };
 
     /* Temporary consent doc form specifier */
-    const sendConsent = (values: FormData) => {
+    const sendConsent = (values: any) => {
+        // eslint-disable-next-line no-console
+        console.log('Send the following forms to ' + email + ': ', values);
+    };
+
+    const handleChange = (values: any) => {
+        // eslint-disable-next-line prefer-const
+        for (let k in values) {
+            // eslint-disable-next-line no-console
+            console.log(values[k]);
+        }
         // eslint-disable-next-line no-console
         console.log('Send the following forms to ' + email + ': ', values);
     };
@@ -53,7 +63,7 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
     return (
         <FormWrapper>
             {action === 'documents' ? (
-                <Form onFinish={sendConsent}>
+                <Form onFinish={sendConsent} onValuesChange={handleChange}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
                     <InputButtonWrapper>
