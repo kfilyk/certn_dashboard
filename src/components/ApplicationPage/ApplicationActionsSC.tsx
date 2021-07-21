@@ -36,6 +36,7 @@ export const ActionListWrapper = styled.div`
 export const ActionWrapper = styled.div`
     display: flex;
     flex-grow: 2;
+    min-height: 640px;
 `;
 
 export const FormWrapper = styled.div`
