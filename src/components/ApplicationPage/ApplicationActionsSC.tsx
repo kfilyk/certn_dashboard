@@ -102,3 +102,7 @@ export const StyledParaNB = styled.p`
     margin-bottom: 5px;
     font-weight: bold;
 `;
+
+export const ATErrorWrapper = styled.div`
+    margin: 5px 25px 25px 25px;
+`;

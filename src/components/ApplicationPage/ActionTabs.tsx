@@ -9,6 +9,7 @@ import {
     StyledParaB,
     StyledParaN,
     StyledParaNB,
+    ATErrorWrapper,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
@@ -77,7 +78,13 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                             Send
                         </ButtonWrapper>
                     </div>
-                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
+                    {email === '-' ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No email found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
                     <StyledParaNB> {textT} </StyledParaNB>
                     <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
                         <InputLinkWrapper
@@ -95,9 +102,15 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                                     content: 'URL cannot be edited!',
                                 });
                             }}
-                        />
-                        {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
+                        />{' '}
                     </div>
+                    {linkT === null ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No ${textT} found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
                 </Form>
             )}
         </FormWrapper>
