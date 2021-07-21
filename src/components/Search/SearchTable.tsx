@@ -10,6 +10,7 @@ import './SearchTable.css';
 
 // Styled Components
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 
 const Dot = styled.span`
     height: 25px;
@@ -102,7 +103,28 @@ interface SearchTableProps {
 const SearchTable: React.FC<SearchTableProps> = (props) => {
     //history for linking to application page with applicaiton ID
     const history = useHistory();
-    const data: AdvApplicationInfo[] | undefined = props.results;
+    const [data, setData] = useState<AdvApplicationInfo[]>();
+
+    useEffect(() => {
+        props.results &&
+            props.results.forEach((result) => {
+                result.created = checkDate(result.created);
+                result.updated = checkDate(result.updated);
+            });
+        setData(props.results);
+    }, [props.results]);
+
+    const checkDate = (date: string): string => {
+        const d = new Date(date);
+        if (Object.prototype.toString.call(d) === '[object Date]') {
+            if (isNaN(d.getTime())) {
+                return 'N/A';
+            } else {
+                return d.toDateString();
+            }
+        }
+        return 'N/A';
+    };
 
     return (
         <div style={{ width: '85%', margin: '5%' }}>
