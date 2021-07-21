@@ -52,6 +52,7 @@ interface CriticalChecksInfo {
 
 interface LinkInfo {
     onboarding_link: string;
+    report_link: string;
 }
 
 interface Applicant {
@@ -67,8 +68,10 @@ interface ApplicationPageData {
 
 interface ConsentDocument {
     title: string;
-    key_string: string;
-    url_mock: string;
+    document_url: string;
+    isCached: boolean;
+    cacheIndexLocation: number;
+    size: number;
 }
 
 interface Application {
@@ -83,6 +86,7 @@ interface Application {
         id: string;
         phone_number: string;
         application_url: string;
+        report_url: string;
     };
     owner: {
         id: string;

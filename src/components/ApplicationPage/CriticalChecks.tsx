@@ -58,16 +58,26 @@ const sortChecks = (
     _arr: Array<SimplifiedChecks>
 ): Record<string, Array<string>> => {
     switch (curr.result) {
-        case 'CLEARED':
+        case 'ERROR':
+        case 'RETURNED':
+        case 'VERIFIED':
+        case 'SYSTEM UNABLE TO VERIFY':
+        case 'PARTIALLY VERIFIED':
+        case 'UNVERIFIED':
             acc.complete.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
             return acc;
-        case 'NONE':
+        case 'ANALYZING':
+        case 'PARTIAL':
+        case 'PENDING':
+        case 'VERIFICATION PENDING':
             acc.pending.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
             return acc;
-        case 'UNVERIFIED':
-            acc.failure.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
+        case 'NONE':
+        case 'UPGRADE':
+        case 'UPGRADE TO VERIFY':
             return acc;
         default:
+            acc.failure.push(curr.name in criticalCheckTitles ? criticalCheckTitles[curr.name] : curr.name);
             return acc;
     }
 };
@@ -93,7 +103,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
             // ...while the remaining 6 checks follow the same {name : {result: string, status: string}} format
         } else {
             formattedChecks.push({
-                result: (checks as unknown as Record<string, CriticalChecksResult>)[key].result,
+                result: (checks as unknown as Record<string, CriticalChecksResult>)[key].status, // pull the status instead of the result because it is more granular
                 name: key,
             });
         }

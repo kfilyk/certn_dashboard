@@ -1,4 +1,4 @@
-import { Alert, Form, message } from 'antd';
+import { Alert, Form, message, Spin } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
@@ -13,27 +13,18 @@ import {
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
 
-const actionVariables = {
-    onboarding: {
-        text: 'Onboarding Link',
-    },
-    report: {
-        text: 'Report Link',
-        link: 'www.reportlink.com',
-    },
-};
-
 interface ActionTabProps {
     action: string;
     email: string;
     links: LinkInfo;
     docs: ConsentDocument[];
+    loading: boolean;
 }
 
-export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.Element => {
-    const textT = action == 'onboarding' ? actionVariables.onboarding.text : actionVariables.report.text;
-    const linkT = action == 'onboarding' ? links.onboarding_link : actionVariables.report.link;
-
+export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabProps): JSX.Element => {
+    const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
+    const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
+    // eslint-disable-next-line no-param-reassign
     /* Copy function: https://stackoverflow.com/a/62958832
      * Creates empty textarea element, assigns URL as the value, copies URL, destroys textarea element
      * Displays AntD Message component for copy success
@@ -51,51 +42,62 @@ export const ActionTabs = ({ action, email, links, docs }: ActionTabProps): JSX.
         });
     };
 
+    /* Temporary consent doc form specifier */
+    const sendConsent = (values: FormData) => {
+        // eslint-disable-next-line no-console
+        console.log('Send the following forms to ' + email + ': ', values);
+    };
+
     return (
         <FormWrapper>
             {action === 'documents' ? (
-                <Form>
+                <Form onFinish={sendConsent}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
-                    <InputWrapper value={email} disabled={email === '-'} />
-                    <ButtonWrapper type="primary" disabled={email === '-'}>
-                        Send
-                    </ButtonWrapper>
-                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
-                    <br />
+
+                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                        <InputWrapper value={email} disabled={email === '-'} />
+                        <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
+                            Send
+                        </ButtonWrapper>
+                        {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
+                    </div>
                     <StyledParaNB> Documents to Send</StyledParaNB>
-                    <PDFViewer docs={docs} />
+                    <Spin spinning={loading}>
+                        <PDFViewer docs={docs} />
+                    </Spin>
                 </Form>
             ) : (
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email </StyledParaN>
-                    <div>
+                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
                         <InputWrapper value={email} disabled={email === '-'} />
                         <ButtonWrapper type="primary" disabled={linkT === null || email === '-'}>
                             Send
                         </ButtonWrapper>
                     </div>
                     {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
-                    <br />
                     <StyledParaNB> {textT} </StyledParaNB>
-                    <InputLinkWrapper
-                        prefix={
-                            <FileTextOutlined
-                                onClick={() => {
-                                    copyToClipboard(linkT);
-                                }}
-                            />
-                        }
-                        disabled={linkT === null}
-                        value={linkT}
-                        onChange={() => {
-                            message.error({
-                                content: 'URL cannot be edited!',
-                            });
-                        }}
-                    />
-                    {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
+                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                        <InputLinkWrapper
+                            prefix={
+                                <FileTextOutlined
+                                    onClick={() => {
+                                        copyToClipboard(linkT);
+                                    }}
+                                />
+                            }
+                            disabled={linkT === null}
+                            value={linkT}
+                            onChange={() => {
+                                message.error({
+                                    content: 'URL cannot be edited!',
+                                });
+                            }}
+                        />
+                        {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
+                    </div>
                 </Form>
             )}
         </FormWrapper>

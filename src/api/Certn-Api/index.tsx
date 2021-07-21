@@ -7,7 +7,6 @@ import {
     ApplicationPageData,
     CriticalChecksInfo,
     LinkInfo,
-    ConsentDocument,
     Applications,
 } from '../../interfaces';
 import { MutipleApplicationSearchResults, Result } from '../../ApplicationInterfaces';
@@ -30,6 +29,7 @@ const userLogin = async (username: string, password: string): Promise<UserData> 
     return responseData;
 };
 
+//Dead code or no longer in use?
 const Softcheck = async (): Promise<void> => {
     const raw = JSON.stringify({
         request_softcheck: true,
@@ -55,6 +55,7 @@ const Softcheck = async (): Promise<void> => {
     }
 };
 
+//Dead code or no longer in use?
 const Creditreport = async (): Promise<void> => {
     const raw = JSON.stringify({
         request_equifax: true,
@@ -171,27 +172,6 @@ const getApplications = async (search = '', page = 1, page_size = 10, ordering =
     return applications;
 };
 
-/*
- * Function designed to simulate a call to the api in search of a list of all documents associated to a given application
- * Will be turned into a proper call once endpoint is implemented
- */
-const getListOfPdfsMOCK = async (): Promise<Array<ConsentDocument>> => {
-    const returnDocuments: Array<ConsentDocument> = [];
-    for (let i = 0; i < 20; i = i + 1) {
-        const interationTitle = 'Mock Consent Doc ' + i; // random generation
-        const iterationKey = 'MOCK KEY ' + i;
-
-        const sudoConsentDoc: ConsentDocument = {
-            title: interationTitle,
-            key_string: iterationKey,
-            url_mock: 'http://example.com/sample.pdf',
-        };
-        returnDocuments.push(sudoConsentDoc);
-    }
-
-    return returnDocuments;
-};
-
 /**
  * This is a helper function used to build an object that represents the cirtical checks of an applicant.
  *
@@ -239,6 +219,7 @@ const buildLinkInfo = (response_data: Result): LinkInfo => {
     const applicant = response_data.application.applicant;
     return {
         onboarding_link: applicant.application_url,
+        report_link: applicant.report_url,
     };
 };
 
@@ -285,4 +266,4 @@ const getApplicant = async (applicant_id: string): Promise<ApplicationPageData> 
     return application_page_data;
 };
 
-export { userLogin, Softcheck, Creditreport, getToken, getApplications, getApplicant, getListOfPdfsMOCK };
+export { userLogin, Softcheck, Creditreport, getToken, getApplications, getApplicant };

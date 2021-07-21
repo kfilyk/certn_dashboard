@@ -17,7 +17,7 @@ describe('Login Error Prompts Testing', () => {
         cy.url().should('include', '/login');
         cy.contains('', 'Log in').click();
         cy.url().should('include', '/login');
-        cy.get(':nth-child(1) > .ant-col > .ant-form-item-explain > div').contains('Please input your Email!');
+        cy.get(':nth-child(1) > .ant-col > .ant-form-item-explain > div').contains('Please enter a valid email');
         cy.get(':nth-child(2) > .ant-col > .ant-form-item-explain > div').contains('Please input your Password!');
     });
     it('Check entry removes errors', () => {
