@@ -3,27 +3,17 @@ import { CriticalChecksInfo, CriticalChecksResult, CertnVerification } from '../
 import 'antd/dist/antd.css';
 import { Collapse, List } from 'antd';
 import {
+    CollapseWrapper,
     CompleteHeader,
     CompleteBadge,
     PendingHeader,
     PendingBadge,
     FailureHeader,
     FailureBadge,
+    FirstCriticalItem,
+    FinalCriticalItem,
+    MiddleCriticalItem,
 } from './ApplicationPageSC';
-import styled from 'styled-components';
-
-// Temp until all components for application page are completed
-const CollapseWrapper = styled.div`
-    margin-left: 25px;
-    min-width: 220px;
-    max-width: 300px;
-    border-radius: 10px;
-
-    .ant-collapse {
-        border: 1px solid ${(props) => props.theme.color.gray[100]};
-        border-radius: 10px;
-    }
-`;
 
 // Interfaces
 type ChecksProps = {
@@ -116,11 +106,24 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
         return initialActivePanels;
     };
 
+    // Render the individual items in the critical check status list
+    const renderCriticalItems = (item: string, listLength: number, index: number) => {
+        if (listLength === 1) {
+            return <div>{item}</div>;
+        } else if (listLength > 1 && index === 0) {
+            return <FirstCriticalItem>{item}</FirstCriticalItem>;
+        } else if (listLength === index + 1) {
+            return <FinalCriticalItem>{item}</FinalCriticalItem>;
+        } else {
+            return <MiddleCriticalItem>{item}</MiddleCriticalItem>;
+        }
+    };
+
     return (
-        <CollapseWrapper>
+        <CollapseWrapper id="collapse-wrapper">
             <Collapse defaultActiveKey={setActivePanels([failure, complete, pending])}>
                 <Panel
-                    collapsible={failure.length > 0 ? 'header' : 'disabled'}
+                    collapsible={failure.length > 0 ? undefined : 'disabled'}
                     header={
                         <FailureHeader>
                             Failure
@@ -129,10 +132,10 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     }
                     key="1"
                 >
-                    <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                    <List dataSource={failure} renderItem={(item, i) => renderCriticalItems(item, failure.length, i)} />
                 </Panel>
                 <Panel
-                    collapsible={complete.length > 0 ? 'header' : 'disabled'}
+                    collapsible={complete.length > 0 ? undefined : 'disabled'}
                     header={
                         <CompleteHeader>
                             Complete
@@ -141,10 +144,13 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     }
                     key="2"
                 >
-                    <List dataSource={complete} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                    <List
+                        dataSource={complete}
+                        renderItem={(item, i) => renderCriticalItems(item, complete.length, i)}
+                    />
                 </Panel>
                 <Panel
-                    collapsible={pending.length > 0 ? 'header' : 'disabled'}
+                    collapsible={pending.length > 0 ? undefined : 'disabled'}
                     header={
                         <PendingHeader>
                             In Progress
@@ -153,7 +159,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     }
                     key="3"
                 >
-                    <List dataSource={pending} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                    <List dataSource={pending} renderItem={(item, i) => renderCriticalItems(item, pending.length, i)} />
                 </Panel>
             </Collapse>
         </CollapseWrapper>
