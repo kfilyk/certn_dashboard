@@ -1,9 +1,15 @@
-// Ant Design Imports
+/**
+ * @file Main component for the application page (/application). This file is responsible for
+ * fetching the required application information from the Certn API. The application information
+ * is parsed and then distributed amongst it's children components.
+ */
 
 import { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Spin, notification } from 'antd';
 import { getApplicant } from '../../api/Certn-Api';
+
+// Ant Design Imports
+import { Spin, notification } from 'antd';
 
 // Components
 import { ApplicationInfo } from './ApplicationInfo';
@@ -11,13 +17,8 @@ import { CriticalChecks } from './CriticalChecks';
 import { ApplicationActions } from './ApplicationActions';
 
 // Interfaces & Defaults
-import {
-    ChecksInfoDefault,
-    TableInfoDefault,
-    ApplicationPageDataDefault,
-    LinkInfoDefault,
-} from './ApplicationPageDefaults';
-import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
+import { ChecksInfoDefault, TableInfoDefault, LinkInfoDefault } from './ApplicationPageDefaults';
+import { AdvApplicationInfo, CriticalChecksInfo, LinkInfo } from '../../interfaces';
 
 // Styled Components
 import {
@@ -33,15 +34,15 @@ export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
     const [loadingApplication, setLoadingApplication] = useState(true);
     const [success, setSuccess] = useState(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [applicationPageData, setApplicationPageData] = useState<ApplicationPageData>(ApplicationPageDataDefault);
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
     const [criticalChecksInfo, setChecksInfo] = useState<CriticalChecksInfo>(ChecksInfoDefault);
     const [linkInfo, setLinkInfo] = useState<LinkInfo>(LinkInfoDefault);
 
     const history = useHistory();
 
-    // Runs only on initial render, will get id from URL. Ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
+    /**
+     * Runs only on the first render, pulling the application ID from the url
+     */
     useEffect(() => {
         // Get the id from the URL, will be passed by the search page
         const urlParams = new URLSearchParams(window.location.search);
@@ -58,8 +59,9 @@ export const ApplicationPage = (): JSX.Element => {
         }
     }, []);
 
-    // Doesn't run on initial render
-    // Triggered anytime id changes
+    /**
+     * Doesn't run on initial render and is subsequently run anytime that the state variable ID is updated.
+     */
     const isInitial = useRef(true);
     useEffect(() => {
         if (isInitial.current) {
@@ -68,11 +70,8 @@ export const ApplicationPage = (): JSX.Element => {
         }
         const fetchApplication = async (): Promise<void> => {
             try {
-                // Make api call
-                // https://demo-api.certn.co/hr/v1/applications/<application_id>
                 setLoadingApplication(true);
                 const response = await getApplicant(id);
-                setApplicationPageData(response);
                 setTableInfo(response.application_info);
                 setChecksInfo(response.critical_checks);
                 setLinkInfo(response.application_links);
@@ -88,6 +87,10 @@ export const ApplicationPage = (): JSX.Element => {
         fetchApplication();
     }, [id]);
 
+    /**
+     * Helper function that determines if there is a failure or if the page is loading
+     * @returns reactNode
+     */
     const checkFailure = () => {
         if (loadingApplication) {
             return '';
