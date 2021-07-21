@@ -1,7 +1,9 @@
 // Ant Design Imports
 
 import { useEffect, useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Spin, notification } from 'antd';
+import { getApplicant } from '../../api/Certn-Api';
 
 // Components
 import { ApplicationInfo } from './ApplicationInfo';
@@ -26,10 +28,6 @@ import {
     ApplicationPageWrapper,
     APSpinWrapper,
 } from './ApplicationPageSC';
-import { useHistory } from 'react-router-dom';
-
-// Temp
-import { getApplicant } from '../../api/Certn-Api';
 
 export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
