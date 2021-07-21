@@ -46,7 +46,7 @@ export const FinalCriticalItem = styled.div`
 
 export const CompleteHeader = styled.span`
     color: ${(props) => props.theme.color.green[600]};
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
 export const CompleteBadge = styled(Badge)`
@@ -54,13 +54,13 @@ export const CompleteBadge = styled(Badge)`
     .ant-badge-count {
         background-color: ${(props) => props.theme.color.green[100]};
         color: ${(props) => props.theme.color.green[600]};
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
     }
 `;
 
 export const PendingHeader = styled.span`
     color: ${(props) => props.theme.color.yellow[600]};
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
 export const PendingBadge = styled(Badge)`
@@ -68,13 +68,13 @@ export const PendingBadge = styled(Badge)`
     .ant-badge-count {
         background-color: ${(props) => props.theme.color.yellow[100]};
         color: ${(props) => props.theme.color.yellow[600]};
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
     }
 `;
 
 export const FailureHeader = styled.span`
     color: ${(props) => props.theme.color.red[600]};
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
 export const FailureBadge = styled(Badge)`
@@ -82,7 +82,7 @@ export const FailureBadge = styled(Badge)`
     .ant-badge-count {
         background-color: ${(props) => props.theme.color.red[100]};
         color: ${(props) => props.theme.color.red[600]};
-        font-weight: bold;
+        font-weight: ${(props) => props.theme.fontWeights.bold};
     }
 `;
 
@@ -96,7 +96,8 @@ export const APErrorWrapper = styled.div`
 `;
 
 export const APMessageWrapper = styled.p`
-    font-size: 30px;
+    font-size: ${(props) => props.theme.fontSize.xl3.size};
+    line-height: ${(props) => props.theme.fontSize.xl3.lineHeight};
     font-weight: ${(props) => props.theme.fontWeights.regular};
 `;
 

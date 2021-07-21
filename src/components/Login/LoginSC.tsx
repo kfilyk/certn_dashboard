@@ -7,6 +7,7 @@ export const StyledPara = styled.p`
 
 export const Image = styled.img`
     height: 15vmin;
+    margin: 20px 0;
     pointer-events: none;
 `;
 
@@ -17,7 +18,8 @@ export const LoginDiv = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(3px + 2vmin);
+    font-size: ${(props) => props.theme.fontSize.xl.size};
+    line-height: ${(props) => props.theme.fontSize.xl.lineHeight};
     color: white;
 `;
 
@@ -37,4 +39,6 @@ export const FormWrapper = styled.div`
 
 export const StyledLink = styled.a`
     color: ${(props) => props.theme.color.green.default};
+    font-size: ${(props) => props.theme.fontSize.base.size};
+    line-height: ${(props) => props.theme.fontSize.base.lineHeight};
 `;
