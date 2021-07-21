@@ -3,7 +3,9 @@ import { Input, Button, Form } from 'antd';
 
 export const SearchWrapper = styled.div<{ disabled: boolean }>`
     margin: 50px 5% 0 5%;
-    height: 95px;
+
+    //needed to ensure the forms and search button line up
+    height: 104px;
     display: flex;
 
     ${(props) =>
@@ -22,6 +24,7 @@ export const SearchWrapper = styled.div<{ disabled: boolean }>`
 export const SearchForm = styled(Input)`
     right-border: none;
     border-radius: 4px 0 0 4px;
+    height: 42px;
 `;
 
 export const SearchButton = styled(Button)`
@@ -32,9 +35,10 @@ export const SearchButton = styled(Button)`
     border-radius: 6px;
     margin-left: 20px;
     font-size: ${(props) => props.theme.fontSize.base.size};
+    line-height: ${(props) => props.theme.fontSize.base.lineHeight};
     font-weight: ${(props) => props.theme.fontWeights.semiBold};
-    height: 38px;
-    width: 112px;
+    height: 42px;
+    width: 123px;
 
     :hover,
     :focus {
@@ -47,6 +51,7 @@ export const AdvancedSwitch = styled(Button)`
     display: flex;
     border-radius: 0 4px 4px 0;
     width: 125px;
+    height: 42px;
     background-color: ${(props) => props.theme.color.gray[100]};
     color: ${(props) => props.theme.color.black};
     border-color: ${(props) => props.theme.color.gray[300]};
@@ -90,6 +95,10 @@ export const AdvancedSearchItem = styled(Form.Item)`
     .ant-input-affix-wrapper:hover {
         border-color: ${(props) => props.theme.color.green[400]} !important;
         box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
+    }
+
+    span.ant-input-affix-wrapper {
+        height: 42px;
     }
 
     label {
