@@ -9,6 +9,8 @@ import {
     StyledParaB,
     StyledParaN,
     StyledParaNB,
+    ATErrorWrapper,
+    InputButtonWrapper,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
@@ -54,14 +56,20 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                 <Form onFinish={sendConsent}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
-
-                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                    <InputButtonWrapper>
                         <InputWrapper value={email} disabled={email === '-'} />
                         <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
                             Send
                         </ButtonWrapper>
-                        {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
-                    </div>
+                    </InputButtonWrapper>
+                    {email === '-' ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No email found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
+
                     <StyledParaNB> Documents to Send</StyledParaNB>
                     <Spin spinning={loading}>
                         <PDFViewer docs={docs} />
@@ -70,16 +78,22 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
             ) : (
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
-                    <StyledParaN> Send {textT} to the following email </StyledParaN>
-                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                    <StyledParaN> Send {textT} to the following email: </StyledParaN>
+                    <InputButtonWrapper>
                         <InputWrapper value={email} disabled={email === '-'} />
                         <ButtonWrapper type="primary" disabled={linkT === null || email === '-'}>
                             Send
                         </ButtonWrapper>
-                    </div>
-                    {email === '-' ? <Alert type="error" message={`No email found for the applicant.`} /> : ''}
+                    </InputButtonWrapper>
+                    {email === '-' ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No email found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
                     <StyledParaNB> {textT} </StyledParaNB>
-                    <div style={{ display: 'flex', justifyContent: 'right', flex: 2, margin: '5px 25px 25px 25px' }}>
+                    <InputButtonWrapper>
                         <InputLinkWrapper
                             prefix={
                                 <FileTextOutlined
@@ -95,9 +109,15 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                                     content: 'URL cannot be edited!',
                                 });
                             }}
-                        />
-                        {linkT === null ? <Alert type="error" message={`No ${textT} found for the applicant.`} /> : ''}
-                    </div>
+                        />{' '}
+                    </InputButtonWrapper>
+                    {linkT === null ? (
+                        <ATErrorWrapper>
+                            <Alert type="error" message={`No ${textT} found for the applicant.`} />
+                        </ATErrorWrapper>
+                    ) : (
+                        ''
+                    )}
                 </Form>
             )}
         </FormWrapper>
