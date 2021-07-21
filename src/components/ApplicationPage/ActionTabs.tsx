@@ -43,7 +43,7 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
     };
 
     /* Temporary consent doc form specifier */
-    const sendConsent = (values: FormData) => {
+    const sendConsent = (values: any) => {
         // eslint-disable-next-line no-console
         console.log('Send the following forms to ' + email + ': ', values);
     };
