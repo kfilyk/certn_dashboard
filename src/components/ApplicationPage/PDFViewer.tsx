@@ -120,7 +120,7 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
                 dataSource={data}
                 renderItem={(item: ConsentDocument) => (
                     <div className="list-container">
-                        <Form.Item name={item.title} initialValue={false} valuePropName="checked" noStyle>
+                        <Form.Item name={item.document_url} initialValue={false} valuePropName="checked" noStyle>
                             <Checkbox></Checkbox>
                         </Form.Item>
                         <List.Item>
