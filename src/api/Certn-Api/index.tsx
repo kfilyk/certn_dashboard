@@ -1,7 +1,14 @@
 /* eslint-disable no-console */
 // Actual API fetch requests here
 import { Base64 } from 'js-base64';
-import { UserData, AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
+import {
+    UserData,
+    AdvApplicationInfo,
+    ApplicationPageData,
+    CriticalChecksInfo,
+    LinkInfo,
+    Applications,
+} from '../../interfaces';
 import { MutipleApplicationSearchResults, Result } from '../../ApplicationInterfaces';
 const version = 'v1';
 const getToken = (): string => {
@@ -139,10 +146,10 @@ const pruneApplicationsData = (response_data: MutipleApplicationSearchResults): 
  * @param search
  * @returns An array of AdvApplicationInfo
  */
-const getApplications = async (search: string): Promise<Array<AdvApplicationInfo>> => {
-    const base_url = `https://demo-api.certn.co/hr/${version}/applicants/?search=`;
+const getApplications = async (search = '', page = 1, page_size = 10, ordering = 'created'): Promise<Applications> => {
+    const base_url = `https://demo-api.certn.co/hr/${version}/applicants/?page=${page}&page_size=${page_size}&ordering=-${ordering}&search=`;
     const search_url = base_url + search.split(' ').join('+');
-    let pruned_applications: Array<AdvApplicationInfo> = [];
+    const applications: Applications = {} as Applications;
     try {
         const response = await fetch(search_url, {
             method: 'GET',
@@ -156,11 +163,13 @@ const getApplications = async (search: string): Promise<Array<AdvApplicationInfo
         if (!response.ok) {
             throw new Error(response_data.message);
         }
-        pruned_applications = pruneApplicationsData(response_data);
+        applications.count = response_data.count;
+        applications.applications = pruneApplicationsData(response_data);
     } catch (err) {
         console.log('something went wrong: ' + err);
     }
-    return pruned_applications;
+
+    return applications;
 };
 
 /**
