@@ -13,10 +13,35 @@ export const ApplicationPageWrapper = styled.div`
     background-color: ${(props) => props.theme.color.green[50]};
     padding: 50px;
     height: 100%;
-    min-width: 800px;
+    min-width: 850px;
     display: flex;
     flex-direction: column;
     flex-grow: 2;
+`;
+export const CollapseWrapper = styled.div`
+    margin-left: 25px;
+    min-width: 245px;
+    max-width: 300px;
+    border-radius: 10px;
+
+    .ant-collapse {
+        border: 1px solid ${(props) => props.theme.color.gray[100]};
+        border-radius: 10px;
+    }
+`;
+
+export const MiddleCriticalItem = styled.div`
+    padding: 16px 0px 16px 0px;
+    border-bottom: 1px solid ${(props) => props.theme.color.gray[200]};
+`;
+
+export const FirstCriticalItem = styled.div`
+    padding: 0px 0px 16px 0px;
+    border-bottom: 1px solid ${(props) => props.theme.color.gray[200]};
+`;
+
+export const FinalCriticalItem = styled.div`
+    padding-top: 16px;
 `;
 
 export const CollapseWrapper = styled.div`

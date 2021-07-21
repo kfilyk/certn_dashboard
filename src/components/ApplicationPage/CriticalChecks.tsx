@@ -12,6 +12,9 @@ import {
     PendingBadge,
     FailureHeader,
     FailureBadge,
+    FirstCriticalItem,
+    FinalCriticalItem,
+    MiddleCriticalItem,
 } from './ApplicationPageSC';
 
 /**
@@ -133,11 +136,25 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
         return initialActivePanels;
     };
 
+    // Render the individual items in the critical check status list. Different item placement in the
+    // list gets different styling
+    const renderCriticalItems = (item: string, listLength: number, index: number) => {
+        if (listLength === 1) {
+            return <div>{item}</div>;
+        } else if (listLength > 1 && index === 0) {
+            return <FirstCriticalItem>{item}</FirstCriticalItem>;
+        } else if (listLength === index + 1) {
+            return <FinalCriticalItem>{item}</FinalCriticalItem>;
+        } else {
+            return <MiddleCriticalItem>{item}</MiddleCriticalItem>;
+        }
+    };
+
     return (
-        <CollapseWrapper>
+        <CollapseWrapper id="collapse-wrapper">
             <Collapse defaultActiveKey={setActivePanels([failure, complete, pending])}>
                 <Panel
-                    collapsible={failure.length > 0 ? 'header' : 'disabled'}
+                    collapsible={failure.length > 0 ? undefined : 'disabled'}
                     header={
                         <FailureHeader>
                             Failure
@@ -146,10 +163,10 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     }
                     key="1"
                 >
-                    <List dataSource={failure} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                    <List dataSource={failure} renderItem={(item, i) => renderCriticalItems(item, failure.length, i)} />
                 </Panel>
                 <Panel
-                    collapsible={complete.length > 0 ? 'header' : 'disabled'}
+                    collapsible={complete.length > 0 ? undefined : 'disabled'}
                     header={
                         <CompleteHeader>
                             Complete
@@ -158,10 +175,13 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     }
                     key="2"
                 >
-                    <List dataSource={complete} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                    <List
+                        dataSource={complete}
+                        renderItem={(item, i) => renderCriticalItems(item, complete.length, i)}
+                    />
                 </Panel>
                 <Panel
-                    collapsible={pending.length > 0 ? 'header' : 'disabled'}
+                    collapsible={pending.length > 0 ? undefined : 'disabled'}
                     header={
                         <PendingHeader>
                             In Progress
@@ -170,7 +190,7 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
                     }
                     key="3"
                 >
-                    <List dataSource={pending} renderItem={(item) => <List.Item>{item}</List.Item>} />
+                    <List dataSource={pending} renderItem={(item, i) => renderCriticalItems(item, pending.length, i)} />
                 </Panel>
             </Collapse>
         </CollapseWrapper>

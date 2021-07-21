@@ -36,6 +36,7 @@ export const ActionListWrapper = styled.div`
 export const ActionWrapper = styled.div`
     display: flex;
     flex-grow: 2;
+    min-height: 640px;
 `;
 
 /**
@@ -57,7 +58,7 @@ export const FormWrapper = styled.div`
 
 export const InputWrapper = styled(Input)`
     margin-right: 25px;
-    border: 1px solid gray;
+    border: 1px solid ${(props) => props.theme.color.gray[600]};
     width: 60%;
     flex-grow: 2;
 `;
@@ -67,7 +68,7 @@ export const InputWrapper = styled(Input)`
  */
 
 export const InputLinkWrapper = styled(Input)`
-    border: 1px solid gray;
+    border: 1px solid ${(props) => props.theme.color.gray[600]};
     width: 82.5%;
     align-items: right;
     flex-grow: 2;
@@ -111,7 +112,7 @@ export const ModalWrapper = styled(Modal)`
 export const StyledParaB = styled.p`
     color: ${(props) => props.theme.color.black};
     margin-left: 25px;
-    font-weight: bold;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
     font-size: 30px;
     padding-top: 20px;
     margin-bottom: 10px;
@@ -122,8 +123,7 @@ export const StyledParaB = styled.p`
  */
 
 export const StyledParaN = styled.p`
-    margin-left: 25px;
-    margin-bottom: 1px;
+    margin: 0px 25px 1px 25px;
 `;
 
 /**
@@ -131,7 +131,17 @@ export const StyledParaN = styled.p`
  */
 
 export const StyledParaNB = styled.p`
-    margin-left: 25px;
-    margin-bottom: 5px;
-    font-weight: bold;
+    margin: 0px 25px 1px 25px;
+    font-weight: ${(props) => props.theme.fontWeights.bold};
+`;
+
+export const ATErrorWrapper = styled.div`
+    margin: 5px 25px 25px 25px;
+`;
+
+export const InputButtonWrapper = styled.div`
+    display: flex;
+    justify-content: right;
+    flex: 2;
+    margin: 5px 25px 25px 25px;
 `;
