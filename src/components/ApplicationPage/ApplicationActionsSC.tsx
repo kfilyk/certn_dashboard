@@ -104,3 +104,10 @@ export const StyledParaNB = styled.p`
 export const ATErrorWrapper = styled.div`
     margin: 5px 25px 25px 25px;
 `;
+
+export const InputButtonWrapper = styled.div`
+    display: flex;
+    justify-content: right;
+    flex: 2;
+    margin: 5px 25px 25px 25px;
+`;
