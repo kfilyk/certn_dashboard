@@ -91,6 +91,7 @@ const columns: ColumnsType<AdvApplicationInfo> = [
     },
 ];
 
+// Interface for props
 interface SearchTableProps {
     loading: {
         search: boolean;
@@ -103,8 +104,10 @@ interface SearchTableProps {
 const SearchTable: React.FC<SearchTableProps> = (props) => {
     //history for linking to application page with applicaiton ID
     const history = useHistory();
+    //State for storing the data so the new dates work
     const [data, setData] = useState<AdvApplicationInfo[]>();
 
+    // Changes the dates to nice dates whenever new pages on the table are loaded
     useEffect(() => {
         props.results &&
             props.results.forEach((result) => {
@@ -114,6 +117,7 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
         setData(props.results);
     }, [props.results]);
 
+    // Function to change dates
     const checkDate = (date: string): string => {
         const d = new Date(date);
         if (Object.prototype.toString.call(d) === '[object Date]') {

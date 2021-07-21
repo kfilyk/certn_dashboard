@@ -18,8 +18,8 @@ const Search = (): JSX.Element => {
     const [searchString, setSearchString] = useState<string>('');
     const [count, setCount] = useState<number>(0);
 
-    // const storeResults: AdvApplicationInfo[] = () => (results ? results : []);
-
+    // Combines all searhc files into one string for the API
+    // Only for initial search, not for changing pages
     const submit = async (values: SearchSubmission): Promise<void> => {
         values.basic === undefined && (values.basic = '');
         values.firstname === undefined && (values.firstname = '');
@@ -38,6 +38,7 @@ const Search = (): JSX.Element => {
         setSearchString(fullString);
     };
 
+    // Triggers on page change because the string has not changed
     const onSubmitPageChange = async (current: number): Promise<void> => {
         setLoading({ search: true });
         const apiResultsPage = await getApplications(searchString, current);
