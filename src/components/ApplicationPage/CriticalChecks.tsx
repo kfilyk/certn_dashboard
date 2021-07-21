@@ -116,7 +116,8 @@ export const CriticalChecks = ({ checks }: ChecksProps): JSX.Element => {
         return initialActivePanels;
     };
 
-    // Render the individual items in the critical check status list
+    // Render the individual items in the critical check status list. Different item placement in the
+    // list gets different styling
     const renderCriticalItems = (item: string, listLength: number, index: number) => {
         if (listLength === 1) {
             return <div>{item}</div>;
