@@ -11,6 +11,8 @@ import SearchTable from './SearchTable';
 import { SearchSubmission } from './SearchTypes';
 import { AdvApplicationInfo } from '../../interfaces';
 
+import { SearchPageWrapper } from './SearchSC';
+
 const Search = (): JSX.Element => {
     const [advanced, setAdvanced] = useState(false);
     const [results, setResults] = useState<AdvApplicationInfo[]>();
@@ -33,10 +35,10 @@ const Search = (): JSX.Element => {
     };
 
     return (
-        <div>
+        <SearchPageWrapper>
             <SearchBar onSubmit={submit} advanced={advanced} setAdvanced={setAdvanced} loading={loading.search} />
             <SearchTable results={results} loading={loading} />
-        </div>
+        </SearchPageWrapper>
     );
 };
 
