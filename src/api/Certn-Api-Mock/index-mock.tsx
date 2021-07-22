@@ -75,28 +75,18 @@ const getConsentDocURL = async (consentDoc_keyString: string): Promise<string> =
  */
 const sendEmail = async (email: EmailInfo): Promise<string> => {
     await sleep(1000);
-    const emailDebugLog =
-        '(MOCK) Sent Email\nType: ' +
-        email.email_type +
-        '\nTo: ' +
-        email.to +
-        '\nDoc Count: ' +
-        email.consent_docs.length +
-        '\nURL: ' +
-        email.url;
 
-    //send to API when email endpoint exists
-    //const raw = JSON.stringify(email);
+    //send to API when email endpoint is hooked up (or in whatever format is desired)
+    const raw = JSON.stringify(email);
     //eslint-disable-next-line
-    console.log(emailDebugLog); //Use to ensure email data is coming through okay (remove once API is hooked up)
+    console.log('MOCK sent email:\n' + raw); //Use to ensure email data is coming through okay (remove once API is hooked up)
 
     //debug return while this function is not yet connected to API
     return new Promise((resolve, reject) => {
-        //should be based off API response when hooked up
-        if (emailDebugLog) {
-            resolve('Sent ' + email.email_type + ' email to ' + email.to);
+        if (email) {
+            resolve('EMAIL SENT');
         } else {
-            reject(new Error('Failed to send ' + email.email_type + ' email to ' + email.to));
+            reject(new Error('FAILED TO SEND EMAIL'));
         }
     });
 };

@@ -40,7 +40,7 @@ export function App(): JSX.Element {
         </Router>
     );
 }
-// <Route path="/international" component={InternationalDetails} />
+
 const RouteWrapper = (): JSX.Element => {
     const validAuth = () => {
         const { token } = WithUser();

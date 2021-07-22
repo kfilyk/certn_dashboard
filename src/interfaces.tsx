@@ -106,7 +106,7 @@ interface EmailInfo {
     email_type: string;
     to: string;
     url: string;
-    consent_docs: Array<ConsentDocument>;
+    consent_doc_urls: string[];
 }
 
 export type {

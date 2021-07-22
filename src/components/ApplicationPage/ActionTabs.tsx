@@ -28,7 +28,7 @@ interface ActionTabProps {
 export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabProps): JSX.Element => {
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
-    const [checked, setChecked] = useState<string[]>([]);
+    const [checked, setChecked] = useState<string[]>([]); //array of selected consent docs
 
     // eslint-disable-next-line no-param-reassign
     /* Copy function: https://stackoverflow.com/a/62958832
@@ -47,12 +47,16 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
             content: 'Copied to clipboard!',
         });
     };
-
+    /**
+     * Handles updating the list of selected consent docs whenever a list item is checked/unchecked
+     *
+     * @param "values" contains the modified list item (the checked/unchecked consent doc) in the form: {URL : selected (true/false)}
+     */
     const handleChange = async (values: any) => {
         for (const v in values) {
-            if (values[v] == true) {
+            if (values[v]) {
                 setChecked(checked.concat(v));
-            } else if (values[v] == false) {
+            } else {
                 setChecked(checked.filter((item) => item != v));
             }
         }
@@ -60,38 +64,24 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
 
     /**
      * Handles calling of sendEmail function with a constructed EmailInfo object whenever the "send" buttons are clicked.
-     * Due to the passed in "values" having arbitrary keys, "any" must be used (but this should be changed later if possible)
-     *
-     * @param "values" contains consent doc info in the form: {URL : selected (true/false)}
      */
-    const handleEmailSending = async (values: any) => {
-        const selectedDocs: ConsentDocument[] = [];
-
-        if (action === 'documents') {
-            for (const doc of docs) {
-                // check if each consent document is in 'values' and if its selected, if so, add to array
-                if (values[doc.document_url]) {
-                    selectedDocs.push(doc);
-                }
-            }
-        }
-
+    const handleEmailSending = async () => {
         try {
             //sendEmail should return some sort of response/status once the proper API is hookedd up.
             await sendEmail({
                 email_type: action,
                 to: email,
-                url: action == 'onboarding' || action == 'report' ? linkT : '',
-                consent_docs: selectedDocs,
+                url: action === 'onboarding' || action === 'report' ? linkT : '',
+                consent_doc_urls: action === 'documents' ? checked : [],
+            });
+            message.success({
+                content: 'Sent ' + action + ' email to ' + email,
             });
         } catch (e) {
             message.error({
                 content: 'Failed to send ' + action + ' email to ' + email,
             });
         }
-        message.success({
-            content: 'Sent ' + action + ' email to ' + email,
-        });
     };
 
     return (
