@@ -48,6 +48,8 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
         });
     };
 
+    //leaving this in at the moment, although as the list of docs will need to be looped through anyways
+    //it would be better to only do it per "send" instead of each time a doc is selected/unselected
     const handleChange = async (values: any) => {
         for (const v in values) {
             if (values[v] == true) {
@@ -65,19 +67,20 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
      * @param "values" contains consent doc info in the form: {URL : selected (true/false)}
      */
     const handleEmailSending = async (values: any) => {
-        let response = '';
         const selectedDocs: ConsentDocument[] = [];
 
-        for (const doc of docs) {
-            // check if each consent document is in 'values' and if its selected, if so, add to array
-            if (values[doc.document_url]) {
-                selectedDocs.push(doc);
+        if (action === 'documents') {
+            for (const doc of docs) {
+                // check if each consent document is in 'values' and if its selected, if so, add to array
+                if (values[doc.document_url]) {
+                    selectedDocs.push(doc);
+                }
             }
         }
 
         try {
-            //sendEmail should return some sort of status, but until the actual API is hooked up it only returns debug text
-            response = await sendEmail({
+            //sendEmail should return some sort of response/status once the proper API is hookedd up.
+            await sendEmail({
                 email_type: action,
                 to: email,
                 url: action == 'onboarding' || action == 'report' ? linkT : '',
@@ -85,11 +88,11 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
             });
         } catch (e) {
             message.error({
-                content: response,
+                content: 'Failed to send email to ' + email,
             });
         }
         message.success({
-            content: response,
+            content: 'Email was sent to ' + email,
         });
     };
 
