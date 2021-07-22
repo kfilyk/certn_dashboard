@@ -66,52 +66,61 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
         setShowModal(false);
     };
 
+    const editModal = () => (
+        <Modal
+            title="Edit Email"
+            visible={showModal}
+            onCancel={handleCancel}
+            footer={
+                <ButtonWrapper type="primary" onClick={handleOk}>
+                    Confirm
+                </ButtonWrapper>
+            }
+        >
+            <EEErrorWrapper>
+                <Alert
+                    type="warning"
+                    showIcon
+                    message={`This action will change the email associated with this application`}
+                />
+            </EEErrorWrapper>
+            <Input value={email} />
+        </Modal>
+    );
+
+    const emailCheck = () =>
+        email === '-' ? (
+            <ATErrorWrapper>
+                <Alert type="error" message={`No email found for the applicant.`} />
+            </ATErrorWrapper>
+        ) : (
+            ''
+        );
+
+    const emailInput = () => (
+        <InputButtonWrapper>
+            <InputWrapperAT
+                value={email}
+                disabled={email === '-'}
+                enterButton={<EditFilled style={{ color: 'gray' }} />}
+                onSearch={displayModal}
+            />
+            <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
+                Send
+            </ButtonWrapper>
+        </InputButtonWrapper>
+    );
+
     return (
         <FormWrapper>
             {action === 'documents' ? (
                 <Form onFinish={sendConsent}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
-                    <InputButtonWrapper>
-                        <InputWrapperAT
-                            value={email}
-                            disabled={email === '-'}
-                            enterButton={<EditFilled style={{ color: 'gray' }} />}
-                            onSearch={displayModal}
-                        />
-                        <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
-                            Send
-                        </ButtonWrapper>
-                    </InputButtonWrapper>
-                    <InputButtonWrapper>
-                        <Modal
-                            title="Edit Email"
-                            visible={showModal}
-                            onCancel={handleCancel}
-                            footer={
-                                <ButtonWrapper type="primary" onClick={handleOk}>
-                                    Confirm
-                                </ButtonWrapper>
-                            }
-                        >
-                            <EEErrorWrapper>
-                                <Alert
-                                    type="warning"
-                                    showIcon
-                                    message={`This action will change the email associated with this application`}
-                                />
-                            </EEErrorWrapper>
-                            <Input value={email} />
-                        </Modal>
-                    </InputButtonWrapper>
-                    {email === '-' ? (
-                        <ATErrorWrapper>
-                            <Alert type="error" message={`No email found for the applicant.`} />
-                        </ATErrorWrapper>
-                    ) : (
-                        ''
-                    )}
 
+                    {emailInput()}
+                    {editModal()}
+                    {emailCheck()}
                     <StyledParaNB> Documents to Send</StyledParaNB>
                     <Spin spinning={loading}>
                         <PDFViewer docs={docs} />
@@ -121,45 +130,9 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                 <Form>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email: </StyledParaN>
-                    <InputButtonWrapper>
-                        <InputWrapperAT
-                            value={email}
-                            disabled={email === '-'}
-                            enterButton={<EditFilled style={{ color: 'gray' }} />}
-                            onSearch={displayModal}
-                        />
-                        <ButtonWrapper type="primary" disabled={linkT === null || email === '-'}>
-                            Send
-                        </ButtonWrapper>
-                    </InputButtonWrapper>
-                    <InputButtonWrapper>
-                        <Modal
-                            title="Edit Email"
-                            visible={showModal}
-                            onCancel={handleCancel}
-                            footer={
-                                <ButtonWrapper type="primary" onClick={handleOk}>
-                                    Confirm
-                                </ButtonWrapper>
-                            }
-                        >
-                            <EEErrorWrapper>
-                                <Alert
-                                    type="warning"
-                                    showIcon
-                                    message={`This action will change the email associated with this application`}
-                                />
-                            </EEErrorWrapper>
-                            <Input value={email} />
-                        </Modal>
-                    </InputButtonWrapper>
-                    {email === '-' ? (
-                        <ATErrorWrapper>
-                            <Alert type="error" message={`No email found for the applicant.`} />
-                        </ATErrorWrapper>
-                    ) : (
-                        ''
-                    )}
+                    {emailInput()}
+                    {editModal()}
+                    {emailCheck()}
                     <StyledParaNB> {textT} </StyledParaNB>
                     <InputButtonWrapper>
                         <InputLinkWrapper
