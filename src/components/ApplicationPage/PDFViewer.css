@@ -6,7 +6,7 @@
 .ant-form .ant-list {
     margin-top: 25px;
     height: 430px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .list-container {
