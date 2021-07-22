@@ -48,7 +48,8 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
         });
     };
     /**
-     * Handles updating the list of selected consent docs whenever a list item is checked/unchecked
+     * Handles updating the list of selected consent docs whenever a list item is checked/unchecked.
+     * 'any' is currently required as the values object contains arbitrarily named keys
      *
      * @param "values" contains the modified list item (the checked/unchecked consent doc) in the form: {URL : selected (true/false)}
      */
