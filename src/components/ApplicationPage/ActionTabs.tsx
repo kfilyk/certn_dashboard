@@ -88,11 +88,11 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
             });
         } catch (e) {
             message.error({
-                content: 'Failed to send email to ' + email,
+                content: 'Failed to send ' + action + ' email to ' + email,
             });
         }
         message.success({
-            content: 'Email was sent to ' + email,
+            content: 'Sent ' + action + ' email to ' + email,
         });
     };
 
