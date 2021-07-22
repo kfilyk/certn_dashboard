@@ -21,7 +21,6 @@ export const PDFViewerWrapper = styled.div`
         border-top: ${(props) => props.theme.color.gray[100]};
         border-top-width: 1px;
         border-style: solid;
-        overflow: scroll;
     }
 
     .ant-list-item {
@@ -34,7 +33,11 @@ export const PDFViewerWrapper = styled.div`
 
     .ant-list-items {
         height: 450px;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .scrollable-element {
+        scrollbar-width: none;
     }
 
     .list-container .ant-checkbox-wrapper {
