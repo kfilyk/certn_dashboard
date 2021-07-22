@@ -53,6 +53,11 @@ export const InputWrapper = styled(Input)`
     border: 1px solid ${(props) => props.theme.color.gray[600]};
     width: 60%;
     flex-grow: 2;
+    :focus,
+    :hover {
+        border-color: ${(props) => props.theme.color.green[400]} !important;
+        box-shadow: 0 0 0 2px rgb(47 185 154 / 20%) !important;
+    }
 `;
 
 export const InputLinkWrapper = styled(Input)`
@@ -60,6 +65,11 @@ export const InputLinkWrapper = styled(Input)`
     width: 82.5%;
     align-items: right;
     flex-grow: 2;
+    :focus,
+    :hover {
+        border-color: ${(props) => props.theme.color.green[400]} !important;
+        box-shadow: 0 0 0 2px rgb(47 185 154 / 20%) !important;
+    }
 `;
 
 export const ButtonWrapper = styled(Button)`
