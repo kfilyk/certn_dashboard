@@ -79,7 +79,9 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                         </ButtonWrapper>
                     </InputButtonWrapper>
                     <InputButtonWrapper>
-                        <ButtonWrapper onClick={displayModal}>Edit Email</ButtonWrapper>
+                        <ButtonWrapper type="primary" onClick={displayModal}>
+                            Edit Email
+                        </ButtonWrapper>
                         <ModalWrapper
                             title=""
                             visible={showModal}
@@ -111,7 +113,9 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                         </ButtonWrapper>
                     </InputButtonWrapper>
                     <InputButtonWrapper>
-                        <ButtonWrapper onClick={displayModal}>Edit Email</ButtonWrapper>
+                        <ButtonWrapper type="primary" onClick={displayModal}>
+                            Edit Email
+                        </ButtonWrapper>
                         <ModalWrapper
                             title=""
                             visible={showModal}
