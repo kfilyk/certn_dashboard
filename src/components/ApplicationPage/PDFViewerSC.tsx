@@ -40,6 +40,20 @@ export const PDFViewerWrapper = styled.div`
         scrollbar-width: none;
     }
 
+    .ant-checkbox-wrapper {
+        .ant-checkbox-input:focus + .ant-checkbox-inner,
+        .ant-checkbox-input:hover + .ant-checkbox-inner,
+        .ant-checkbox-inner:hover,
+        .ant-checkbox-wrapper:hover,
+        .ant-checkbox-inner:focus {
+            border-color: ${(props) => props.theme.color.green[400]} !important;
+        }
+        .ant-checkbox-checked .ant-checkbox-inner {
+            background-color: ${(props) => props.theme.color.green[400]};
+            border-color: ${(props) => props.theme.color.green[400]} !important;
+        }
+    }
+
     .list-container .ant-checkbox-wrapper {
         display: inline-block;
         vertical-align: middle;
