@@ -28,7 +28,7 @@ interface ActionTabProps {
 export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabProps): JSX.Element => {
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
-    const [checked, setChecked] = useState<number>(0);
+    const [checked, setChecked] = useState<string[]>([]);
 
     // eslint-disable-next-line no-param-reassign
     /* Copy function: https://stackoverflow.com/a/62958832
@@ -51,9 +51,9 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
     const handleChange = async (values: any) => {
         for (const v in values) {
             if (values[v] == true) {
-                setChecked(checked + 1);
+                setChecked(checked.concat(v));
             } else if (values[v] == false) {
-                setChecked(checked - 1);
+                setChecked(checked.filter((item) => item != v));
             }
         }
     };
@@ -65,19 +65,20 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
      * @param "values" contains consent doc info in the form: {URL : selected (true/false)}
      */
     const handleEmailSending = async (values: any) => {
-        let response = '';
         const selectedDocs: ConsentDocument[] = [];
 
-        for (const doc of docs) {
-            // check if each consent document is in 'values' and if its selected, if so, add to array
-            if (values[doc.document_url]) {
-                selectedDocs.push(doc);
+        if (action === 'documents') {
+            for (const doc of docs) {
+                // check if each consent document is in 'values' and if its selected, if so, add to array
+                if (values[doc.document_url]) {
+                    selectedDocs.push(doc);
+                }
             }
         }
 
         try {
-            //sendEmail should return some sort of status, but until the actual API is hooked up it only returns debug text
-            response = await sendEmail({
+            //sendEmail should return some sort of response/status once the proper API is hookedd up.
+            await sendEmail({
                 email_type: action,
                 to: email,
                 url: action == 'onboarding' || action == 'report' ? linkT : '',
@@ -85,11 +86,11 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
             });
         } catch (e) {
             message.error({
-                content: response,
+                content: 'Failed to send ' + action + ' email to ' + email,
             });
         }
         message.success({
-            content: response,
+            content: 'Sent ' + action + ' email to ' + email,
         });
     };
 
@@ -101,7 +102,11 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                     <StyledParaN> Send documents to the following email</StyledParaN>
                     <InputButtonWrapper>
                         <InputWrapper value={email} disabled={email === '-'} />
-                        <ButtonWrapper type="primary" htmlType="submit" disabled={email === '-' || checked === 0}>
+                        <ButtonWrapper
+                            type="primary"
+                            htmlType="submit"
+                            disabled={email === '-' || checked.length === 0}
+                        >
                             Send
                         </ButtonWrapper>
                     </InputButtonWrapper>
