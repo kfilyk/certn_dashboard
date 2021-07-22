@@ -1,4 +1,3 @@
-import InternationalDetails from './components/InternationalDetails/InternationalDetails';
 import Search from './components/Search/Search';
 import { ApplicationPage } from './components/ApplicationPage/ApplicationPage';
 import Login from './components/Login/Login';
@@ -63,7 +62,6 @@ const RouteWrapper = (): JSX.Element => {
                     </Route>
                     <Route path="/search" component={Search} />
                     <Route path="/application" component={ApplicationPage} />
-                    <Route path="/international" component={InternationalDetails} />
                     <Route path="/oops" component={NotFoundPage} />
                     <Route>
                         <Redirect to="/oops" />
