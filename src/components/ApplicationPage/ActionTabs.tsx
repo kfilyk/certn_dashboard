@@ -11,6 +11,7 @@ import {
     StyledParaN,
     StyledParaNB,
     ATErrorWrapper,
+    EEErrorWrapper,
     InputButtonWrapper,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
@@ -91,6 +92,13 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                                 </ButtonWrapper>
                             }
                         >
+                            <EEErrorWrapper>
+                                <Alert
+                                    type="warning"
+                                    showIcon
+                                    message={`This action will change the email associated with this application`}
+                                />
+                            </EEErrorWrapper>
                             <Input value={email} />
                         </Modal>
                     </InputButtonWrapper>
@@ -131,6 +139,13 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                                 </ButtonWrapper>
                             }
                         >
+                            <EEErrorWrapper>
+                                <Alert
+                                    type="warning"
+                                    showIcon
+                                    message={`This action will change the email associated with this application`}
+                                />
+                            </EEErrorWrapper>
                             <Input value={email} />
                         </Modal>
                     </InputButtonWrapper>
