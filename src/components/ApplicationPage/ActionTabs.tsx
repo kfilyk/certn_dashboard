@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Form, message, Spin } from 'antd';
+import { Alert, Form, message, Spin, Modal, Input } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
@@ -7,11 +7,11 @@ import {
     InputWrapper,
     InputLinkWrapper,
     ButtonWrapper,
-    ModalWrapper,
     StyledParaB,
     StyledParaN,
     StyledParaNB,
     ATErrorWrapper,
+    EEErrorWrapper,
     InputButtonWrapper,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
@@ -82,12 +82,25 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                         <ButtonWrapper type="primary" onClick={displayModal}>
                             Edit Email
                         </ButtonWrapper>
-                        <ModalWrapper
-                            title=""
+                        <Modal
+                            title="Edit Email"
                             visible={showModal}
-                            onOk={handleOk}
                             onCancel={handleCancel}
-                        ></ModalWrapper>
+                            footer={
+                                <ButtonWrapper type="primary" onClick={handleOk}>
+                                    Confirm
+                                </ButtonWrapper>
+                            }
+                        >
+                            <EEErrorWrapper>
+                                <Alert
+                                    type="warning"
+                                    showIcon
+                                    message={`This action will change the email associated with this application`}
+                                />
+                            </EEErrorWrapper>
+                            <Input value={email} />
+                        </Modal>
                     </InputButtonWrapper>
                     {email === '-' ? (
                         <ATErrorWrapper>
@@ -116,12 +129,25 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                         <ButtonWrapper type="primary" onClick={displayModal}>
                             Edit Email
                         </ButtonWrapper>
-                        <ModalWrapper
-                            title=""
+                        <Modal
+                            title="Edit Email"
                             visible={showModal}
-                            onOk={handleOk}
                             onCancel={handleCancel}
-                        ></ModalWrapper>
+                            footer={
+                                <ButtonWrapper type="primary" onClick={handleOk}>
+                                    Confirm
+                                </ButtonWrapper>
+                            }
+                        >
+                            <EEErrorWrapper>
+                                <Alert
+                                    type="warning"
+                                    showIcon
+                                    message={`This action will change the email associated with this application`}
+                                />
+                            </EEErrorWrapper>
+                            <Input value={email} />
+                        </Modal>
                     </InputButtonWrapper>
                     {email === '-' ? (
                         <ATErrorWrapper>

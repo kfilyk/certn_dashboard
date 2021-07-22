@@ -106,6 +106,10 @@ export const ATErrorWrapper = styled.div`
     margin: 5px 25px 25px 25px;
 `;
 
+export const EEErrorWrapper = styled.div`
+    margin: 0px 0px 8px 0px;
+`;
+
 export const InputButtonWrapper = styled.div`
     display: flex;
     justify-content: right;
