@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Alert, Form, message, Spin, Modal, Input } from 'antd';
-import { FileTextOutlined } from '@ant-design/icons';
+import { FileTextOutlined, EditFilled } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
     FormWrapper,
-    InputWrapper,
+    InputWrapperAT,
     InputLinkWrapper,
     ButtonWrapper,
     StyledParaB,
@@ -73,15 +73,17 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
                     <InputButtonWrapper>
-                        <InputWrapper value={email} disabled={email === '-'} />
+                        <InputWrapperAT
+                            value={email}
+                            disabled={email === '-'}
+                            enterButton={<EditFilled style={{ color: 'gray' }} />}
+                            onSearch={displayModal}
+                        />
                         <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
                             Send
                         </ButtonWrapper>
                     </InputButtonWrapper>
                     <InputButtonWrapper>
-                        <ButtonWrapper type="primary" onClick={displayModal}>
-                            Edit Email
-                        </ButtonWrapper>
                         <Modal
                             title="Edit Email"
                             visible={showModal}
@@ -120,15 +122,17 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email: </StyledParaN>
                     <InputButtonWrapper>
-                        <InputWrapper value={email} disabled={email === '-'} />
+                        <InputWrapperAT
+                            value={email}
+                            disabled={email === '-'}
+                            enterButton={<EditFilled style={{ color: 'gray' }} />}
+                            onSearch={displayModal}
+                        />
                         <ButtonWrapper type="primary" disabled={linkT === null || email === '-'}>
                             Send
                         </ButtonWrapper>
                     </InputButtonWrapper>
                     <InputButtonWrapper>
-                        <ButtonWrapper type="primary" onClick={displayModal}>
-                            Edit Email
-                        </ButtonWrapper>
                         <Modal
                             title="Edit Email"
                             visible={showModal}

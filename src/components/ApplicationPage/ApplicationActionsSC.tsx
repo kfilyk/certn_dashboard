@@ -1,3 +1,4 @@
+import { EditFilled } from '@ant-design/icons';
 import { Input, Button, Modal } from 'antd';
 import styled from 'styled-components';
 
@@ -48,15 +49,24 @@ export const FormWrapper = styled.div`
     flex-grow: 2;
 `;
 
-export const InputWrapper = styled(Input)`
+const { Search } = Input;
+
+export const InputWrapperAT = styled(Search)`
     margin-right: 25px;
-    border: 1px solid ${(props) => props.theme.color.gray[600]};
     width: 60%;
     flex-grow: 2;
+
+    .ant-btn-primary {
+        background: ${(props) => props.theme.color.gray[300]};
+        border: 1px solid #d9d9d9;
+        :hover {
+            background-color: ${(props) => props.theme.color.gray[200]};
+            border-color: ${(props) => props.theme.color.gray[200]};
+        }
+    }
 `;
 
 export const InputLinkWrapper = styled(Input)`
-    border: 1px solid ${(props) => props.theme.color.gray[600]};
     width: 82.5%;
     align-items: right;
     flex-grow: 2;
