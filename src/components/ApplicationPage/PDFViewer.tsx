@@ -6,7 +6,7 @@ import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import test from '../../deleteBeforeRelease/test.pdf';
 import { List, Checkbox, Form } from 'antd';
 import { ConsentDocument } from '../../interfaces';
-import './PDFViewer.css';
+import { PDFViewerWrapper } from './PDFViewerSC';
 
 interface PDFViewerProps {
     docs: ConsentDocument[];
@@ -115,7 +115,7 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
 
     //PDF will be implemented inside ModalWrapper above the <p>, which will be used to count the pages
     return (
-        <div>
+        <PDFViewerWrapper>
             <List
                 dataSource={data}
                 renderItem={(item: ConsentDocument) => (
@@ -146,6 +146,6 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
                     Next
                 </ButtonWrapper>
             </ModalWrapper>
-        </div>
+        </PDFViewerWrapper>
     );
 };
