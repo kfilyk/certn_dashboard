@@ -17,7 +17,6 @@ import {
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
 import { sendEmail } from '../../api/Certn-Api-Mock/index-mock';
-import { useState } from 'react';
 
 interface ActionTabProps {
     action: string;
