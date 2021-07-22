@@ -117,7 +117,6 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                 <Form onFinish={sendConsent}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
-
                     {emailInput()}
                     {editModal()}
                     {emailCheck()}
