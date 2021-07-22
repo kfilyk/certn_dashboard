@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Alert, Form, message, Spin } from 'antd';
 import { FileTextOutlined } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
@@ -6,6 +7,7 @@ import {
     InputWrapper,
     InputLinkWrapper,
     ButtonWrapper,
+    ModalWrapper,
     StyledParaB,
     StyledParaN,
     StyledParaNB,
@@ -50,6 +52,20 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
         console.log('Send the following forms to ' + email + ': ', values);
     };
 
+    const [showModal, setShowModal] = useState(false);
+
+    const displayModal = () => {
+        setShowModal(true);
+    };
+
+    const handleOk = () => {
+        setShowModal(false);
+    };
+
+    const handleCancel = () => {
+        setShowModal(false);
+    };
+
     return (
         <FormWrapper>
             {action === 'documents' ? (
@@ -61,6 +77,15 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                         <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
                             Send
                         </ButtonWrapper>
+                    </InputButtonWrapper>
+                    <InputButtonWrapper>
+                        <ButtonWrapper onClick={displayModal}>Edit Email</ButtonWrapper>
+                        <ModalWrapper
+                            title=""
+                            visible={showModal}
+                            onOk={handleOk}
+                            onCancel={handleCancel}
+                        ></ModalWrapper>
                     </InputButtonWrapper>
                     {email === '-' ? (
                         <ATErrorWrapper>
@@ -84,6 +109,15 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
                         <ButtonWrapper type="primary" disabled={linkT === null || email === '-'}>
                             Send
                         </ButtonWrapper>
+                    </InputButtonWrapper>
+                    <InputButtonWrapper>
+                        <ButtonWrapper onClick={displayModal}>Edit Email</ButtonWrapper>
+                        <ModalWrapper
+                            title=""
+                            visible={showModal}
+                            onOk={handleOk}
+                            onCancel={handleCancel}
+                        ></ModalWrapper>
                     </InputButtonWrapper>
                     {email === '-' ? (
                         <ATErrorWrapper>
