@@ -61,8 +61,9 @@ export const ATEmailWrapper = styled.div`
     width: 60%;
     flex-grow: 2;
     margin-right: 25px;
-    border: 1px solid #d9d9d9;
+    border: 1px solid ${(props) => props.theme.color.gray[300]};
     justify-content: space-between;
+    font-weight: ${(props) => props.theme.fontWeights.regular};
 `;
 
 export const InputLinkWrapper = styled(Input)`

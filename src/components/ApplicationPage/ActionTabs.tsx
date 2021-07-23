@@ -101,7 +101,7 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
     const emailInput = () => (
         <InputButtonWrapper>
             <ATEmailWrapper>
-                <span style={{ padding: '4px 0px 4px 11px' }}>{email}</span>
+                <span style={{ padding: '4px 11px 4px 11px' }}>{email}</span>
                 <EmailEditButton onClick={displayModal}>
                     <EditFilled />
                 </EmailEditButton>
