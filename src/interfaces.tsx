@@ -9,6 +9,11 @@ interface StoredAuth {
     storedExpiry: string;
 }
 
+interface Applications {
+    count: number;
+    applications: Array<AdvApplicationInfo>;
+}
+
 interface AdvApplicationInfo {
     application_id: string;
     key: string; // applicant_id
@@ -121,5 +126,6 @@ export type {
     Application,
     Applicant,
     ConsentDocument,
+    Applications,
     EmailInfo,
 };

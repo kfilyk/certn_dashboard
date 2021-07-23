@@ -13,9 +13,13 @@ import { AdvApplicationInfo } from '../../interfaces';
 
 const Search = (): JSX.Element => {
     const [advanced, setAdvanced] = useState(false);
-    const [results, setResults] = useState<AdvApplicationInfo[]>();
+    const [results, setResults] = useState<AdvApplicationInfo[]>([]);
     const [loading, setLoading] = useState({ search: false });
+    const [searchString, setSearchString] = useState<string>('');
+    const [count, setCount] = useState<number>(0);
 
+    // Combines all searhc files into one string for the API
+    // Only for initial search, not for changing pages
     const submit = async (values: SearchSubmission): Promise<void> => {
         values.basic === undefined && (values.basic = '');
         values.firstname === undefined && (values.firstname = '');
@@ -29,13 +33,23 @@ const Search = (): JSX.Element => {
         setLoading({ search: true });
         const apiResults = await getApplications(fullString);
         setLoading({ search: false });
-        setResults(apiResults);
+        setResults(apiResults.applications);
+        setCount(apiResults.count);
+        setSearchString(fullString);
+    };
+
+    // Triggers on page change because the string has not changed
+    const onSubmitPageChange = async (current: number): Promise<void> => {
+        setLoading({ search: true });
+        const apiResultsPage = await getApplications(searchString, current);
+        setLoading({ search: false });
+        setResults(apiResultsPage.applications);
     };
 
     return (
         <div>
             <SearchBar onSubmit={submit} advanced={advanced} setAdvanced={setAdvanced} loading={loading.search} />
-            <SearchTable results={results} loading={loading} />
+            <SearchTable results={results} loading={loading} onSubmitPageChange={onSubmitPageChange} count={count} />
         </div>
     );
 };

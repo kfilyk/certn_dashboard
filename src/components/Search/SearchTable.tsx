@@ -4,7 +4,9 @@ import { ColumnsType } from 'antd/es/table';
 import { certnTheme } from '../../Theme/certn-theme';
 import { useHistory } from 'react-router-dom';
 import { AdvApplicationInfo } from '../../interfaces';
-import { Spinner, Dot, TableWrapper } from './SearchTableSC';
+import { CustomPagination, Spinner, Dot, TableWrapper } from './SearchTableSC';
+// Styled Components
+import { useEffect, useState } from 'react';
 
 const dotColor = [
     {
@@ -13,6 +15,10 @@ const dotColor = [
     },
     {
         status: 'SENT',
+        color: certnTheme.color.yellow.default,
+    },
+    {
+        status: 'PARTIAL', // Need to ask cetrn about PARTIAL
         color: certnTheme.color.yellow.default,
     },
     {
@@ -73,17 +79,44 @@ const columns: ColumnsType<AdvApplicationInfo> = [
     },
 ];
 
+// Interface for props
 interface SearchTableProps {
     loading: {
         search: boolean;
     };
     results: AdvApplicationInfo[] | undefined;
+    onSubmitPageChange: (current: number) => Promise<void>;
+    count: number;
 }
 
 const SearchTable: React.FC<SearchTableProps> = (props) => {
     //history for linking to application page with applicaiton ID
     const history = useHistory();
-    const data: AdvApplicationInfo[] | undefined = props.results;
+    //State for storing the data so the new dates work
+    const [data, setData] = useState<AdvApplicationInfo[]>();
+
+    // Changes the dates to nice dates whenever new pages on the table are loaded
+    useEffect(() => {
+        props.results &&
+            props.results.forEach((result) => {
+                result.created = checkDate(result.created);
+                result.updated = checkDate(result.updated);
+            });
+        setData(props.results);
+    }, [props.results]);
+
+    // Function to change dates
+    const checkDate = (date: string): string => {
+        const d = new Date(date);
+        if (Object.prototype.toString.call(d) === '[object Date]') {
+            if (isNaN(d.getTime())) {
+                return 'N/A';
+            } else {
+                return d.toDateString();
+            }
+        }
+        return 'N/A';
+    };
 
     return (
         <TableWrapper>
@@ -97,8 +130,19 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                             history.push(`/application?id=${record.key}`);
                         },
                     })}
+                    pagination={false}
                 />
             </Spinner>
+            <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
+                {props.count > 0 && (
+                    <CustomPagination
+                        disabled={props.loading.search}
+                        showSizeChanger={false}
+                        total={props.count}
+                        onChange={props.onSubmitPageChange}
+                    />
+                )}
+            </div>
         </TableWrapper>
     );
 };
