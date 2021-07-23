@@ -147,7 +147,12 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
             </Spin>
             <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
                 {props.count > 0 && (
-                    <CustomPagination showSizeChanger={false} total={props.count} onChange={props.onSubmitPageChange} />
+                    <CustomPagination
+                        disabled={props.loading.search}
+                        showSizeChanger={false}
+                        total={props.count}
+                        onChange={props.onSubmitPageChange}
+                    />
                 )}
             </div>
         </div>
