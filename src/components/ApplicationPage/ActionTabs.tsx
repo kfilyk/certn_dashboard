@@ -18,7 +18,7 @@ import {
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
-import { updateEmail } from '../../api/Certn-Api-Mock/index-mock';
+import { updateEmail, sendEmail } from '../../api/Certn-Api-Mock/index-mock';
 
 interface ActionTabProps {
     action: string;
@@ -32,9 +32,12 @@ interface ActionTabProps {
 export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOCK }: ActionTabProps): JSX.Element => {
     const [newEmail, setNewEmail] = useState('');
     const [updatingEmail, setUpdatingEmail] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [checked, setChecked] = useState<string[]>([]); //array of selected consent docs
 
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
+
     // eslint-disable-next-line no-param-reassign
     /* Copy function: https://stackoverflow.com/a/62958832
      * Creates empty textarea element, assigns URL as the value, copies URL, destroys textarea element
@@ -52,14 +55,43 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
             content: 'Copied to clipboard!',
         });
     };
-
-    /* Temporary consent doc form specifier */
-    const sendConsent = (values: FormData) => {
-        // eslint-disable-next-line no-console
-        console.log('Send the following forms to ' + email + ': ', values);
+    /**
+     * Handles updating the list of selected consent docs whenever a list item is checked/unchecked.
+     * 'any' is currently required as the values object contains arbitrarily named keys
+     *
+     * @param "values" contains the modified list item (the checked/unchecked consent doc) in the form: {URL : selected (true/false)}
+     */
+    const handleChange = async (values: any) => {
+        for (const v in values) {
+            if (values[v]) {
+                setChecked(checked.concat(v));
+            } else {
+                setChecked(checked.filter((item) => item != v));
+            }
+        }
     };
 
-    const [showModal, setShowModal] = useState(false);
+    /**
+     * Handles calling of sendEmail function with a constructed EmailInfo object whenever the "send" buttons are clicked.
+     */
+    const handleEmailSending = async () => {
+        try {
+            //sendEmail should return some sort of response/status once the proper API is hookedd up.
+            await sendEmail({
+                email_type: action,
+                to: email,
+                url: action === 'onboarding' || action === 'report' ? linkT : '',
+                consent_doc_urls: action === 'documents' ? checked : [],
+            });
+            message.success({
+                content: 'Sent ' + action + ' email to ' + email,
+            });
+        } catch (e) {
+            message.error({
+                content: 'Failed to send ' + action + ' email to ' + email,
+            });
+        }
+    };
 
     const displayModal = () => {
         setNewEmail(email);
@@ -131,7 +163,11 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                     <EditFilled />
                 </EmailEditButton>
             </ATEmailWrapper>
-            <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
+            <ButtonWrapper
+                onClick={handleEmailSending}
+                type="primary"
+                disabled={email === '-' || (action === 'documents' && checked.length === 0)}
+            >
                 Send
             </ButtonWrapper>
         </InputButtonWrapper>
@@ -140,7 +176,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
     return (
         <FormWrapper>
             {action === 'documents' ? (
-                <Form onFinish={sendConsent}>
+                <Form onValuesChange={handleChange}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
                     {emailInput()}

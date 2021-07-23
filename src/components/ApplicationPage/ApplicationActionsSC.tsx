@@ -7,7 +7,7 @@ export const ActionListWrapper = styled.div`
     width: 35%;
     max-width: 220px;
     margin-right: 25px;
-    background-color: #fff;
+    background-color: ${(props) => props.theme.color.white};
     border-radius: 10px;
 
     .ant-menu {
@@ -40,7 +40,7 @@ export const ActionWrapper = styled.div`
 `;
 
 export const FormWrapper = styled.div`
-    background-color: #fff;
+    background-color: ${(props) => props.theme.color.white};
     margin: 0px 25px 0px 25px;
     border: 1px solid ${(props) => props.theme.color.gray[100]};
     border-radius: 10px;

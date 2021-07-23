@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Spin, notification } from 'antd';
+import { notification } from 'antd';
 import { getApplicant } from '../../api/Certn-Api';
 
 // Components
@@ -27,6 +27,7 @@ import {
     APErrorContentWrapper,
     ApplicationPageWrapper,
     APSpinWrapper,
+    Spinner,
 } from './ApplicationPageSC';
 
 export const ApplicationPage = (): JSX.Element => {
@@ -119,7 +120,7 @@ export const ApplicationPage = (): JSX.Element => {
 
     return (
         <APSpinWrapper>
-            <Spin spinning={loadingApplication} tip="Loading Application...">
+            <Spinner spinning={loadingApplication} tip="Loading Application...">
                 {id === '' || !success ? (
                     checkFailure()
                 ) : (
@@ -131,7 +132,7 @@ export const ApplicationPage = (): JSX.Element => {
                         </div>
                     </ApplicationPageWrapper>
                 )}
-            </Spin>
+            </Spinner>
         </APSpinWrapper>
     );
 };

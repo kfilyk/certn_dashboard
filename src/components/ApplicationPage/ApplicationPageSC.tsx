@@ -1,6 +1,6 @@
 import { certnTheme } from '../../Theme/certn-theme';
 import styled from 'styled-components';
-import { Badge, Button } from 'antd';
+import { Badge, Button, Spin } from 'antd';
 
 export const APSpinWrapper = styled.div`
     height: 100%;
@@ -146,3 +146,10 @@ export const dotColor = [
         color: certnTheme.color.red.default,
     },
 ];
+
+export const Spinner = styled(Spin)`
+    .ant-spin-dot-item {
+        background-color: ${(props) => props.theme.color.green[400]};
+    }
+    color: ${(props) => props.theme.color.green[400]};
+`;
