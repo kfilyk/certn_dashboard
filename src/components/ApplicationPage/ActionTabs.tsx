@@ -4,7 +4,6 @@ import { FileTextOutlined, EditFilled } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
     FormWrapper,
-    InputWrapperAT,
     InputLinkWrapper,
     ButtonWrapper,
     StyledParaB,
@@ -13,6 +12,8 @@ import {
     ATErrorWrapper,
     EEErrorWrapper,
     InputButtonWrapper,
+    EmailEditButton,
+    ATEmailWrapper,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
@@ -99,12 +100,12 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
 
     const emailInput = () => (
         <InputButtonWrapper>
-            <InputWrapperAT
-                value={email}
-                disabled={email === '-'}
-                enterButton={<EditFilled style={{ color: 'gray' }} />}
-                onSearch={displayModal}
-            />
+            <ATEmailWrapper>
+                <span style={{ padding: '4px 0px 4px 11px' }}>{email}</span>
+                <EmailEditButton onClick={displayModal}>
+                    <EditFilled />
+                </EmailEditButton>
+            </ATEmailWrapper>
             <ButtonWrapper type="primary" disabled={email === '-' || docs.length === 0}>
                 Send
             </ButtonWrapper>

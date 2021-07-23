@@ -48,21 +48,21 @@ export const FormWrapper = styled.div`
     flex-grow: 2;
 `;
 
-const { Search } = Input;
+export const EmailEditButton = styled.button`
+    height: 100%;
+    width: 33px;
+    border: 0px;
+    border-left: 1px solid ${(props) => props.theme.color.gray[300]};
+    cursor: pointer;
+`;
 
-export const InputWrapperAT = styled(Search)`
-    margin-right: 25px;
+export const ATEmailWrapper = styled.div`
+    display: flex;
     width: 60%;
     flex-grow: 2;
-
-    .ant-btn-primary {
-        background: ${(props) => props.theme.color.gray[300]};
-        border: 1px solid #d9d9d9;
-        :hover {
-            background-color: ${(props) => props.theme.color.gray[200]};
-            border-color: ${(props) => props.theme.color.gray[200]};
-        }
-    }
+    margin-right: 25px;
+    border: 1px solid #d9d9d9;
+    justify-content: space-between;
 `;
 
 export const InputLinkWrapper = styled(Input)`
