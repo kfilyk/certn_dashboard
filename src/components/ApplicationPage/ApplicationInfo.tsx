@@ -84,8 +84,6 @@ export const ApplicationInfo = ({ info }: InfoProps): JSX.Element => {
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
 
     useEffect(() => {
-        // eslint-disable-next-line no-console
-        console.log('test');
         const formattedInfo = { ...info };
         formattedInfo.created = checkDate(formattedInfo.created);
         formattedInfo.updated = checkDate(formattedInfo.updated);
