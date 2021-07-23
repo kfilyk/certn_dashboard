@@ -107,6 +107,17 @@ interface Application {
     };
 }
 
+/**
+ * This is an interface that specifies the variables that will be used when sending emails
+ *
+ * email_type specifies which Application action this email came from (currently: onboarding, report, or documents)
+ *
+ * to is the email address the email will be sent to
+ *
+ * url is either the onboarding or report link
+ *
+ * consent_doc_urls is an array of any consent documents being sent
+ */
 interface EmailInfo {
     email_type: string;
     to: string;

@@ -1,3 +1,9 @@
+/**
+ * @file This component is responsible for displaying each of the application actions.
+ * Which one is displayed is based on the passed in props from ApplicationPage.tsx
+ * This file also handles interacting with the MOCK email endpoints (sending and changing emails)
+ */
+
 import { useState } from 'react';
 import { Alert, Form, message, Spin, Modal } from 'antd';
 import { FileTextOutlined, EditFilled } from '@ant-design/icons';
