@@ -41,7 +41,7 @@ export const CustomPagination = styled(Pagination)`
         color: ${(props) => props.theme.color.green[400]};
         border-top: 2px solid ${(props) => props.theme.color.green[400]};
     }
- `;
+`;
 
 export const Spinner = styled(Spin)`
     .ant-spin-dot-item {

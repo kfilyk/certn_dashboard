@@ -5,8 +5,6 @@ import { certnTheme } from '../../Theme/certn-theme';
 import { useHistory } from 'react-router-dom';
 import { AdvApplicationInfo } from '../../interfaces';
 import { CustomPagination, Spinner, Dot, TableWrapper } from './SearchTableSC';
-import './SearchTable.css';
-
 // Styled Components
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
