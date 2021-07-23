@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Form, message, Spin, Modal, Input } from 'antd';
+import { Alert, Form, message, Spin, Modal } from 'antd';
 import { FileTextOutlined, EditFilled } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
@@ -14,9 +14,11 @@ import {
     InputButtonWrapper,
     EmailEditButton,
     ATEmailWrapper,
+    ModalInputWrapper,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
+import { updateEmail } from '../../api/Certn-Api-Mock/index-mock';
 
 interface ActionTabProps {
     action: string;
@@ -24,9 +26,13 @@ interface ActionTabProps {
     links: LinkInfo;
     docs: ConsentDocument[];
     loading: boolean;
+    updateEmailMOCK(newEmail: string): string;
 }
 
-export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabProps): JSX.Element => {
+export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOCK }: ActionTabProps): JSX.Element => {
+    const [newEmail, setNewEmail] = useState('');
+    const [updatingEmail, setUpdatingEmail] = useState(false);
+
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
     // eslint-disable-next-line no-param-reassign
@@ -56,14 +62,27 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
     const [showModal, setShowModal] = useState(false);
 
     const displayModal = () => {
+        setNewEmail(email);
         setShowModal(true);
     };
 
-    const handleOk = () => {
+    const handleOk = async () => {
+        try {
+            setUpdatingEmail(true);
+            const response = await updateEmail(newEmail);
+            message.success(`Successfully updated email to ${response}`);
+            // Code below here is only used to mock the email change on the application page
+            updateEmailMOCK(newEmail);
+        } catch (e) {
+            message.error('Failed to update email');
+        }
+        setNewEmail('');
+        setUpdatingEmail(false);
         setShowModal(false);
     };
 
     const handleCancel = () => {
+        setNewEmail('');
         setShowModal(false);
     };
 
@@ -73,19 +92,25 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
             visible={showModal}
             onCancel={handleCancel}
             footer={
-                <ButtonWrapper type="primary" onClick={handleOk}>
+                <ButtonWrapper
+                    type="primary"
+                    onClick={handleOk}
+                    disabled={newEmail === email || !newEmail || updatingEmail}
+                >
                     Confirm
                 </ButtonWrapper>
             }
         >
-            <EEErrorWrapper>
-                <Alert
-                    type="warning"
-                    showIcon
-                    message={`This action will change the email associated with this application`}
-                />
-            </EEErrorWrapper>
-            <Input value={email} />
+            <Spin spinning={updatingEmail}>
+                <EEErrorWrapper>
+                    <Alert
+                        type="warning"
+                        showIcon
+                        message={`This action will change the email associated with this application`}
+                    />
+                </EEErrorWrapper>
+                <ModalInputWrapper value={newEmail} type="email" onChange={(e) => setNewEmail(e.target.value)} />
+            </Spin>
         </Modal>
     );
 

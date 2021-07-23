@@ -129,3 +129,16 @@ export const InputButtonWrapper = styled.div`
     margin-bottom: 5px;
     font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
+
+export const ModalInputWrapper = styled(Input)`
+    :hover {
+        border-color: ${(props) => props.theme.color.green[300]};
+    }
+
+    .ant-input:focus,
+    .ant-input-focused,
+    :focus {
+        border-color: ${(props) => props.theme.color.green[300]} !important;
+        box-shadow: 0 0 0 2px rgb(24 255 148 / 20%);
+    }
+`;

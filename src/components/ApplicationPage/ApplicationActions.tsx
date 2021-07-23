@@ -14,9 +14,10 @@ import { AdvApplicationInfo, LinkInfo } from '../../interfaces';
 type LinkProps = {
     links: LinkInfo;
     data: AdvApplicationInfo;
+    updateEmailMOCK(newEmail: string): string;
 };
 
-export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
+export const ApplicationActions = ({ links, data, updateEmailMOCK }: LinkProps): JSX.Element => {
     const [selectedAction, setSelectedAction] = useState<string>('onboarding');
     const [docs, setDocs] = useState<ConsentDocument[]>([]);
     const [loading, setLoading] = useState(true);
@@ -48,7 +49,14 @@ export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
                     </Menu.ItemGroup>
                 </Menu>
             </ActionListWrapper>
-            <ActionTabs action={selectedAction} email={data.email} links={links} docs={docs} loading={loading} />
+            <ActionTabs
+                action={selectedAction}
+                email={data.email}
+                links={links}
+                docs={docs}
+                loading={loading}
+                updateEmailMOCK={updateEmailMOCK}
+            />
         </ActionWrapper>
     );
 };

@@ -67,9 +67,20 @@ const getConsentDocURL = async (consentDoc_keyString: string): Promise<string> =
     });
 };
 
+const updateEmail = async (newEmail: string): Promise<string> => {
+    await sleep(1000);
+    return new Promise((resolve, reject) => {
+        if (newEmail && newEmail !== '-') {
+            resolve(newEmail); // Swap for actual URL when available
+        } else {
+            reject(new Error('Invalid Email'));
+        }
+    });
+};
+
 // Mimics a delay for an api call
 async function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export { getConsentDocURL, getListOfPdfs };
+export { getConsentDocURL, getListOfPdfs, updateEmail };
