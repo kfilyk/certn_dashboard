@@ -4,21 +4,12 @@ import { ColumnsType } from 'antd/es/table';
 import { certnTheme } from '../../Theme/certn-theme';
 import { useHistory } from 'react-router-dom';
 import { AdvApplicationInfo } from '../../interfaces';
-import { Spin } from 'antd';
-import { CustomPagination } from './SearchTableSC';
+import { CustomPagination, Spinner, Dot, TableWrapper } from './SearchTableSC';
 import './SearchTable.css';
 
 // Styled Components
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-
-const Dot = styled.span`
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: block;
-`;
 
 const dotColor = [
     {
@@ -131,8 +122,8 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
     };
 
     return (
-        <div style={{ width: '85%', margin: '5%' }}>
-            <Spin spinning={props.loading.search}>
+        <TableWrapper>
+            <Spinner spinning={props.loading.search} size="large" tip="Getting Applications...">
                 <Table<AdvApplicationInfo>
                     rowClassName="pointer"
                     columns={columns}
@@ -144,7 +135,7 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                     })}
                     pagination={false}
                 />
-            </Spin>
+            </Spinner>
             <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
                 {props.count > 0 && (
                     <CustomPagination
@@ -155,7 +146,7 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                     />
                 )}
             </div>
-        </div>
+        </TableWrapper>
     );
 };
 

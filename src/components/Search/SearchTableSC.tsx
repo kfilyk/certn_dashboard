@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Pagination } from 'antd';
+import { Pagination, Spin } from 'antd';
 // Font Sizes and Line height are text-lg
 export const CustomPagination = styled(Pagination)`
     button {
@@ -40,5 +40,28 @@ export const CustomPagination = styled(Pagination)`
     li.ant-pagination-item-active > a {
         color: ${(props) => props.theme.color.green[400]};
         border-top: 2px solid ${(props) => props.theme.color.green[400]};
+    }
+ `;
+
+export const Spinner = styled(Spin)`
+    .ant-spin-dot-item {
+        background-color: ${(props) => props.theme.color.green[400]};
+    }
+    color: ${(props) => props.theme.color.green[400]};
+`;
+
+export const Dot = styled.span`
+    height: 25px;
+    width: 25px;
+    background-color: ${(props) => props.theme.color.gray};
+    border-radius: 50%;
+    display: block;
+`;
+
+export const TableWrapper = styled.div`
+    width: 85%;
+    margin: 5%;
+    .pointer:hover {
+        cursor: pointer;
     }
 `;

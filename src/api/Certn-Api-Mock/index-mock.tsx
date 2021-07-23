@@ -1,6 +1,5 @@
-import { ConsentDocument } from '../../interfaces';
+import { ConsentDocument, EmailInfo } from '../../interfaces';
 import AgentDocs from './GetAgentDocs_MOCKDATA.json';
-
 interface AgentDocument {
     id?: string;
     created?: string;
@@ -67,9 +66,44 @@ const getConsentDocURL = async (consentDoc_keyString: string): Promise<string> =
     });
 };
 
+const updateEmail = async (newEmail: string): Promise<string> => {
+    await sleep(1000);
+    return new Promise((resolve, reject) => {
+        if (newEmail && newEmail !== '-') {
+            resolve(newEmail); // Swap for actual URL when available
+        } else {
+            reject(new Error('Invalid Email'));
+        }
+    });
+};
+/**
+ * Function designed to simulate a call to the api when sending out an email (done by each of the application actions)
+ * Should be turned into a proper call once endpoint is implemented. Currently returns debug response string
+ *
+ * @param EmailInfo object
+ * @returns API response (simple string given this is a Mock function)
+ */
+const sendEmail = async (email: EmailInfo): Promise<string> => {
+    await sleep(1000);
+
+    //send to API when email endpoint is hooked up (or in whatever format is desired)
+    const raw = JSON.stringify(email);
+    //eslint-disable-next-line
+    console.log('MOCK sent email:\n' + raw); //Use to ensure email data is coming through okay (remove once API is hooked up)
+
+    //debug return while this function is not yet connected to API
+    return new Promise((resolve, reject) => {
+        if (email) {
+            resolve('EMAIL SENT');
+        } else {
+            reject(new Error('FAILED TO SEND EMAIL'));
+        }
+    });
+};
+
 // Mimics a delay for an api call
 async function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export { getConsentDocURL, getListOfPdfs };
+export { getConsentDocURL, getListOfPdfs, updateEmail, sendEmail };

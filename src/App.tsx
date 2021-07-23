@@ -1,4 +1,3 @@
-import Dashboard from './components/Dashboard/Dashboard';
 import Search from './components/Search/Search';
 import { ApplicationPage } from './components/ApplicationPage/ApplicationPage';
 import Login from './components/Login/Login';
@@ -63,7 +62,6 @@ const RouteWrapper = (): JSX.Element => {
                     </Route>
                     <Route path="/search" component={Search} />
                     <Route path="/application" component={ApplicationPage} />
-                    <Route path="/dashboard" component={Dashboard} />
                     <Route path="/oops" component={NotFoundPage} />
                     <Route>
                         <Redirect to="/oops" />

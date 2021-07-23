@@ -1,7 +1,9 @@
 // Ant Design Imports
 
 import { useEffect, useState, useRef } from 'react';
-import { Spin, notification } from 'antd';
+import { useHistory } from 'react-router-dom';
+import { notification } from 'antd';
+import { getApplicant } from '../../api/Certn-Api';
 
 // Components
 import { ApplicationInfo } from './ApplicationInfo';
@@ -25,11 +27,8 @@ import {
     APErrorContentWrapper,
     ApplicationPageWrapper,
     APSpinWrapper,
+    Spinner,
 } from './ApplicationPageSC';
-import { useHistory } from 'react-router-dom';
-
-// Temp
-import { getApplicant } from '../../api/Certn-Api';
 
 export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
@@ -107,21 +106,33 @@ export const ApplicationPage = (): JSX.Element => {
         }
     };
 
+    // This function is only used to mock the email change on the application page.
+    // If the page is refreshed or the user navigates to the search page, the change
+    // will NOT persist.
+    const updateEmailMOCK = (newEmail: string) => {
+        // eslint-disable-next-line prefer-const
+        let updatedResponse = { ...applicationPageData };
+        updatedResponse.application_info.email = newEmail;
+        setApplicationPageData(updatedResponse);
+        setTableInfo(updatedResponse.application_info);
+        return newEmail;
+    };
+
     return (
         <APSpinWrapper>
-            <Spin spinning={loadingApplication} tip="Loading Application...">
+            <Spinner spinning={loadingApplication} tip="Loading Application...">
                 {id === '' || !success ? (
                     checkFailure()
                 ) : (
                     <ApplicationPageWrapper>
-                        <ApplicationInfo info={tableInfo} />
+                        <ApplicationInfo key={tableInfo.email} info={tableInfo} />
                         <div style={{ display: 'flex', padding: '50px 0px 0px 0px' }}>
-                            <ApplicationActions data={tableInfo} links={linkInfo} />
+                            <ApplicationActions data={tableInfo} links={linkInfo} updateEmailMOCK={updateEmailMOCK} />
                             <CriticalChecks checks={criticalChecksInfo} />
                         </div>
                     </ApplicationPageWrapper>
                 )}
-            </Spin>
+            </Spinner>
         </APSpinWrapper>
     );
 };

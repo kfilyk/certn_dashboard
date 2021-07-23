@@ -8,8 +8,8 @@ export const Image = styled.img`
 
 export const HeadHomeButton = styled.a`
     font-weight: ${(props) => props.theme.fontWeights.semiBold};
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: ${(props) => props.theme.fontSize.base.size};
+    line-height: ${(props) => props.theme.fontSize.base.lineHeight};
     display: flex;
     align-items: center;
     color: ${(props) => props.theme.color.white};
@@ -27,8 +27,8 @@ export const HeadHomeButton = styled.a`
 
 export const NotFoundText = styled.h1`
     text-align: center;
-    font-size: 2.25rem;
-    line-height: 3rem;
+    font-size: ${(props) => props.theme.fontSize.xl4.size};
+    line-height: ${(props) => props.theme.fontSize.xl4.lineHeight};
     color: ${(props) => props.theme.color.black};
 `;
 
