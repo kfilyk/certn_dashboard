@@ -66,6 +66,16 @@ const getConsentDocURL = async (consentDoc_keyString: string): Promise<string> =
     });
 };
 
+const updateEmail = async (newEmail: string): Promise<string> => {
+    await sleep(1000);
+    return new Promise((resolve, reject) => {
+        if (newEmail && newEmail !== '-') {
+            resolve(newEmail); // Swap for actual URL when available
+        } else {
+            reject(new Error('Invalid Email'));
+        }
+    });
+};
 /**
  * Function designed to simulate a call to the api when sending out an email (done by each of the application actions)
  * Should be turned into a proper call once endpoint is implemented. Currently returns debug response string
@@ -96,4 +106,4 @@ async function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export { getConsentDocURL, getListOfPdfs, sendEmail };
+export { getConsentDocURL, getListOfPdfs, updateEmail, sendEmail };
