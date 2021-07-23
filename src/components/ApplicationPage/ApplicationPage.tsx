@@ -109,6 +109,18 @@ export const ApplicationPage = (): JSX.Element => {
         }
     };
 
+    // This function is only used to mock the email change on the application page.
+    // If the page is refreshed or the user navigates to the search page, the change
+    // will NOT persist.
+    const updateEmailMOCK = (newEmail: string) => {
+        // eslint-disable-next-line prefer-const
+        let updatedResponse = { ...applicationPageData };
+        updatedResponse.application_info.email = newEmail;
+        setApplicationPageData(updatedResponse);
+        setTableInfo(updatedResponse.application_info);
+        return newEmail;
+    };
+
     return (
         <APSpinWrapper>
             <Spinner spinning={loadingApplication} tip="Loading Application...">
@@ -116,9 +128,9 @@ export const ApplicationPage = (): JSX.Element => {
                     checkFailure()
                 ) : (
                     <ApplicationPageWrapper>
-                        <ApplicationInfo info={tableInfo} />
+                        <ApplicationInfo key={tableInfo.email} info={tableInfo} />
                         <div style={{ display: 'flex', padding: '50px 0px 0px 0px' }}>
-                            <ApplicationActions data={tableInfo} links={linkInfo} />
+                            <ApplicationActions data={tableInfo} links={linkInfo} updateEmailMOCK={updateEmailMOCK} />
                             <CriticalChecks checks={criticalChecksInfo} />
                         </div>
                     </ApplicationPageWrapper>

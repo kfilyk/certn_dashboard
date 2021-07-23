@@ -14,13 +14,14 @@ import { AdvApplicationInfo, LinkInfo } from '../../interfaces';
 type LinkProps = {
     links: LinkInfo;
     data: AdvApplicationInfo;
+    updateEmailMOCK(newEmail: string): string;
 };
 
 /**
  * This allows for the selection of one out of the three tabs that are present on the application page
  * The choice here defines the values assigned to variables in ActionTabs.tsx
  */
-export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
+export const ApplicationActions = ({ links, data, updateEmailMOCK }: LinkProps): JSX.Element => {
     const [selectedAction, setSelectedAction] = useState<string>('onboarding');
     const [docs, setDocs] = useState<ConsentDocument[]>([]);
     const [loading, setLoading] = useState(true);
@@ -49,7 +50,14 @@ export const ApplicationActions = ({ links, data }: LinkProps): JSX.Element => {
                     </Menu.ItemGroup>
                 </Menu>
             </ActionListWrapper>
-            <ActionTabs action={selectedAction} email={data.email} links={links} docs={docs} loading={loading} />
+            <ActionTabs
+                action={selectedAction}
+                email={data.email}
+                links={links}
+                docs={docs}
+                loading={loading}
+                updateEmailMOCK={updateEmailMOCK}
+            />
         </ActionWrapper>
     );
 };

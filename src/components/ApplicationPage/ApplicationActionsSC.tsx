@@ -52,20 +52,22 @@ export const FormWrapper = styled.div`
     flex-grow: 2;
 `;
 
-/**
- * Used in ActionTabs.tsx for the three tabs present there
- */
+export const EmailEditButton = styled.button`
+    height: 100%;
+    width: 33px;
+    border: 0px;
+    border-left: 1px solid ${(props) => props.theme.color.gray[300]};
+    cursor: pointer;
+`;
 
-export const InputWrapper = styled(Input)`
-    margin-right: 25px;
-    border: 1px solid ${(props) => props.theme.color.gray[600]};
+export const ATEmailWrapper = styled.div`
+    display: flex;
     width: 60%;
     flex-grow: 2;
-    :focus,
-    :hover {
-        border-color: ${(props) => props.theme.color.green[400]} !important;
-        box-shadow: 0 0 0 2px rgb(47 185 154 / 20%) !important;
-    }
+    margin-right: 25px;
+    border: 1px solid ${(props) => props.theme.color.gray[300]};
+    justify-content: space-between;
+    font-weight: ${(props) => props.theme.fontWeights.regular};
 `;
 
 /**
@@ -73,15 +75,9 @@ export const InputWrapper = styled(Input)`
  */
 
 export const InputLinkWrapper = styled(Input)`
-    border: 1px solid ${(props) => props.theme.color.gray[600]};
     width: 82.5%;
     align-items: right;
     flex-grow: 2;
-    :focus,
-    :hover {
-        border-color: ${(props) => props.theme.color.green[400]} !important;
-        box-shadow: 0 0 0 2px rgb(47 185 154 / 20%) !important;
-    }
 `;
 
 /**
@@ -161,4 +157,17 @@ export const InputButtonWrapper = styled.div`
     margin-left: 25px;
     margin-bottom: 5px;
     font-weight: ${(props) => props.theme.fontWeights.bold};
+`;
+
+export const ModalInputWrapper = styled(Input)`
+    :hover {
+        border-color: ${(props) => props.theme.color.green[300]};
+    }
+
+    .ant-input:focus,
+    .ant-input-focused,
+    :focus {
+        border-color: ${(props) => props.theme.color.green[300]} !important;
+        box-shadow: 0 0 0 2px rgb(24 255 148 / 20%);
+    }
 `;

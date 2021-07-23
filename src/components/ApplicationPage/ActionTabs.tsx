@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Alert, Form, message, Spin, Modal, Input } from 'antd';
-import { FileTextOutlined } from '@ant-design/icons';
+import { Alert, Form, message, Spin, Modal } from 'antd';
+import { FileTextOutlined, EditFilled } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
     FormWrapper,
-    InputWrapper,
     InputLinkWrapper,
     ButtonWrapper,
     StyledParaB,
@@ -13,10 +12,13 @@ import {
     ATErrorWrapper,
     EEErrorWrapper,
     InputButtonWrapper,
+    EmailEditButton,
+    ATEmailWrapper,
+    ModalInputWrapper,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
-import { sendEmail } from '../../api/Certn-Api-Mock/index-mock';
+import { updateEmail, sendEmail } from '../../api/Certn-Api-Mock/index-mock';
 
 /**
  * This is an interface that specifies the variables that will be used for the three action tabs
@@ -37,6 +39,7 @@ interface ActionTabProps {
     links: LinkInfo;
     docs: ConsentDocument[];
     loading: boolean;
+    updateEmailMOCK(newEmail: string): string;
 }
 
 /**
@@ -45,10 +48,14 @@ interface ActionTabProps {
  * This is determined by the use of the value of the action parameter
  * The parameter values for the Link tab will change between the Onboarding to Report Link tabs
  */
-export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabProps): JSX.Element => {
+export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOCK }: ActionTabProps): JSX.Element => {
+    const [newEmail, setNewEmail] = useState('');
+    const [updatingEmail, setUpdatingEmail] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [checked, setChecked] = useState<string[]>([]); //array of selected consent docs
+
     const textT = action == 'onboarding' ? 'Onboarding Link' : 'Report Link';
     const linkT = action == 'onboarding' ? links.onboarding_link : links.report_link;
-    const [checked, setChecked] = useState<string[]>([]); //array of selected consent docs
 
     // eslint-disable-next-line no-param-reassign
     /* Copy function: https://stackoverflow.com/a/62958832
@@ -105,113 +112,107 @@ export const ActionTabs = ({ action, email, links, docs, loading }: ActionTabPro
         }
     };
 
-    const [showModal, setShowModal] = useState(false);
-
     const displayModal = () => {
+        setNewEmail(email);
         setShowModal(true);
     };
 
-    const handleOk = () => {
+    const handleOk = async () => {
+        try {
+            setUpdatingEmail(true);
+            const response = await updateEmail(newEmail);
+            message.success(`Successfully updated email to ${response}`);
+            // Code below here is only used to mock the email change on the application page
+            updateEmailMOCK(newEmail);
+        } catch (e) {
+            message.error('Failed to update email');
+        }
+        setNewEmail('');
+        setUpdatingEmail(false);
         setShowModal(false);
     };
 
     const handleCancel = () => {
+        setNewEmail('');
         setShowModal(false);
     };
+
+    const editModal = () => (
+        <Modal
+            title="Edit Email"
+            visible={showModal}
+            onCancel={handleCancel}
+            footer={
+                <ButtonWrapper
+                    type="primary"
+                    onClick={handleOk}
+                    disabled={newEmail === email || !newEmail || updatingEmail}
+                >
+                    Confirm
+                </ButtonWrapper>
+            }
+        >
+            <Spin spinning={updatingEmail}>
+                <EEErrorWrapper>
+                    <Alert
+                        type="warning"
+                        showIcon
+                        message={`This action will change the email associated with this application`}
+                    />
+                </EEErrorWrapper>
+                <ModalInputWrapper value={newEmail} type="email" onChange={(e) => setNewEmail(e.target.value)} />
+            </Spin>
+        </Modal>
+    );
+
+    const emailCheck = () =>
+        email === '-' ? (
+            <ATErrorWrapper>
+                <Alert type="error" message={`No email found for the applicant.`} />
+            </ATErrorWrapper>
+        ) : (
+            ''
+        );
+
+    const emailInput = () => (
+        <InputButtonWrapper>
+            <ATEmailWrapper>
+                <span style={{ padding: '4px 11px 4px 11px' }}>{email}</span>
+                <EmailEditButton onClick={displayModal}>
+                    <EditFilled />
+                </EmailEditButton>
+            </ATEmailWrapper>
+            <ButtonWrapper
+                onClick={handleEmailSending}
+                type="primary"
+                disabled={email === '-' || (action === 'documents' && checked.length === 0)}
+            >
+                Send
+            </ButtonWrapper>
+        </InputButtonWrapper>
+    );
 
     return (
         <FormWrapper>
             {action === 'documents' ? (
-                <Form onFinish={handleEmailSending} onValuesChange={handleChange}>
+                <Form onValuesChange={handleChange}>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send documents to the following email</StyledParaN>
-                    <InputButtonWrapper>
-                        <InputWrapper value={email} disabled={email === '-'} />
-                        <ButtonWrapper
-                            type="primary"
-                            htmlType="submit"
-                            disabled={email === '-' || checked.length === 0}
-                        >
-                            Send
-                        </ButtonWrapper>
-                    </InputButtonWrapper>
-                    <InputButtonWrapper>
-                        <ButtonWrapper type="primary" onClick={displayModal}>
-                            Edit Email
-                        </ButtonWrapper>
-                        <Modal
-                            title="Edit Email"
-                            visible={showModal}
-                            onCancel={handleCancel}
-                            footer={
-                                <ButtonWrapper type="primary" onClick={handleOk}>
-                                    Confirm
-                                </ButtonWrapper>
-                            }
-                        >
-                            <EEErrorWrapper>
-                                <Alert
-                                    type="warning"
-                                    showIcon
-                                    message={`This action will change the email associated with this application`}
-                                />
-                            </EEErrorWrapper>
-                            <Input value={email} />
-                        </Modal>
-                    </InputButtonWrapper>
-                    {email === '-' ? (
-                        <ATErrorWrapper>
-                            <Alert type="error" message={`No email found for the applicant.`} />
-                        </ATErrorWrapper>
-                    ) : (
-                        ''
-                    )}
+                    {emailInput()}
+                    {editModal()}
+                    {emailCheck()}
                     <StyledParaNB> Documents to Send</StyledParaNB>
                     <Spin spinning={loading}>
                         <PDFViewer docs={docs} />
                     </Spin>
                 </Form>
             ) : (
-                <Form onFinish={handleEmailSending}>
+                <Form>
                     <StyledParaB>Recipient</StyledParaB>
                     <StyledParaN> Send {textT} to the following email: </StyledParaN>
-                    <InputButtonWrapper>
-                        <InputWrapper value={email} disabled={email === '-'} />
-                        <ButtonWrapper type="primary" htmlType="submit" disabled={linkT === null || email === '-'}>
-                            Send
-                        </ButtonWrapper>
-                    </InputButtonWrapper>
-                    <InputButtonWrapper>
-                        <ButtonWrapper type="primary" onClick={displayModal}>
-                            Edit Email
-                        </ButtonWrapper>
-                        <Modal
-                            title="Edit Email"
-                            visible={showModal}
-                            onCancel={handleCancel}
-                            footer={
-                                <ButtonWrapper type="primary" onClick={handleOk}>
-                                    Confirm
-                                </ButtonWrapper>
-                            }
-                        >
-                            <EEErrorWrapper>
-                                <Alert
-                                    type="warning"
-                                    showIcon
-                                    message={`This action will change the email associated with this application`}
-                                />
-                            </EEErrorWrapper>
-                            <Input value={email} />
-                        </Modal>
-                    </InputButtonWrapper>
-                    {email === '-' ? (
-                        <ATErrorWrapper>
-                            <Alert type="error" message={`No email found for the applicant.`} />
-                        </ATErrorWrapper>
-                    ) : (
-                        ''
-                    )}
+                    {emailInput()}
+                    {editModal()}
+                    {emailCheck()}
                     <StyledParaNB> {textT} </StyledParaNB>
                     <InputButtonWrapper>
                         <InputLinkWrapper
