@@ -11,7 +11,7 @@ export const SearchWrapper = styled.div<{ disabled: boolean }>`
     ${(props) =>
         props.disabled
             ? `.ant-input-affix-wrapper-disabled:hover {
-        border: 1px solid #d9d9d9;
+        border: 1px solid props.theme.color.gray[300]};
     }`
             : `.ant-input-affix-wrapper:focus,
             .ant-input-affix-wrapper-focused,

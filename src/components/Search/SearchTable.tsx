@@ -4,19 +4,7 @@ import { ColumnsType } from 'antd/es/table';
 import { certnTheme } from '../../Theme/certn-theme';
 import { useHistory } from 'react-router-dom';
 import { AdvApplicationInfo } from '../../interfaces';
-import { Spin } from 'antd';
-import './SearchTable.css';
-
-// Styled Components
-import styled from 'styled-components';
-
-const Dot = styled.span`
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: block;
-`;
+import { Spinner, Dot, TableWrapper } from './SearchTableSC';
 
 const dotColor = [
     {
@@ -98,8 +86,8 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
     const data: AdvApplicationInfo[] | undefined = props.results;
 
     return (
-        <div style={{ width: '85%', margin: '5%' }}>
-            <Spin spinning={props.loading.search}>
+        <TableWrapper>
+            <Spinner spinning={props.loading.search} size="large" tip="Getting Applications...">
                 <Table<AdvApplicationInfo>
                     rowClassName="pointer"
                     columns={columns}
@@ -110,8 +98,8 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                         },
                     })}
                 />
-            </Spin>
-        </div>
+            </Spinner>
+        </TableWrapper>
     );
 };
 
