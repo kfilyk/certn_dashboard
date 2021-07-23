@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import { getApplicant } from '../../api/Certn-Api';
 
 // Ant Design Imports
-import { Spin, notification } from 'antd';
+import { notification } from 'antd';
 
 // Components
 import { ApplicationInfo } from './ApplicationInfo';
@@ -28,6 +28,7 @@ import {
     APErrorContentWrapper,
     ApplicationPageWrapper,
     APSpinWrapper,
+    Spinner,
 } from './ApplicationPageSC';
 
 export const ApplicationPage = (): JSX.Element => {
@@ -110,7 +111,7 @@ export const ApplicationPage = (): JSX.Element => {
 
     return (
         <APSpinWrapper>
-            <Spin spinning={loadingApplication} tip="Loading Application...">
+            <Spinner spinning={loadingApplication} tip="Loading Application...">
                 {id === '' || !success ? (
                     checkFailure()
                 ) : (
@@ -122,7 +123,7 @@ export const ApplicationPage = (): JSX.Element => {
                         </div>
                     </ApplicationPageWrapper>
                 )}
-            </Spin>
+            </Spinner>
         </APSpinWrapper>
     );
 };
