@@ -46,8 +46,8 @@ export const FormWrapper = styled.div`
 export const StyledLink = styled.a`
     font-size: ${(props) => props.theme.fontSize.base.size};
     line-height: ${(props) => props.theme.fontSize.base.lineHeight};
-    color: ${(props) => props.theme.color.green.default};
+    color: ${(props) => props.theme.color.black};
     :hover {
-        color: ${(props) => props.theme.color.green.default};
+        color: ${(props) => props.theme.color.gray.default};
     }
 `;
