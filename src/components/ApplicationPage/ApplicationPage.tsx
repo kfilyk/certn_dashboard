@@ -6,10 +6,8 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getApplicant } from '../../api/Certn-Api';
-
-// Ant Design Imports
 import { notification } from 'antd';
+import { getApplicant } from '../../api/Certn-Api';
 
 // Components
 import { ApplicationInfo } from './ApplicationInfo';
@@ -17,8 +15,13 @@ import { CriticalChecks } from './CriticalChecks';
 import { ApplicationActions } from './ApplicationActions';
 
 // Interfaces & Defaults
-import { ChecksInfoDefault, TableInfoDefault, LinkInfoDefault } from './ApplicationPageDefaults';
-import { AdvApplicationInfo, CriticalChecksInfo, LinkInfo } from '../../interfaces';
+import {
+    ChecksInfoDefault,
+    TableInfoDefault,
+    ApplicationPageDataDefault,
+    LinkInfoDefault,
+} from './ApplicationPageDefaults';
+import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
 
 // Styled Components
 import {
@@ -35,6 +38,8 @@ export const ApplicationPage = (): JSX.Element => {
     const [id, setId] = useState('');
     const [loadingApplication, setLoadingApplication] = useState(true);
     const [success, setSuccess] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [applicationPageData, setApplicationPageData] = useState<ApplicationPageData>(ApplicationPageDataDefault);
     const [tableInfo, setTableInfo] = useState<AdvApplicationInfo>(TableInfoDefault);
     const [criticalChecksInfo, setChecksInfo] = useState<CriticalChecksInfo>(ChecksInfoDefault);
     const [linkInfo, setLinkInfo] = useState<LinkInfo>(LinkInfoDefault);
@@ -71,8 +76,11 @@ export const ApplicationPage = (): JSX.Element => {
         }
         const fetchApplication = async (): Promise<void> => {
             try {
+                // Make api call
+                // https://demo-api.certn.co/hr/v1/applications/<application_id>
                 setLoadingApplication(true);
                 const response = await getApplicant(id);
+                setApplicationPageData(response);
                 setTableInfo(response.application_info);
                 setChecksInfo(response.critical_checks);
                 setLinkInfo(response.application_links);
