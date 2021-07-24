@@ -32,6 +32,8 @@ interface AdvApplicationInfo {
  * Interface that holds the status and result of each critical check
  *
  * Note: the "result" is not currently being used
+ *
+ * @interface
  */
 interface CriticalChecksResult {
     status: string;
