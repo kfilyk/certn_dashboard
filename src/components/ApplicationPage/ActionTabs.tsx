@@ -27,17 +27,16 @@ import { ConsentDocument } from '../../interfaces';
 import { updateEmail, sendEmail } from '../../api/Certn-Api-Mock/index-mock';
 
 /**
- * This is an interface that specifies the variables that will be used for the three action tabs
+ * Interface for props passed to ActionTabs.tsx
  *
- * Action is used to define whether the onboarding link, report link or consent document tab will show
+ * action - onboarding link, report link, or consent document tab
+ * email - current email value of the application
+ * links - current onboarding link and report link of the application
+ * docs - current documents associated with the application
+ * loading - used for the PDF Viewer
+ * updateEmailMOCK - Mock API call for updating the application's email
  *
- * Email is used to give the current email value of the application
- *
- * links is used to give the current onboarding link or report link of the application
- *
- * docs is used to give the current documents associated with the application
- *
- * loading is used for the PDF Viewer
+ * @interface
  */
 interface ActionTabProps {
     action: string;
@@ -146,6 +145,11 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
         setShowModal(false);
     };
 
+    /**
+     * Modal that allows users to edit the email associated with an application
+     *
+     * Note: This modal is currently hooked up to a mock API, so any changes made will not persist
+     */
     const editModal = () => (
         <Modal
             title="Edit Email"
@@ -195,6 +199,9 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
         </Modal>
     );
 
+    /**
+     * Error message for applications that are missing an email address
+     */
     const emailCheck = () =>
         email === '-' ? (
             <ATErrorWrapper>
@@ -204,6 +211,9 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
             ''
         );
 
+    /**
+     * Input field and Send button for email address
+     */
     const emailInput = () => (
         <InputButtonWrapper>
             <ATEmailWrapper>
