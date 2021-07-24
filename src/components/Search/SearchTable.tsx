@@ -4,7 +4,7 @@ import { ColumnsType } from 'antd/es/table';
 import { certnTheme } from '../../Theme/certn-theme';
 import { useHistory } from 'react-router-dom';
 import { AdvApplicationInfo } from '../../interfaces';
-import { CustomPagination, Spinner, Dot, TableWrapper } from './SearchTableSC';
+import { CustomPagination, Spinner, Dot, TableWrapper, PaginationWrapper } from './SearchTableSC';
 // Styled Components
 import { useEffect, useState } from 'react';
 
@@ -133,7 +133,8 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                     pagination={false}
                 />
             </Spinner>
-            <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}>
+            <PaginationWrapper>
+                {/* <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}> */}
                 {props.count > 0 && (
                     <CustomPagination
                         disabled={props.loading.search}
@@ -142,7 +143,8 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                         onChange={props.onSubmitPageChange}
                     />
                 )}
-            </div>
+                {/* </div> */}
+            </PaginationWrapper>
         </TableWrapper>
     );
 };
