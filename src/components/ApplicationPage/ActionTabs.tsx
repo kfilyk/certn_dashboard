@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState } from 'react';
 import { Alert, Form, message, Spin, Modal } from 'antd';
 import { FileTextOutlined, EditFilled } from '@ant-design/icons';
@@ -32,6 +33,8 @@ interface ActionTabProps {
 export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOCK }: ActionTabProps): JSX.Element => {
     const [newEmail, setNewEmail] = useState('');
     const [updatingEmail, setUpdatingEmail] = useState(false);
+    const [validEmail, setValidEmail] = useState(true);
+    const [form] = Form.useForm();
     const [showModal, setShowModal] = useState(false);
     const [checked, setChecked] = useState<string[]>([]); //array of selected consent docs
 
@@ -61,6 +64,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
      *
      * @param "values" contains the modified list item (the checked/unchecked consent doc) in the form: {URL : selected (true/false)}
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleChange = async (values: any) => {
         for (const v in values) {
             if (values[v]) {
@@ -127,7 +131,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                 <ButtonWrapper
                     type="primary"
                     onClick={handleOk}
-                    disabled={newEmail === email || !newEmail || updatingEmail}
+                    disabled={(newEmail === email || !newEmail || updatingEmail) && !validEmail}
                 >
                     Confirm
                 </ButtonWrapper>
@@ -141,7 +145,29 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                         message={`This action will change the email associated with this application`}
                     />
                 </EEErrorWrapper>
-                <ModalInputWrapper value={newEmail} type="email" onChange={(e) => setNewEmail(e.target.value)} />
+                <Form form={form}>
+                    <Form.Item
+                        name="email"
+                        rules={[{ type: 'email', message: 'Please enter a valid email' }]}
+                        initialValue={newEmail}
+                    >
+                        <ModalInputWrapper
+                            value={newEmail}
+                            type="email"
+                            onChange={(e) => {
+                                form.validateFields()
+                                    .then(() => {
+                                        setValidEmail(true);
+                                        setNewEmail(e.target.value);
+                                    })
+                                    .catch((info) => {
+                                        setValidEmail(false);
+                                        console.log('Validate failed:', info);
+                                    });
+                            }}
+                        />
+                    </Form.Item>
+                </Form>
             </Spin>
         </Modal>
     );
