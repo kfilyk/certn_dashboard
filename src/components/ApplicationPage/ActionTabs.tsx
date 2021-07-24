@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
 import { Alert, Form, message, Spin, Modal } from 'antd';
 import { FileTextOutlined, EditFilled } from '@ant-design/icons';
@@ -162,6 +161,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                                     })
                                     .catch((info) => {
                                         setValidEmail(false);
+                                        // eslint-disable-next-line no-console
                                         console.log('Validate failed:', info);
                                     });
                             }}
