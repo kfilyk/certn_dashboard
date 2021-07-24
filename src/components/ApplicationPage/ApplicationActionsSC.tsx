@@ -57,6 +57,10 @@ export const EmailEditButton = styled.button`
     width: 33px;
     border: 0px;
     border-left: 1px solid ${(props) => props.theme.color.gray[300]};
+    :hover {
+        background: ${(props) => props.theme.color.gray[400]};
+        border-color: ${(props) => props.theme.color.gray[400]};
+    }
     cursor: pointer;
 `;
 
