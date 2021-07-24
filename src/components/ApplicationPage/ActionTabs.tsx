@@ -33,7 +33,7 @@ interface ActionTabProps {
 export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOCK }: ActionTabProps): JSX.Element => {
     const [newEmail, setNewEmail] = useState('');
     const [updatingEmail, setUpdatingEmail] = useState(false);
-    const [validEmail, setValidEmail] = useState(true);
+    const [validEmail, setValidEmail] = useState(false); // ensures Confirm button is greyed out when user opens Modal
     const [form] = Form.useForm();
     const [showModal, setShowModal] = useState(false);
     const [checked, setChecked] = useState<string[]>([]); //array of selected consent docs
