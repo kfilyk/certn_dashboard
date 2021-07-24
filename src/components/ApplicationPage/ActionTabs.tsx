@@ -159,10 +159,8 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                                         setValidEmail(true);
                                         setNewEmail(e.target.value);
                                     })
-                                    .catch((info) => {
+                                    .catch(() => {
                                         setValidEmail(false);
-                                        // eslint-disable-next-line no-console
-                                        console.log('Validate failed:', info);
                                     });
                             }}
                         />
