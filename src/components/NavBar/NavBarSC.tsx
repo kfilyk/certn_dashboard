@@ -62,9 +62,9 @@ export const EmailWrapper = styled.p`
 export const NavBarLogout = styled(Button)`
     height: 34px;
     width: 104px;
-    color: ${(props) => props.theme.color.white};
-    background-color: ${(props) => props.theme.color.green.default};
-    border: none;
+    color: ${(props) => props.theme.color.gray[700]};
+    background-color: ${(props) => props.theme.color.white};
+    border-color: ${(props) => props.theme.color.gray[300]};
     border-radius: 6px;
     font-size: ${(props) => props.theme.fontSize.sm.size};
     line-height: ${(props) => props.theme.fontSize.sm.lineHeight};
@@ -75,9 +75,9 @@ export const NavBarLogout = styled(Button)`
     }
 
     :hover {
-        color: ${(props) => props.theme.color.white};
-        background-color: ${(props) => props.theme.color.green[400]};
-        border: none;
+        color: ${(props) => props.theme.color.gray[700]};
+        background-color: ${(props) => props.theme.color.gray[50]};
+        border-color: ${(props) => props.theme.color.gray[300]};
     }
 `;
 

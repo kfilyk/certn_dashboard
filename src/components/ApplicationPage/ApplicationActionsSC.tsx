@@ -80,9 +80,13 @@ export const ButtonWrapper = styled(Button)`
     align-items: right;
     background: ${(props) => props.theme.color.green.default};
     border-color: ${(props) => props.theme.color.green.default};
+    border-radius: 4px;
+    width: 89px;
+    font-size: ${(props) => props.theme.fontSize.xs};
+    font-weight: ${(props) => props.theme.fontWeights.semiBold};
     :hover {
-        background: ${(props) => props.theme.color.green[400]};
-        border-color: ${(props) => props.theme.color.green[400]};
+        background: ${(props) => props.theme.color.green[700]};
+        border-color: ${(props) => props.theme.color.green[700]};
     }
     :focus {
         background: ${(props) => props.theme.color.green.default};
