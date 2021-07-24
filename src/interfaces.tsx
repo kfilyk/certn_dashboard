@@ -28,11 +28,24 @@ interface AdvApplicationInfo {
     team: string;
 }
 
+/**
+ * Interface that holds the status and result of each critical check
+ *
+ * Note: the "result" is not currently being used
+ */
 interface CriticalChecksResult {
     status: string;
     result: string;
 }
 
+/**
+ * Interface that holds the status of the employment, education, and credential verifications
+ *
+ * These require their own interface as they are formatted differently from the other 6 critical checks
+ * (see CriticalChecksInfo below)
+ *
+ * @interface
+ */
 interface CertnVerification {
     status: string;
     employment_verification: string;
@@ -40,6 +53,11 @@ interface CertnVerification {
     credential_verification: string;
 }
 
+/**
+ * Interface that holds the critical checks along with their corresponding status and result
+ *
+ * @interface
+ */
 interface CriticalChecksInfo {
     us_criminal_record_check_result: CriticalChecksResult;
     international_criminal_record_check_result: CriticalChecksResult;
@@ -50,11 +68,24 @@ interface CriticalChecksInfo {
     certn_verification: CertnVerification;
 }
 
+/**
+ * Interface that holds the links associated with an application (currently: onboarding and report)
+ *
+ * @interface
+ */
 interface LinkInfo {
     onboarding_link: string;
     report_link: string;
 }
 
+/**
+ * Interface that holds the required information for an applicant
+ *
+ * report_summary - status/result of each critical check corresponding to this application
+ * application - information displayed on the Search page and Application page for this applicant
+ *
+ * @interface
+ */
 interface Applicant {
     report_summary: CriticalChecksInfo;
     application: Application;
@@ -108,15 +139,14 @@ interface Application {
 }
 
 /**
- * This is an interface that specifies the variables that will be used when sending emails
+ * Interface that specifies the variables that will be used when sending emails
  *
- * email_type specifies which Application action this email came from (currently: onboarding, report, or documents)
+ * email_type - which Application action this email came from (currently: onboarding, report, or documents)
+ * to - email address the email will be sent to
+ * url - onboarding link or report link
+ * consent_doc_urls - array of consent documents being sent
  *
- * to is the email address the email will be sent to
- *
- * url is either the onboarding or report link
- *
- * consent_doc_urls is an array of any consent documents being sent
+ * @interface
  */
 interface EmailInfo {
     email_type: string;
