@@ -54,10 +54,10 @@ const criticalCheckTitles = {
 /**
  * Assigns each critical check to the correct status panel (complete, pending, or failure)
  *
- * @param {Record<string, Array<string>} acc - Accumulator; holds the critical checks in one of 3 buckets
+ * @param {Record<string, Array<string>} acc - Accumulator holding each critical check in one of three buckets
  * @param {SimplifiedChecks} curr - Current element being processed
  * @param {number} _index - Index of current element (unused in this function)
- * @param {Array<SimplifiedChecks} _arr - Array reduce() was called on (unused in this function)
+ * @param {Array<SimplifiedChecks>} _arr - Array reduce() was called on (unused in this function)
  */
 const sortChecks = (
     acc: Record<string, Array<string>>,
