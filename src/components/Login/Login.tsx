@@ -6,13 +6,13 @@ import logo from '../../logo.svg';
 import { useHistory } from 'react-router-dom';
 
 // Ant Design Imports
-import { Spin, notification } from 'antd';
+import { notification } from 'antd';
 
 // Components
 import LoginForm from './LoginForm';
 
 // Styled Components
-import { StyledPara, Image, LoginDiv, FormWrapper } from './LoginSC';
+import { StyledPara, Image, LoginDiv, FormWrapper, Spinner } from './LoginSC';
 import { useEffect } from 'react';
 
 // Interfaces
@@ -54,7 +54,7 @@ const Login = (): JSX.Element => {
     };
 
     return (
-        <Spin spinning={loading.login}>
+        <Spinner spinning={loading.login} size="large">
             <LoginDiv>
                 <Image src={logo} alt="logo" />
                 <StyledPara>Login to access Support Tool</StyledPara>
@@ -62,7 +62,7 @@ const Login = (): JSX.Element => {
                     <LoginForm onSubmit={submit} />
                 </FormWrapper>
             </LoginDiv>
-        </Spin>
+        </Spinner>
     );
 };
 

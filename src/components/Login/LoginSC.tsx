@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 
 export const StyledPara = styled.p`
     color: ${(props) => props.theme.color.green[400]};
@@ -55,4 +55,11 @@ export const StyledLink = styled.a`
     :hover {
         color: ${(props) => props.theme.color.gray.default};
     }
+`;
+
+export const Spinner = styled(Spin)`
+    .ant-spin-dot-item {
+        background-color: ${(props) => props.theme.color.green[400]};
+    }
+    color: ${(props) => props.theme.color.green[400]};
 `;
