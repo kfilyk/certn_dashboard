@@ -133,7 +133,7 @@ export const ApplicationPage = (): JSX.Element => {
 
     return (
         <APSpinWrapper>
-            <Spinner spinning={loadingApplication} tip="Loading Application...">
+            <Spinner spinning={loadingApplication} tip="Loading Application..." size="large">
                 {id === '' || !success ? (
                     checkFailure()
                 ) : (

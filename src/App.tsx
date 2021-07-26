@@ -27,6 +27,16 @@ const AppDiv = styled.div`
     flex-direction: column;
 `;
 
+const PageWrapper = styled.div`
+    background-color: ${(props) => props.theme.color.green[50]};
+    height: 100%;
+    padding: 0 2%;
+
+    @media ${(props) => props.theme.device.desktopLarge} {
+        padding: 0 5%;
+    }
+`;
+
 export function App(): JSX.Element {
     return (
         <Router>
@@ -53,20 +63,22 @@ const RouteWrapper = (): JSX.Element => {
         return (
             <>
                 <NavBar />
-                <Switch>
-                    <Route exact path="/">
-                        <Redirect to="/search" />
-                    </Route>
-                    <Route path="/login">
-                        <Redirect to="/search" />
-                    </Route>
-                    <Route path="/search" component={Search} />
-                    <Route path="/application" component={ApplicationPage} />
-                    <Route path="/oops" component={NotFoundPage} />
-                    <Route>
-                        <Redirect to="/oops" />
-                    </Route>
-                </Switch>
+                <PageWrapper>
+                    <Switch>
+                        <Route exact path="/">
+                            <Redirect to="/search" />
+                        </Route>
+                        <Route path="/login">
+                            <Redirect to="/search" />
+                        </Route>
+                        <Route path="/search" component={Search} />
+                        <Route path="/application" component={ApplicationPage} />
+                        <Route path="/oops" component={NotFoundPage} />
+                        <Route>
+                            <Redirect to="/oops" />
+                        </Route>
+                    </Switch>
+                </PageWrapper>
             </>
         );
     }

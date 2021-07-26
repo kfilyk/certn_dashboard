@@ -59,9 +59,13 @@ export const Dot = styled.span`
 `;
 
 export const TableWrapper = styled.div`
-    width: 85%;
-    margin: 5%;
     .pointer:hover {
         cursor: pointer;
     }
+`;
+
+export const PaginationWrapper = styled.div`
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
 `;

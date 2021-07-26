@@ -20,7 +20,7 @@ export const HeadHomeButton = styled.a`
 
     :hover {
         color: ${(props) => props.theme.color.white};
-        background-color: ${(props) => props.theme.color.green[400]};
+        background-color: ${(props) => props.theme.color.green[700]};
         border: none;
     }
 `;

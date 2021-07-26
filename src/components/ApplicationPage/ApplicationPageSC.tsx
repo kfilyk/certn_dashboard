@@ -11,7 +11,7 @@ export const APSpinWrapper = styled.div`
 `;
 export const ApplicationPageWrapper = styled.div`
     background-color: ${(props) => props.theme.color.green[50]};
-    padding: 50px;
+    padding-top: 50px;
     height: 100%;
     min-width: 850px;
     display: flex;

@@ -5,7 +5,7 @@
  */
 
 import { useState } from 'react';
-import { Alert, Form, message, Spin, Modal } from 'antd';
+import { Alert, Form, message, Modal } from 'antd';
 import { FileTextOutlined, EditFilled } from '@ant-design/icons';
 import { LinkInfo } from '../../interfaces';
 import {
@@ -21,6 +21,7 @@ import {
     EmailEditButton,
     ATEmailWrapper,
     ModalInputWrapper,
+    Spinner,
 } from './ApplicationActionsSC';
 import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
@@ -169,7 +170,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                 </ButtonWrapper>
             }
         >
-            <Spin spinning={updatingEmail}>
+            <Spinner spinning={updatingEmail} size="large">
                 <EEErrorWrapper>
                     <Alert
                         type="warning"
@@ -199,7 +200,8 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                         />
                     </Form.Item>
                 </Form>
-            </Spin>
+                <ModalInputWrapper value={newEmail} type="email" onChange={(e) => setNewEmail(e.target.value)} />
+            </Spinner>
         </Modal>
     );
 
@@ -246,9 +248,9 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                     {editModal()}
                     {emailCheck()}
                     <StyledParaNB> Documents to Send</StyledParaNB>
-                    <Spin spinning={loading}>
+                    <Spinner spinning={loading} size="large">
                         <PDFViewer docs={docs} />
-                    </Spin>
+                    </Spinner>
                 </Form>
             ) : (
                 <Form>

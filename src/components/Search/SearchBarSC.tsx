@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import { Input, Button, Form } from 'antd';
 
 export const SearchWrapper = styled.div<{ disabled: boolean }>`
-    margin: 50px 5% 0 5%;
-
     //needed to ensure the forms and search button line up
     height: 104px;
+    margin-top: 50px;
     display: flex;
 
     ${(props) =>
@@ -16,13 +15,12 @@ export const SearchWrapper = styled.div<{ disabled: boolean }>`
             : `.ant-input-affix-wrapper:focus,
             .ant-input-affix-wrapper-focused,
             .ant-input-affix-wrapper:hover {
-                border-color: ${props.theme.color.green[400]} !important;
+                border-color: ${props.theme.color.green[700]} !important;
                 box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
             }`}
 `;
 
 export const SearchForm = styled(Input)`
-    right-border: none;
     border-radius: 4px 0 0 4px;
     height: 42px;
 `;
@@ -40,10 +38,9 @@ export const SearchButton = styled(Button)`
     height: 42px;
     width: 123px;
 
-    :hover,
-    :focus {
-        background-color: ${(props) => props.theme.color.green[400]};
-        border-color: ${(props) => props.theme.color.green[400]};
+    :hover {
+        background: ${(props) => props.theme.color.green[700]};
+        border-color: ${(props) => props.theme.color.green[700]};
     }
 `;
 
@@ -52,9 +49,12 @@ export const AdvancedSwitch = styled(Button)`
     border-radius: 0 4px 4px 0;
     width: 125px;
     height: 42px;
-    background-color: ${(props) => props.theme.color.gray[100]};
-    color: ${(props) => props.theme.color.black};
+    color: ${(props) => props.theme.color.gray[700]};
+    background-color: ${(props) => props.theme.color.white};
     border-color: ${(props) => props.theme.color.gray[300]};
+    font-size: ${(props) => props.theme.fontSize.base.size};
+    line-height: ${(props) => props.theme.fontSize.base.lineHeight};
+    font-weight: ${(props) => props.theme.fontWeights.semiBold};
 
     :hover {
         background-color: ${(props) => props.theme.color.gray[100]};
@@ -64,9 +64,9 @@ export const AdvancedSwitch = styled(Button)`
 
     :focus,
     :active {
-        background-color: ${(props) => props.theme.color.gray[100]};
+        color: ${(props) => props.theme.color.gray[700]};
+        background-color: ${(props) => props.theme.color.white};
         border-color: ${(props) => props.theme.color.gray[300]};
-        color: ${(props) => props.theme.color.black};
     }
 `;
 

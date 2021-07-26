@@ -1,4 +1,4 @@
-import { Input, Button, Modal } from 'antd';
+import { Input, Button, Modal, Spin } from 'antd';
 import styled from 'styled-components';
 
 export const ActionListWrapper = styled.div`
@@ -92,9 +92,13 @@ export const ButtonWrapper = styled(Button)`
     align-items: right;
     background: ${(props) => props.theme.color.green.default};
     border-color: ${(props) => props.theme.color.green.default};
+    border-radius: 4px;
+    width: 89px;
+    font-size: ${(props) => props.theme.fontSize.xs};
+    font-weight: ${(props) => props.theme.fontWeights.semiBold};
     :hover {
-        background: ${(props) => props.theme.color.green[400]};
-        border-color: ${(props) => props.theme.color.green[400]};
+        background: ${(props) => props.theme.color.green[700]};
+        border-color: ${(props) => props.theme.color.green[700]};
     }
     :focus {
         background: ${(props) => props.theme.color.green.default};
@@ -173,4 +177,11 @@ export const ModalInputWrapper = styled(Input)`
         border-color: ${(props) => props.theme.color.green[300]} !important;
         box-shadow: 0 0 0 2px rgb(24 255 148 / 20%);
     }
+`;
+
+export const Spinner = styled(Spin)`
+    .ant-spin-dot-item {
+        background-color: ${(props) => props.theme.color.green[400]};
+    }
+    color: ${(props) => props.theme.color.green[400]};
 `;
