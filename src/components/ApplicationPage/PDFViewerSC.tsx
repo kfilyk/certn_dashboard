@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
 export const PDFViewerWrapper = styled.div`
+    .ant-list-item-meta {
+        overflow: hidden;
+        margin-right: 10px;
+    }
+
     .ant-list-item:hover {
         background-color: ${(props) => props.theme.color.gray[50]};
         transition-duration: 0.5s;
