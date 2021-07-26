@@ -8,6 +8,10 @@ export const SearchWrapper = styled.div<{ disabled: boolean }>`
     display: flex;
     width: 100%;
 
+    form {
+        width: 100%;
+    }
+
     ${(props) =>
         props.disabled
             ? `.ant-input-affix-wrapper-disabled:hover {
