@@ -1,3 +1,6 @@
+/**
+ * @file Defines the single row table at the top of the application page.
+ */
 import { useEffect, useState } from 'react';
 import { AdvApplicationInfo } from '../../interfaces';
 import { TableInfoDefault } from './ApplicationPageDefaults';
@@ -8,21 +11,13 @@ import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 // Styled Components
-import styled from 'styled-components';
-import { Dot, dotColor } from './ApplicationPageSC';
+import { TableWrapper, Dot, dotColor } from './ApplicationPageSC';
 
-// Temp until all components for application page are completed
-const TableWrapper = styled.div`
-    border: 1px solid ${(props) => props.theme.color.gray[100]};
-    padding: 0px;
-    border-radius: 10px;
-
-    .ant-table {
-        border-radius: 10px;
-    }
-`;
-
-// Interfaces
+/**
+ * Interface for props passed to ApplicationInfo.tsx
+ *
+ * @interface
+ */
 type InfoProps = {
     info: AdvApplicationInfo;
 };
@@ -90,6 +85,12 @@ export const ApplicationInfo = ({ info }: InfoProps): JSX.Element => {
         setTableInfo(formattedInfo);
     }, [info]);
 
+    /**
+     * Checks to see if the date string is a valid date and the converts it to a
+     * friendly form.
+     * @param date A date string obtained from the Certn API
+     * @returns friendly form date string
+     */
     const checkDate = (date: string): string => {
         const d = new Date(date);
         if (Object.prototype.toString.call(d) === '[object Date]') {

@@ -1,7 +1,6 @@
 import { Input, Button, Modal, Spin } from 'antd';
 import styled from 'styled-components';
 
-//likely temporary styling
 export const ActionListWrapper = styled.div`
     border: 1px solid ${(props) => props.theme.color.gray[100]};
     width: 35%;
@@ -39,6 +38,10 @@ export const ActionWrapper = styled.div`
     min-height: 640px;
 `;
 
+/**
+ * Used in ActionTabs.tsx for the form that outputs the three different tabs
+ */
+
 export const FormWrapper = styled.div`
     background-color: ${(props) => props.theme.color.white};
     margin: 0px 25px 0px 25px;
@@ -70,11 +73,20 @@ export const ATEmailWrapper = styled.div`
     font-weight: ${(props) => props.theme.fontWeights.regular};
 `;
 
+/**
+ * Used in ActionTabs.tsx for the Onboarding and Report Link tabs
+ */
+
 export const InputLinkWrapper = styled(Input)`
     width: 82.5%;
     align-items: right;
     flex-grow: 2;
 `;
+
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ * Used in PDFViewer.tsx for the buttons implemented on it
+ */
 
 export const ButtonWrapper = styled(Button)`
     align-items: right;
@@ -94,6 +106,10 @@ export const ButtonWrapper = styled(Button)`
     }
 `;
 
+/**
+ * Used in PDFViewer.tsx to create the modal to present the PDF Viewer on
+ */
+
 export const ModalWrapper = styled(Modal)`
     width: 100%;
     height: 500px;
@@ -101,6 +117,10 @@ export const ModalWrapper = styled(Modal)`
     align-items: center;
     justify-content: center;
 `;
+
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ */
 
 export const StyledParaB = styled.p`
     color: ${(props) => props.theme.color.black};
@@ -111,9 +131,17 @@ export const StyledParaB = styled.p`
     margin-bottom: 10px;
 `;
 
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ */
+
 export const StyledParaN = styled.p`
     margin: 0px 25px 1px 25px;
 `;
+
+/**
+ * Used in ActionTabs.tsx for the three tabs present there
+ */
 
 export const StyledParaNB = styled.p`
     margin: 0px 25px 1px 25px;

@@ -173,7 +173,7 @@ const getApplications = async (search = '', page = 1, page_size = 10, ordering =
 };
 
 /**
- * This is a helper function used to build an object that represents the cirtical checks of an applicant.
+ * This is a helper function used to build an object that represents the critical checks of an applicant.
  *
  * @param response_data
  * @returns CriticalChecksInfo

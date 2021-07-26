@@ -1,3 +1,9 @@
+/**
+ * @file This component is responsible for displaying each of the application actions.
+ * Which one is displayed is based on the passed in props from ApplicationPage.tsx
+ * This file also handles interacting with the MOCK email endpoints (sending and changing emails)
+ */
+
 import { useState } from 'react';
 import { Alert, Form, message, Modal } from 'antd';
 import { FileTextOutlined, EditFilled } from '@ant-design/icons';
@@ -21,6 +27,18 @@ import { PDFViewer } from './PDFViewer';
 import { ConsentDocument } from '../../interfaces';
 import { updateEmail, sendEmail } from '../../api/Certn-Api-Mock/index-mock';
 
+/**
+ * Interface for props passed to ActionTabs.tsx
+ *
+ * action - onboarding link, report link, or consent document tab
+ * email - current email value of the application
+ * links - current onboarding link and report link of the application
+ * docs - current documents associated with the application
+ * loading - used for the PDF Viewer
+ * updateEmailMOCK - Mock API call for updating the application's email
+ *
+ * @interface
+ */
 interface ActionTabProps {
     action: string;
     email: string;
@@ -30,6 +48,12 @@ interface ActionTabProps {
     updateEmailMOCK(newEmail: string): string;
 }
 
+/**
+ * This exports the form that conditionally builds the three action tabs on the application
+ * The two primary conditionals are for judging if it is a Link tab or the Consent Documents tab
+ * This is determined by the use of the value of the action parameter
+ * The parameter values for the Link tab will change between the Onboarding to Report Link tabs
+ */
 export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOCK }: ActionTabProps): JSX.Element => {
     const [newEmail, setNewEmail] = useState('');
     const [updatingEmail, setUpdatingEmail] = useState(false);
@@ -102,6 +126,10 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
         setShowModal(true);
     };
 
+    /**
+     * Triggered on modal confirmation, makes call to mock API endpoint and mimics
+     * changing the email for an application.
+     */
     const handleOk = async () => {
         try {
             setUpdatingEmail(true);
@@ -122,6 +150,11 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
         setShowModal(false);
     };
 
+    /**
+     * Modal that allows users to edit the email associated with an application
+     *
+     * Note: This modal is currently hooked up to a mock API, so any changes made will not persist
+     */
     const editModal = () => (
         <Modal
             title="Edit Email"
@@ -172,6 +205,9 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
         </Modal>
     );
 
+    /**
+     * Error message for applications that are missing an email address
+     */
     const emailCheck = () =>
         email === '-' ? (
             <ATErrorWrapper>
@@ -181,6 +217,9 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
             ''
         );
 
+    /**
+     * Input field and Send button for email address
+     */
     const emailInput = () => (
         <InputButtonWrapper>
             <ATEmailWrapper>

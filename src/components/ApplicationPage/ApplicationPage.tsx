@@ -1,4 +1,8 @@
-// Ant Design Imports
+/**
+ * @file Main component for the application page (/application). This file is responsible for
+ * fetching the required application information from the Certn API. The application information
+ * is parsed and then distributed amongst it's children components.
+ */
 
 import { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -42,7 +46,9 @@ export const ApplicationPage = (): JSX.Element => {
 
     const history = useHistory();
 
-    // Runs only on initial render, will get id from URL. Ticket 54: https://trello.com/c/rf1HCmik/54-54-display-api-data
+    /**
+     * Runs only on the first render, pulling the application ID from the url
+     */
     useEffect(() => {
         // Get the id from the URL, will be passed by the search page
         const urlParams = new URLSearchParams(window.location.search);
@@ -59,8 +65,9 @@ export const ApplicationPage = (): JSX.Element => {
         }
     }, []);
 
-    // Doesn't run on initial render
-    // Triggered anytime id changes
+    /**
+     * Doesn't run on initial render and is subsequently run anytime that the state variable ID is updated.
+     */
     const isInitial = useRef(true);
     useEffect(() => {
         if (isInitial.current) {
@@ -89,6 +96,10 @@ export const ApplicationPage = (): JSX.Element => {
         fetchApplication();
     }, [id]);
 
+    /**
+     * Helper function that determines if there is a failure or if the page is loading
+     * @returns reactNode
+     */
     const checkFailure = () => {
         if (loadingApplication) {
             return '';
@@ -106,9 +117,11 @@ export const ApplicationPage = (): JSX.Element => {
         }
     };
 
-    // This function is only used to mock the email change on the application page.
-    // If the page is refreshed or the user navigates to the search page, the change
-    // will NOT persist.
+    /*
+     * This function is only used to mock the email change on the application page.
+     * If the page is refreshed or the user navigates to the search page, the change
+     * will NOT persist.
+     */
     const updateEmailMOCK = (newEmail: string) => {
         // eslint-disable-next-line prefer-const
         let updatedResponse = { ...applicationPageData };
