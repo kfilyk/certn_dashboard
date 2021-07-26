@@ -89,7 +89,7 @@ export const FailureBadge = styled(Badge)`
 export const APErrorWrapper = styled.div`
     box-shadow: inset 0px 13px 12px white;
     text-align: center;
-    padding-top: 30vh;
+    padding-top: 200px;
     width: 100%;
     height: 100%;
     background-color: ${(props) => props.theme.color.red[50]};
