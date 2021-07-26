@@ -47,6 +47,13 @@ export const NavBarLink = styled(NavLink)`
 `;
 
 export const ProfileButtonWrapper = styled.div`
+    color: ${(props) => props.theme.color.gray[400]};
+    font-family: ${(props) => props.theme.fontFamily};
+    font-weight: ${(props) => props.theme.fontWeights.semiBold};
+    font-size: ${(props) => props.theme.fontSize.sm.size};
+    line-height: ${(props) => props.theme.fontSize.sm.lineHeight};
+    letter-spacing: 0.75px;
+    cursor: default;
     display: flex;
     height: 100%;
     align-items: center;

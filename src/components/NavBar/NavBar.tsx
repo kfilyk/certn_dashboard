@@ -37,12 +37,12 @@ const NavBar = (): JSX.Element => {
                 Find Application
             </NavBarLink>
             <NavBarFiller />
-            <NavBarLink to="/dashboard" activeClassName="selected" onClick={() => history.push('/dashboard')}>
-                <ProfileButtonWrapper>
-                    <Avatar icon={<UserOutlined />} />
-                    <EmailWrapper>{email}</EmailWrapper>
-                </ProfileButtonWrapper>
-            </NavBarLink>
+            {/* <NavBarLink to="/dashboard" activeClassName="selected" onClick={() => history.push('/dashboard')}> */}
+            <ProfileButtonWrapper>
+                <Avatar icon={<UserOutlined />} />
+                <EmailWrapper>{email}</EmailWrapper>
+            </ProfileButtonWrapper>
+            {/* </NavBarLink> */}
             <NavBarLogoutWrapper>
                 <NavBarLogout onClick={() => userLogout()}>Log Out</NavBarLogout>
             </NavBarLogoutWrapper>
