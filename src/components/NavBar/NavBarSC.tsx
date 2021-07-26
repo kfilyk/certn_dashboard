@@ -54,11 +54,15 @@ export const ProfileButtonWrapper = styled.div`
     line-height: ${(props) => props.theme.fontSize.sm.lineHeight};
     letter-spacing: 0.75px;
     cursor: default;
-    display: flex;
     height: 100%;
     align-items: center;
     p {
         margin: 0;
+    }
+    display: none;
+
+    @media ${(props) => props.theme.device.tablet} {
+        display: flex;
     }
 `;
 
