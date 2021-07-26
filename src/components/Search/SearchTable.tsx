@@ -134,7 +134,6 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                 />
             </Spinner>
             <PaginationWrapper>
-                {/* <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}> */}
                 {props.count > 0 && (
                     <CustomPagination
                         disabled={props.loading.search}
@@ -143,7 +142,6 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                         onChange={props.onSubmitPageChange}
                     />
                 )}
-                {/* </div> */}
             </PaginationWrapper>
         </TableWrapper>
     );
