@@ -17,6 +17,7 @@ const Search = (): JSX.Element => {
     const [loading, setLoading] = useState({ search: false });
     const [searchString, setSearchString] = useState<string>('');
     const [count, setCount] = useState<number>(0);
+    const [currentPage, setCurrentPage] = useState(1);
 
     // Combines all searhc files into one string for the API
     // Only for initial search, not for changing pages
@@ -36,6 +37,7 @@ const Search = (): JSX.Element => {
         setResults(apiResults.applications);
         setCount(apiResults.count);
         setSearchString(fullString);
+        setCurrentPage(1);
     };
 
     // Triggers on page change because the string has not changed
@@ -44,12 +46,19 @@ const Search = (): JSX.Element => {
         const apiResultsPage = await getApplications(searchString, current);
         setLoading({ search: false });
         setResults(apiResultsPage.applications);
+        setCurrentPage(current);
     };
 
     return (
         <>
             <SearchBar onSubmit={submit} advanced={advanced} setAdvanced={setAdvanced} loading={loading.search} />
-            <SearchTable results={results} loading={loading} onSubmitPageChange={onSubmitPageChange} count={count} />
+            <SearchTable
+                results={results}
+                loading={loading}
+                onSubmitPageChange={onSubmitPageChange}
+                count={count}
+                current={currentPage}
+            />
         </>
     );
 };
