@@ -22,15 +22,17 @@ message.config({
 
 const AppDiv = styled.div`
     font-family: ${(props) => props.theme.fontFamily};
-    height: 100%;
     display: flex;
     flex-direction: column;
+    height: 100%;
 `;
 
 const PageWrapper = styled.div`
     background-color: ${(props) => props.theme.color.green[50]};
-    height: 100%;
     padding: 0 2%;
+    flex-grow: 1;
+    overflow: scroll;
+    overflow-x: scroll;
 
     @media ${(props) => props.theme.device.desktopLarge} {
         padding: 0 5%;
