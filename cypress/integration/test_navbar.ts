@@ -6,12 +6,9 @@ describe('Header Bar Navigation', () => {
     it('Is on the search page after login', () => {
         cy.url().should('include', '/search');
         cy.get('#navbar a[href="/search"]').should('have.class', 'selected');
-        cy.get('#navbar a[href="/dashboard"]').should('not.have.class', 'selected');
     });
 
     it('Can navigate between pages', () => {
-        cy.get('#navbar a[href="/dashboard"]').click();
-        cy.url().should('include', '/dashboard');
         cy.get('#navbar a[href="/search"]').click();
         cy.url().should('include', '/search');
     });
