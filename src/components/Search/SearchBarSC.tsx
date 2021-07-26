@@ -42,7 +42,7 @@ export const SearchButton = styled(Button)`
     line-height: ${(props) => props.theme.fontSize.base.lineHeight};
     font-weight: ${(props) => props.theme.fontWeights.semiBold};
     height: 42px;
-    width: 123px;
+    min-width: 123px;
 
     :hover {
         background: ${(props) => props.theme.color.green[700]};
