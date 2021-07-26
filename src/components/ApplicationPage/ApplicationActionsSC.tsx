@@ -106,10 +106,13 @@ export const ButtonWrapper = styled(Button)`
     }
 `;
 
+export const ButtonWrapper2 = styled(ButtonWrapper)`
+    margin-right: 20px;
+`;
+
 /**
  * Used in PDFViewer.tsx to create the modal to present the PDF Viewer on
  */
-
 export const ModalWrapper = styled(Modal)`
     width: 100%;
     height: 500px;

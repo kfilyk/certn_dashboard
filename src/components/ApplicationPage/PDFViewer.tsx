@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ButtonWrapper, ModalWrapper } from './ApplicationActionsSC';
+import { ButtonWrapper, ButtonWrapper2, ModalWrapper } from './ApplicationActionsSC';
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
@@ -119,32 +119,37 @@ export const PDFViewer = ({ docs }: PDFViewerProps): JSX.Element => {
             <List
                 dataSource={data}
                 renderItem={(item: ConsentDocument) => (
-                    <div className="list-container">
+                    <List.Item>
                         <Form.Item name={item.document_url} initialValue={false} valuePropName="checked" noStyle>
                             <Checkbox></Checkbox>
                         </Form.Item>
-                        <List.Item>
-                            <List.Item.Meta title={item.title} />
-                        </List.Item>
+                        <List.Item.Meta title={item.title} />
                         <ButtonWrapper type="primary" onClick={displayModal}>
                             Preview
                         </ButtonWrapper>
-                    </div>
+                    </List.Item>
                 )}
             />
-            <ModalWrapper title="Preview" visible={showModal} footer={null} onCancel={handleCancel}>
+            <ModalWrapper
+                title="Preview"
+                visible={showModal}
+                footer={null}
+                onCancel={handleCancel}
+                style={{ top: '30%' }}
+            >
                 <Document file={test} onLoadSuccess={onDocumentLoadSuccess}>
                     <Page pageNumber={pageNumber} />
                 </Document>
+
                 <p>
                     Page {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}
                 </p>
-                <ButtonWrapper type="primary" disabled={pageNumber <= 1} onClick={previousPage}>
+                <ButtonWrapper2 type="primary" disabled={pageNumber <= 1} onClick={previousPage}>
                     Previous
-                </ButtonWrapper>
-                <ButtonWrapper type="primary" disabled={pageNumber >= numPages!} onClick={nextPage}>
+                </ButtonWrapper2>
+                <ButtonWrapper2 type="primary" disabled={pageNumber >= numPages!} onClick={nextPage}>
                     Next
-                </ButtonWrapper>
+                </ButtonWrapper2>
             </ModalWrapper>
         </PDFViewerWrapper>
     );
