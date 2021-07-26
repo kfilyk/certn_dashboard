@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 
 export const StyledPara = styled.p`
     color: ${(props) => props.theme.color.green[400]};
@@ -30,12 +30,17 @@ export const LoginDiv = styled.div`
 `;
 
 export const LoginButton = styled(Button)`
-    width: 100%;
-    background: ${(props) => props.theme.color.green.default};
-    border-color: ${(props) => props.theme.color.green.default};
+    height: 50px;
+    width: 139px;
+    font-size: ${(props) => props.theme.fontSize.base.size};
+    background: ${(props) => props.theme.color.green.default} !important;
+    border-color: ${(props) => props.theme.color.green.default} !important;
+    line-height: ${(props) => props.theme.fontSize.base.lineHeight};
+    border-radius: 6px;
+    font-weight: ${(props) => props.theme.fontWeights.semiBold};
     :hover {
-        background: ${(props) => props.theme.color.green[400]};
-        border-color: ${(props) => props.theme.color.green[400]};
+        background: ${(props) => props.theme.color.green[700]} !important;
+        border-color: ${(props) => props.theme.color.green[700]} !important;
     }
 `;
 
@@ -50,4 +55,11 @@ export const StyledLink = styled.a`
     :hover {
         color: ${(props) => props.theme.color.gray.default};
     }
+`;
+
+export const Spinner = styled(Spin)`
+    .ant-spin-dot-item {
+        background-color: ${(props) => props.theme.color.green[400]};
+    }
+    color: ${(props) => props.theme.color.green[400]};
 `;
