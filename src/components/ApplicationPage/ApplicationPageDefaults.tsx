@@ -1,3 +1,7 @@
+/**
+ * @file Defines default values for several objects used on the application page.
+ */
+
 import { AdvApplicationInfo, ApplicationPageData, CriticalChecksInfo, LinkInfo } from '../../interfaces';
 
 export const TableInfoDefault: AdvApplicationInfo = {

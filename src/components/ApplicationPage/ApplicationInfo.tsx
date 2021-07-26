@@ -13,7 +13,11 @@ import { ColumnsType } from 'antd/es/table';
 // Styled Components
 import { TableWrapper, Dot, dotColor } from './ApplicationPageSC';
 
-// Interfaces
+/**
+ * Interface for props passed to ApplicationInfo.tsx
+ *
+ * @interface
+ */
 type InfoProps = {
     info: AdvApplicationInfo;
 };

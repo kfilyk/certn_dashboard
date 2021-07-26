@@ -117,9 +117,11 @@ export const ApplicationPage = (): JSX.Element => {
         }
     };
 
-    // This function is only used to mock the email change on the application page.
-    // If the page is refreshed or the user navigates to the search page, the change
-    // will NOT persist.
+    /*
+     * This function is only used to mock the email change on the application page.
+     * If the page is refreshed or the user navigates to the search page, the change
+     * will NOT persist.
+     */
     const updateEmailMOCK = (newEmail: string) => {
         // eslint-disable-next-line prefer-const
         let updatedResponse = { ...applicationPageData };
