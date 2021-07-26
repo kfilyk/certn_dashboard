@@ -6,6 +6,7 @@ export const SearchWrapper = styled.div<{ disabled: boolean }>`
     height: 104px;
     margin-top: 50px;
     display: flex;
+    width: 100%;
 
     ${(props) =>
         props.disabled
@@ -18,6 +19,11 @@ export const SearchWrapper = styled.div<{ disabled: boolean }>`
                 border-color: ${props.theme.color.green[700]} !important;
                 box-shadow: 0 0 0 2px rgb(47 185 154 / 20%);
             }`}
+`;
+
+export const AdvancedSearchWrapper = styled.div`
+    width: 100%;
+    display: flex;
 `;
 
 export const SearchForm = styled(Input)`
