@@ -1,7 +1,6 @@
 import { Input, Button, Modal } from 'antd';
 import styled from 'styled-components';
 
-//likely temporary styling
 export const ActionListWrapper = styled.div`
     border: 1px solid ${(props) => props.theme.color.gray[100]};
     width: 35%;

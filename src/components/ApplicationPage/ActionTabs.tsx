@@ -125,6 +125,10 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
         setShowModal(true);
     };
 
+    /**
+     * Triggered on modal confirmation, makes call to mock API endpoint and mimics
+     * changing the email for an application.
+     */
     const handleOk = async () => {
         try {
             setUpdatingEmail(true);

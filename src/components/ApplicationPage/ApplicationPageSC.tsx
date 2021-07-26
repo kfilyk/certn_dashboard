@@ -124,6 +124,16 @@ export const APErrorContentWrapper = styled.div`
     background-color: ${(props) => props.theme.color.red[100]};
 `;
 
+export const TableWrapper = styled.div`
+    border: 1px solid ${(props) => props.theme.color.gray[100]};
+    padding: 0px;
+    border-radius: 10px;
+
+    .ant-table {
+        border-radius: 10px;
+    }
+`;
+
 export const Dot = styled.span`
     height: 25px;
     width: 25px;
