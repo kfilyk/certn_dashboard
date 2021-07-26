@@ -200,7 +200,6 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                         />
                     </Form.Item>
                 </Form>
-                <ModalInputWrapper value={newEmail} type="email" onChange={(e) => setNewEmail(e.target.value)} />
             </Spinner>
         </Modal>
     );
