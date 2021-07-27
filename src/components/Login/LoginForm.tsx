@@ -11,10 +11,10 @@ interface LoginFormProps {
 
 const LoginForm = (Props: LoginFormProps): JSX.Element => (
     <Form name="login" initialValues={{ remember: true }} onFinish={Props.onSubmit}>
-        <Form.Item name="email" rules={[{ required: true, type: 'email', message: 'Please enter a valid email' }]}>
+        <Form.Item name="email" rules={[{ required: true, type: 'email', message: 'Please enter a valid email!' }]}>
             <Input prefix={<UserOutlined />} placeholder="Email" size="large" type="email" allowClear />
         </Form.Item>
-        <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+        <Form.Item name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
             <Input prefix={<LockOutlined />} type="password" placeholder="Password" size="large" allowClear />
         </Form.Item>
         <Form.Item>
@@ -23,7 +23,7 @@ const LoginForm = (Props: LoginFormProps): JSX.Element => (
             </LoginButton>
         </Form.Item>
         <Form.Item>
-            <StyledLink href="https://whitelabel.certn.co/welcome/signUp">Create Account</StyledLink>
+            <StyledLink href="https://whitelabel.certn.co/welcome/signUp">Create account</StyledLink>
         </Form.Item>
         <Form.Item>
             <StyledLink href="https://whitelabel.certn.co/forgot">Forgot your password?</StyledLink>

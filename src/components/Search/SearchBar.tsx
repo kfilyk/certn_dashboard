@@ -58,7 +58,7 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
             <AdvancedSearchItem
                 name="email"
                 label="Email"
-                rules={[{ type: 'email', message: 'Please enter a valid email' }]}
+                rules={[{ type: 'email', message: 'Please enter a valid email!' }]}
             >
                 <Input prefix={<MailOutlined />} placeholder="Candidate Email" type="email" allowClear />
             </AdvancedSearchItem>

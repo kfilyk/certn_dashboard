@@ -35,7 +35,7 @@ const Login = (): JSX.Element => {
             setLoading({ login: false });
             notification.success({
                 message: 'Login Successful!',
-                description: 'Welcome to the Certn support tool',
+                description: 'Welcome to the Certn Support Tool!',
             });
             setUserData({
                 user: response?.user,
@@ -48,7 +48,7 @@ const Login = (): JSX.Element => {
             setLoading({ login: false });
             notification.error({
                 message: 'Login Failed!',
-                description: 'Please create an account or click on "forgot your password" to reset your password.',
+                description: 'Please create an account or click on "Forgot your password?" to reset your password.',
             });
         }
     };
