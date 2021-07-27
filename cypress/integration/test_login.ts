@@ -17,8 +17,8 @@ describe('Login Error Prompts Testing', () => {
         cy.url().should('include', '/login');
         cy.contains('', 'Log in').click();
         cy.url().should('include', '/login');
-        cy.get(':nth-child(1) > .ant-col > .ant-form-item-explain > div').contains('Please enter a valid email');
-        cy.get(':nth-child(2) > .ant-col > .ant-form-item-explain > div').contains('Please input your Password!');
+        cy.get(':nth-child(1) > .ant-col > .ant-form-item-explain > div').contains('Please enter a valid email!');
+        cy.get(':nth-child(2) > .ant-col > .ant-form-item-explain > div').contains('Please input your password!');
     });
     it('Check entry removes errors', () => {
         cy.get('#login_email').type('fake@example.com');
@@ -65,7 +65,7 @@ describe('Test links', () => {
         cy.visit('/search');
         // Cypress will error out if we attempt to go outside of the localhost while running
         // therefore we check link address instead
-        cy.contains('', 'Create Account').should('have.attr', 'href', 'https://whitelabel.certn.co/welcome/signUp');
+        cy.contains('', 'Create account').should('have.attr', 'href', 'https://whitelabel.certn.co/welcome/signUp');
     });
     it('Check "Forgot your password" link', () => {
         cy.clearCookies();
