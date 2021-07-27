@@ -116,7 +116,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
             });
         } catch (e) {
             message.error({
-                content: 'Failed to send ' + action + ' email to ' + email,
+                content: 'Failed to send ' + action + ' email to ' + email + '!',
             });
         }
     };
@@ -138,7 +138,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
             // Code below here is only used to mock the email change on the application page
             updateEmailMOCK(newEmail);
         } catch (e) {
-            message.error('Failed to update email');
+            message.error('Failed to update email!');
         }
         setNewEmail('');
         setUpdatingEmail(false);
@@ -175,13 +175,13 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                     <Alert
                         type="warning"
                         showIcon
-                        message={`This action will change the email associated with this application`}
+                        message={`This action will change the email associated with this application!`}
                     />
                 </EEErrorWrapper>
                 <Form form={form}>
                     <Form.Item
                         name="email"
-                        rules={[{ type: 'email', message: 'Please enter a valid email' }]}
+                        rules={[{ type: 'email', message: 'Please enter a valid email!' }]}
                         initialValue={newEmail}
                     >
                         <ModalInputWrapper
@@ -210,7 +210,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
     const emailCheck = () =>
         email === '-' ? (
             <ATErrorWrapper>
-                <Alert type="error" message={`No email found for the applicant.`} />
+                <Alert type="error" message={`No email found for the applicant!`} />
             </ATErrorWrapper>
         ) : (
             ''
@@ -279,7 +279,7 @@ export const ActionTabs = ({ action, email, links, docs, loading, updateEmailMOC
                     </InputButtonWrapper>
                     {linkT === null ? (
                         <ATErrorWrapper>
-                            <Alert type="error" message={`No ${textT} found for the applicant.`} />
+                            <Alert type="error" message={`No ${textT} found for the applicant!`} />
                         </ATErrorWrapper>
                     ) : (
                         ''
