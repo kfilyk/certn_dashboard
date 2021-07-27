@@ -87,6 +87,7 @@ interface SearchTableProps {
     results: AdvApplicationInfo[] | undefined;
     onSubmitPageChange: (current: number) => Promise<void>;
     count: number;
+    current: number;
 }
 
 const SearchTable: React.FC<SearchTableProps> = (props) => {
@@ -134,16 +135,15 @@ const SearchTable: React.FC<SearchTableProps> = (props) => {
                 />
             </Spinner>
             <PaginationWrapper>
-                {/* <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center' }}> */}
                 {props.count > 0 && (
                     <CustomPagination
                         disabled={props.loading.search}
                         showSizeChanger={false}
                         total={props.count}
                         onChange={props.onSubmitPageChange}
+                        current={props.current}
                     />
                 )}
-                {/* </div> */}
             </PaginationWrapper>
         </TableWrapper>
     );

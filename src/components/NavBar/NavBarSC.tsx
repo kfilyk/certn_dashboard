@@ -47,11 +47,22 @@ export const NavBarLink = styled(NavLink)`
 `;
 
 export const ProfileButtonWrapper = styled.div`
-    display: flex;
+    color: ${(props) => props.theme.color.gray[400]};
+    font-family: ${(props) => props.theme.fontFamily};
+    font-weight: ${(props) => props.theme.fontWeights.semiBold};
+    font-size: ${(props) => props.theme.fontSize.sm.size};
+    line-height: ${(props) => props.theme.fontSize.sm.lineHeight};
+    letter-spacing: 0.75px;
+    cursor: default;
     height: 100%;
     align-items: center;
     p {
         margin: 0;
+    }
+    display: none;
+
+    @media ${(props) => props.theme.device.tablet} {
+        display: flex;
     }
 `;
 

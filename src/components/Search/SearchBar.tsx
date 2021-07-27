@@ -13,6 +13,7 @@ import {
     SearchButton,
     AdvancedSearchItem,
     AdvancedSwitch,
+    AdvancedSearchWrapper,
     ToggleButtonWrapper,
     BasicSearchWrapper,
     InputWrapper,
@@ -45,7 +46,7 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = (props) => {
     const AdvancedSearch = (): JSX.Element => (
         // Form for advanced Search, with form wrapper and items
-        <>
+        <AdvancedSearchWrapper>
             <AdvancedSearchItem name="firstname" label="First Name" rules={[{ type: 'string' }]}>
                 <Input prefix={<UserOutlined />} placeholder="Candidate First Name" type="firstname" allowClear />
             </AdvancedSearchItem>
@@ -62,7 +63,7 @@ const SearchBar: React.FC<SearchBarProps> = (props) => {
             >
                 <Input prefix={<MailOutlined />} placeholder="Candidate Email" type="email" allowClear />
             </AdvancedSearchItem>
-        </>
+        </AdvancedSearchWrapper>
     );
 
     return (

@@ -1,8 +1,12 @@
 import styled from 'styled-components';
 
 export const PDFViewerWrapper = styled.div`
-    height: 450px;
-    .list-container:hover {
+    .ant-list-item-meta {
+        overflow: hidden;
+        margin-right: 10px;
+    }
+
+    .ant-list-item:hover {
         background-color: ${(props) => props.theme.color.gray[50]};
         transition-duration: 0.5s;
     }
@@ -14,28 +18,22 @@ export const PDFViewerWrapper = styled.div`
         width: 100%;
     }
 
-    .list-container {
-        padding: 20px;
-        position: relative;
-        border-width: 0px;
-        border-top: ${(props) => props.theme.color.gray[100]};
-        border-top-width: 1px;
-        border-style: solid;
-    }
-
-    .ant-list-item {
-        display: inline-block;
-        vertical-align: middle;
-        padding: 0px;
-        margin: 0px;
-        width: 80%;
-    }
-
     .ant-list-items {
         height: 450px;
         overflow-y: scroll;
         overflow-x: hidden;
     }
+
+    .ant-list-item {
+        border-width: 0px;
+        border-top: ${(props) => props.theme.color.gray[100]};
+        border-top-width: 1px;
+        border-style: solid;
+        width: 100%;
+        padding: 20px;
+        border-bottom-width: 0px;
+    }
+
     .scrollable-element {
         scrollbar-width: none;
     }
@@ -54,21 +52,24 @@ export const PDFViewerWrapper = styled.div`
         }
     }
 
-    .list-container .ant-checkbox-wrapper {
-        display: inline-block;
+    .ant-list-item .ant-checkbox-wrapper {
+        float: left;
         vertical-align: middle;
-        margin: 0px;
         margin-right: 20px;
-        height: 20px;
-        font-size: 0px;
     }
 
-    .list-container .ant-checkbox-wrapper hover {
+    .ant-list-item .ant-checkbox-wrapper hover {
         pointer-events: none;
     }
-    /* when pdf doc is visible: position lower so it doesn't clip with top of window */
-    .ant-modal {
-        margin-top: 200px;
-        margin-bottom: 200px;
+
+    .ant-list-item .ant-list-item-meta-title {
+        vertical-align: middle;
+        float: left;
+        white-space: nowrap;
+    }
+
+    .ant-list-item .ant-btn {
+        vertical-align: middle;
+        float: right;
     }
 `;

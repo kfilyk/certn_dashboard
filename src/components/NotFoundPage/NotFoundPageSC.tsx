@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Image = styled.img`
-    height: 20vmin;
+    height: 200px;
     pointer-events: none;
     margin: 200px 0 50px;
 `;

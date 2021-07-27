@@ -42,7 +42,7 @@ describe('Test searchbar advanced input lastname', () => {
     it('Check lastname search input exists', () => {
         cy.get('#search_lastname').should('exist');
         // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(400);
+        cy.wait(1000);
         cy.get('#search_lastname').type('last');
         cy.get('.ant-btn-primary').click();
     });
@@ -52,7 +52,7 @@ describe('Test searchbar advanced input phone', () => {
     it('Check phone search input exists', () => {
         cy.get('#search_phone').should('exist');
         // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(400);
+        cy.wait(1000);
         cy.get('#search_phone').type('123-456-7890');
         cy.get('.ant-btn-primary').click();
     });
@@ -63,7 +63,7 @@ describe('Test searchbar advanced input email', () => {
         cy.viewport(1500, 1000);
         cy.get('#search_email').should('exist');
         // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(400);
+        cy.wait(1000);
         cy.get('#search_email').type('test@test.co');
         cy.get('.ant-btn-primary').click();
     });
@@ -73,7 +73,7 @@ describe('Check when invalid phone number', () => {
     it('Check to make sure red error pops up under phone input when an incorrect number is put in', () => {
         cy.get('#search_phone').should('exist');
         // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(400);
+        cy.wait(1000);
         cy.get('#search_phone').clear().type('asd');
         cy.get('.ant-form-item-explain > div').should('exist');
         cy.get('#search_phone').clear();
@@ -85,7 +85,7 @@ describe('Check when invalid email number', () => {
         cy.viewport(1500, 1000);
         cy.get('#search_email').should('exist');
         // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(400);
+        cy.wait(1000);
         cy.get('#search_email').clear().type('asd');
         cy.get('.ant-form-item-explain > div').should('exist');
     });

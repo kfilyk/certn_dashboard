@@ -6,7 +6,7 @@ export const StyledPara = styled.p`
 `;
 
 export const Image = styled.img`
-    height: 15vmin;
+    height: 150px;
     margin: 20px 0;
     pointer-events: none;
 `;
