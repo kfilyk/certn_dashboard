@@ -1,6 +1,9 @@
 {
     "name": "certn-support",
     "version": "0.1.0",
+    "engines": {
+        "node": "v14.15.0"
+    },
     "private": true,
     "dependencies": {
         "@ant-design/icons": "^4.6.2",
