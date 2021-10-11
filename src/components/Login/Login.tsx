@@ -52,7 +52,6 @@ const Login = (): JSX.Element => {
             });
         }
     };
-
     return (
         <Spinner spinning={loading.login} size="large">
             <LoginDiv>

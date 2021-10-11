@@ -29,6 +29,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
+        "debug": "react-scripts --inspect-brk test --runInBand --no-cache",
         "eject": "react-scripts eject",
         "prepare": "husky install",
         "lint": "eslint --ext .jsx,.js,.ts,.tsx src/ cypress/",
