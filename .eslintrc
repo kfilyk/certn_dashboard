@@ -7,7 +7,6 @@
         "plugin:react-hooks/recommended",
         "plugin:testing-library/recommended",
         "plugin:jest-dom/recommended",
-        "plugin:cypress/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -22,10 +21,6 @@
         "node": true,
         "jquery": true,
         "jest": true
-    },
-    "globals": {
-        "cy": true,
-        "Cypress": true
     },
     "rules": {
         "react/no-unused-state": "off",
@@ -141,8 +136,7 @@
         "jsx-a11y",
         "@typescript-eslint",
         "react",
-        "react-hooks",
-        "cypress"
+        "react-hooks"
     ],
     "settings": {
         "react": {
