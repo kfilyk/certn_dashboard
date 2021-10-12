@@ -75,5 +75,8 @@
         "express": "^4.17.1",
         "prettier": "2.3.0",
         "start-server-and-test": "^1.12.6"
+    },
+    "optionalDependencies": {
+        "fsevents": "^2.3.2"
     }
 }
