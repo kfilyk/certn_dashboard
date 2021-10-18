@@ -3,7 +3,7 @@ import { ButtonWrapper, ButtonWrapper2, ModalWrapper } from './ApplicationAction
 import { Document, Page } from 'react-pdf/dist/esm/entry.webpack';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
-import test from '../../deleteBeforeRelease/test.pdf';
+import test from '../../test.pdf';
 import { List, Checkbox, Form } from 'antd';
 import { ConsentDocument } from '../../interfaces';
 import { PDFViewerWrapper } from './PDFViewerSC';

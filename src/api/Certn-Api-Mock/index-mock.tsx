@@ -1,5 +1,5 @@
 import { ConsentDocument, EmailInfo } from '../../interfaces';
-import AgentDocs from './GetAgentDocs_MOCKDATA.json';
+import AgentDocs from '../../GetAgentDocs_MOCKDATA.json';
 interface AgentDocument {
     id?: string;
     created?: string;
