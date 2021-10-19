@@ -25,9 +25,12 @@ const Login = (): JSX.Element => {
     const [loading, setLoading] = useState<Loading>({ login: false });
     const { setUserData } = WithUser();
     const history = useHistory();
+
+    // update state to login
     useEffect(() => {
         history.replace('/login');
     }, [history]);
+
     const submit = async (values: { email: string; password: string }): Promise<void> => {
         try {
             setLoading({ login: true });

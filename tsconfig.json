@@ -3,7 +3,6 @@
     "compilerOptions": {
         "target": "ES6",
         "lib": ["dom", "dom.iterable", "esnext"],
-        "inlineSourceMap": true,
         "outDir": "dist",
         "allowJs": true,
         "skipLibCheck": true,
@@ -12,13 +11,14 @@
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
-        "module": "esnext",
+        "noImplicitAny": true,
+        "module": "ES6",
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "noEmit": false,
+        "sourceMap": true
     },
-    "files": ["types.d.ts"],
 }
   
