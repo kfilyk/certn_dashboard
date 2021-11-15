@@ -10,6 +10,8 @@ import SearchTable from './SearchTable';
 // Interfaces
 import { SearchSubmission } from './SearchTypes';
 import { AdvApplicationInfo } from '../../interfaces';
+import { useEffect } from "react";
+
 
 const Search = (): JSX.Element => {
     const [advanced, setAdvanced] = useState(false);
@@ -19,7 +21,7 @@ const Search = (): JSX.Element => {
     const [count, setCount] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState(1);
 
-    // Combines all searhc files into one string for the API
+    // Combines all search files into one string for the API
     // Only for initial search, not for changing pages
     const submit = async (values: SearchSubmission): Promise<void> => {
         values.basic === undefined && (values.basic = '');
@@ -33,6 +35,7 @@ const Search = (): JSX.Element => {
             : (fullString = values.basic);
         setLoading({ search: true });
         const apiResults = await getApplications(fullString);
+
         setLoading({ search: false });
         setResults(apiResults.applications);
         setCount(apiResults.count);
@@ -49,6 +52,12 @@ const Search = (): JSX.Element => {
         setCurrentPage(current);
     };
 
+    useEffect(() => {
+        setTimeout(function() {
+            submit({basic: '', firstname:'', lastname:'', phone:'', email:''});
+        }.bind(this), 500)
+    }, [])
+
     return (
         <>
             <SearchBar onSubmit={submit} advanced={advanced} setAdvanced={setAdvanced} loading={loading.search} />
@@ -61,6 +70,7 @@ const Search = (): JSX.Element => {
             />
         </>
     );
+
 };
 
 export default Search;
