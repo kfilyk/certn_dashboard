@@ -12,10 +12,10 @@ interface LoginFormProps {
 const LoginForm = (Props: LoginFormProps): JSX.Element => (
     <Form name="login" initialValues={{ remember: true }} onFinish={Props.onSubmit}>
         <Form.Item name="email" rules={[{ required: true, type: 'email', message: 'Please enter a valid email!' }]}>
-            <Input prefix={<UserOutlined />} placeholder="Email" size="large" type="email" allowClear />
+            <Input prefix={<UserOutlined />} placeholder="kelvinfilyk@gmail.com" size="large" type="email" allowClear />
         </Form.Item>
         <Form.Item name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
-            <Input prefix={<LockOutlined />} type="password" placeholder="Password" size="large" allowClear />
+            <Input prefix={<LockOutlined />} type="password" placeholder="Seng499!!!" size="large" allowClear />
         </Form.Item>
         <Form.Item>
             <LoginButton type="primary" htmlType="submit" size="large">
